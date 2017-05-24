@@ -13,35 +13,32 @@
 //=========================================================
 
 // === class begin ===
-if( !class_exists('weblinks_locate_jp') ) 
-{
+if (!class_exists('weblinks_locate_jp')) {
 
-//=========================================================
-// class weblinks_locate_jp
-// Japan (JP)
-//=========================================================
-class weblinks_locate_jp extends weblinks_locate_base
-{
+    //=========================================================
+    // class weblinks_locate_jp
+    // Japan (JP)
+    //=========================================================
+    class weblinks_locate_jp extends weblinks_locate_base
+    {
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_locate_jp()
-{
-	$this->weblinks_locate_base();
+        //---------------------------------------------------------
+        // constructor
+        //---------------------------------------------------------
+        public function __construct()
+        {
+            parent::__construct();
 
-	$arr = array(
-		'happy_linux_url'       => 'http://linux.ohwada.jp/',	// reset this value
-		'weblinks_map_template' => 'weblinks_jp_google.html',
-	);
+            $arr = array(
+                'happy_linux_url'       => 'http://linux.ohwada.jp/',   // reset this value
+                'weblinks_map_template' => 'weblinks_jp_google.html',
+            );
 
-	$this->array_merge($arr);
+            $this->array_merge($arr);
+        }
+
+        // --- class end ---
+    }
+
+    // === class end ===
 }
-
-// --- class end ---
-}
-
-// === class end ===
-}
-
-?>

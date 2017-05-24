@@ -38,269 +38,251 @@
 // 2004/01/23 K.OHWADA
 //================================================================
 
-include "header.php";
-
+include 'header.php';
 
 //=========================================================
 // class weblinks_topten
 //=========================================================
 class weblinks_topten
 {
-	var $_DIRNAME; 
- 
-	var $_link_view_handler;
-	var $_template;
-	var $_post;
+    public $_DIRNAME;
 
-	var $_conf;
-	var $_conf_topten_style;
-	var $_conf_topten_cats;
-	var $_conf_topten_links;
+    public $_link_view_handler;
+    public $_template;
+    public $_post;
 
-	var $_title;
-	var $_sort_name;
-	var $_sort_db;
-	var $_error = '';
-	var $_post_rate = 0;
+    public $_conf;
+    public $_conf_topten_style;
+    public $_conf_topten_cats;
+    public $_conf_topten_links;
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_topten( $dirname )
-{
-	$this->_DIRNAME = $dirname; 
+    public $_title;
+    public $_sort_name;
+    public $_sort_db;
+    public $_error     = '';
+    public $_post_rate = 0;
 
-	$config_basic_handler     =& weblinks_get_handler( 'config2_basic',  $dirname );
-	$this->_link_view_handler =& weblinks_get_handler( 'link_view',      $dirname );
+    //---------------------------------------------------------
+    // constructor
+    //---------------------------------------------------------
+    public function __construct($dirname)
+    {
+        $this->_DIRNAME = $dirname;
 
-	$this->_template  =& weblinks_template::getInstance( $dirname );
-	$this->_post      =& happy_linux_post::getInstance();
+        $config_basic_handler     = weblinks_get_handler('config2_basic', $dirname);
+        $this->_link_view_handler = weblinks_get_handler('link_view', $dirname);
 
-	$this->_conf = $config_basic_handler->get_conf();
-}
+        $this->_template = weblinks_template::getInstance($dirname);
+        $this->_post     = happy_linux_post::getInstance();
 
-function &getInstance( $dirname )
-{
-	static $instance;
-	if (!isset($instance)) 
-	{
-		$instance = new weblinks_topten( $dirname );
-	}
-	return $instance;
-}
+        $this->_conf = $config_basic_handler->get_conf();
+    }
 
-//---------------------------------------------------------
-// get_template_name
-//---------------------------------------------------------
-function get_template_name()
-{
-	if ( $this->_conf['topten_style'] )
-	{
-		$template = $this->_DIRNAME . '_topten_mixed.html';
-	}
-	else
-	{
-		$template = $this->_DIRNAME . '_topten.html';
-	}
+    public static function getInstance($dirname = null)
+    {
+        static $instance;
+        if (!isset($instance)) {
+            $instance = new weblinks_topten($dirname);
+        }
+        return $instance;
+    }
 
-	return $template;
-}
+    //---------------------------------------------------------
+    // get_template_name
+    //---------------------------------------------------------
+    public function get_template_name()
+    {
+        if ($this->_conf['topten_style']) {
+            $template = $this->_DIRNAME . '_topten_mixed.html';
+        } else {
+            $template = $this->_DIRNAME . '_topten.html';
+        }
 
-//---------------------------------------------------------
-// get GET & POST
-//---------------------------------------------------------
-function get_get_rate()
-{
-	$this->_post_rate = $this->_post->get_get_int('rate');
+        return $template;
+    }
 
-	if( $this->_post_rate == 1 )
-	{
-		$this->_title     = $this->_conf['lang_site_highrate'];
-		$this->_sort_name = _WLS_RATING;
-		$this->_sort_db   = 'rating';
-	}
-	elseif( $this->_post_rate == 2 )
-	{
-		$this->_title     = $this->_conf['lang_site_pagerank'];
-		$this->_sort_name = _WEBLINKS_PAGERANK;
-		$this->_sort_db   = 'pagerank';
-	}
-	else
-	{
-		$this->_title     = $this->_conf['lang_site_popular'];
-		$this->_sort_name = _WLS_HITS;
-		$this->_sort_db   = 'hits';
-	}
+    //---------------------------------------------------------
+    // get GET & POST
+    //---------------------------------------------------------
+    public function get_get_rate()
+    {
+        $this->_post_rate = $this->_post->get_get_int('rate');
 
-}
+        if ($this->_post_rate == 1) {
+            $this->_title     = $this->_conf['lang_site_highrate'];
+            $this->_sort_name = _WLS_RATING;
+            $this->_sort_db   = 'rating';
+        } elseif ($this->_post_rate == 2) {
+            $this->_title     = $this->_conf['lang_site_pagerank'];
+            $this->_sort_name = _WEBLINKS_PAGERANK;
+            $this->_sort_db   = 'pagerank';
+        } else {
+            $this->_title     = $this->_conf['lang_site_popular'];
+            $this->_sort_name = _WLS_HITS;
+            $this->_sort_db   = 'hits';
+        }
+    }
 
-function get_topten_title()
-{
-	$title = sprintf(_WLS_TOPTEN_TITLE, $this->_title, $this->_conf['topten_links'] );
-	return $title;
-}
-/* CDS Patch. Weblinks. 2.00. 7. BOF */
-function get_topten_title_simple()
-{
-	return $this->_title;
-}
-function get_sort_db()
-{
-	return $this->_sort_db;
-}
-/* CDS Patch. Weblinks. 2.00. 7. EOF */
+    public function get_topten_title()
+    {
+        $title = sprintf(_WLS_TOPTEN_TITLE, $this->_title, $this->_conf['topten_links']);
+        return $title;
+    }
 
-function get_sort_name()
-{
-	return $this->_sort_name;
-}
+    /* CDS Patch. Weblinks. 2.00. 7. BOF */
+    public function get_topten_title_simple()
+    {
+        return $this->_title;
+    }
 
-function get_conf()
-{
-	return $this->_conf;
-}
+    public function get_sort_db()
+    {
+        return $this->_sort_db;
+    }
 
-//---------------------------------------------------------
-// get_rankings
-//---------------------------------------------------------
-function get_rankings()
-{
-	$links_list   = array();
-	$rankings     = array();
+    /* CDS Patch. Weblinks. 2.00. 7. EOF */
 
-	$this->_link_view_handler->init();
+    public function get_sort_name()
+    {
+        return $this->_sort_name;
+    }
 
-	if ( $this->_conf['topten_style'] )
-	{
-		$links_list =& $this->_get_rankings_mixed();
-	}
-	else
-	{
-		$rankings =& $this->_get_rankings_each();
-	}
+    public function get_conf()
+    {
+        return $this->_conf;
+    }
 
-	return array($links_list, $rankings);
-}
+    //---------------------------------------------------------
+    // get_rankings
+    //---------------------------------------------------------
+    public function get_rankings()
+    {
+        $links_list = array();
+        $rankings   = array();
 
-function &_get_rankings_each()
-{
-	$arr =& $this->_link_view_handler->get_topten_list(
-		$this->_conf['topten_cats'], $this->_get_orderby(), $this->_conf['topten_links'] );
+        $this->_link_view_handler->init();
 
-	if ( ! $this->_link_view_handler->returnExistError() )
-	{
-		$this->_error = $this->_link_view_handler->getErrors(1);
-	}
+        if ($this->_conf['topten_style']) {
+            $links_list =& $this->_get_rankings_mixed();
+        } else {
+            $rankings =& $this->_get_rankings_each();
+        }
 
-	return $arr;
-}
+        return array($links_list, $rankings);
+    }
 
-function &_get_rankings_mixed()
-{
-	$links =& $this->_link_view_handler->get_link_list_orderby(
-		$this->_get_orderby(), $this->_conf['topten_links'] );
-	return $links;
-}
+    public function &_get_rankings_each()
+    {
+        $arr =& $this->_link_view_handler->get_topten_list($this->_conf['topten_cats'], $this->_get_orderby(), $this->_conf['topten_links']);
 
-function _get_orderby()
-{
-	$ret = $this->_sort_db.' DESC, lid DESC';
-	return $ret;
-}
+        if (!$this->_link_view_handler->returnExistError()) {
+            $this->_error = $this->_link_view_handler->getErrors(1);
+        }
 
-function get_error()
-{
-	return $this->_error;
-}
+        return $arr;
+    }
 
-//---------------------------------------------------------
-// set keyword property
-//---------------------------------------------------------
-function set_highlight($value)
-{
-	$this->_link_view_handler->set_highlight($value);
-}
+    public function &_get_rankings_mixed()
+    {
+        $links =& $this->_link_view_handler->get_link_list_orderby($this->_get_orderby(), $this->_conf['topten_links']);
+        return $links;
+    }
 
-function set_keyword_array( &$arr )
-{
-	return $this->_link_view_handler->set_keyword_array( $arr );
-}
+    public function _get_orderby()
+    {
+        $ret = $this->_sort_db . ' DESC, lid DESC';
+        return $ret;
+    }
 
-// --- class end ---
+    public function get_error()
+    {
+        return $this->_error;
+    }
+
+    //---------------------------------------------------------
+    // set keyword property
+    //---------------------------------------------------------
+    public function set_highlight($value)
+    {
+        $this->_link_view_handler->set_highlight($value);
+    }
+
+    public function set_keyword_array(&$arr)
+    {
+        return $this->_link_view_handler->set_keyword_array($arr);
+    }
+
+    // --- class end ---
 }
 
 //=========================================================
 // main
 //=========================================================
 
-$weblinks_template =& weblinks_template::getInstance( WEBLINKS_DIRNAME );
-$weblinks_topten   =& weblinks_topten::getInstance(   WEBLINKS_DIRNAME );
-$weblinks_header   =& weblinks_header::getInstance(   WEBLINKS_DIRNAME );
+$weblinks_template = weblinks_template::getInstance(WEBLINKS_DIRNAME);
+$weblinks_topten   = weblinks_topten::getInstance(WEBLINKS_DIRNAME);
+$weblinks_header   = weblinks_header::getInstance(WEBLINKS_DIRNAME);
 
 // --- template start ---
 // xoopsOption[template_main] should be defined before including header.php
 $xoopsOption['template_main'] = $weblinks_topten->get_template_name();
-include XOOPS_ROOT_PATH.'/header.php';
+include XOOPS_ROOT_PATH . '/header.php';
 
 $conf = $weblinks_topten->get_conf();
 
 $weblinks_template->set_keyword_by_request();
-$keyword_array       =& $weblinks_template->get_keyword_array();
-$keywords_urlencoded =  $weblinks_template->get_keywords_urlencode();
+$keyword_array       = $weblinks_template->get_keyword_array();
+$keywords_urlencoded = $weblinks_template->get_keywords_urlencode();
 
-$weblinks_topten->set_highlight( $conf['use_highlight'] );
-$weblinks_topten->set_keyword_array( $keyword_array );
+$weblinks_topten->set_highlight($conf['use_highlight']);
+$weblinks_topten->set_keyword_array($keyword_array);
 
 $weblinks_header->assign_module_header();
 
 //generates top 10 charts by rating and hits for each main category
-$weblinks_template->set_keyword_array( $keyword_array );
+$weblinks_template->set_keyword_array($keyword_array);
 $weblinks_template->assignIndex();
 $weblinks_template->assignHeader();
 $weblinks_template->assignDisplayLink();
-$weblinks_template->assignSearch(); 
+$weblinks_template->assignSearch();
 
 $weblinks_topten->get_get_rate();
 $topten_title = $weblinks_topten->get_topten_title();
 /* CDS Patch. Weblinks. 2.00. 7. BOF */
 $topten_title_simple = $weblinks_topten->get_topten_title_simple();
-$sort_db = $weblinks_topten->get_sort_db();
+$sort_db             = $weblinks_topten->get_sort_db();
 /* CDS Patch. Weblinks. 2.00. 7. EOF */
-$sort_name    = $weblinks_topten->get_sort_name();
+$sort_name = $weblinks_topten->get_sort_name();
 list($links, $rankings) = $weblinks_topten->get_rankings();
 $topten_error = $weblinks_topten->get_error();
 
-$template_links_list = $weblinks_template->fetch_links_list( $links );
+$template_links_list = $weblinks_template->fetch_links_list($links);
 
-$i = 0;
+$i                 = 0;
 $template_rankings = array();
-foreach ($rankings as $rank)
-{
-	$template_rankings[$i]['cid']   = $rank['cid'];
-	$template_rankings[$i]['title'] = $rank['title'];
-/* CDS Patch. Weblinks. 2.00. 7. BOF */
-	$template_rankings[$i]['title_simple'] = $rank['title_simple'];
-/* CDS Patch. Weblinks. 2.00. 7. BOF */
-	$template_rankings[$i]['links_list'] = $weblinks_template->fetch_links_list( $rank['links'] );
-	$i ++;
+foreach ($rankings as $rank) {
+    $template_rankings[$i]['cid']   = $rank['cid'];
+    $template_rankings[$i]['title'] = $rank['title'];
+    /* CDS Patch. Weblinks. 2.00. 7. BOF */
+    $template_rankings[$i]['title_simple'] = $rank['title_simple'];
+    /* CDS Patch. Weblinks. 2.00. 7. BOF */
+    $template_rankings[$i]['links_list'] = $weblinks_template->fetch_links_list($rank['links']);
+    ++$i;
 }
 
-$xoopsTpl->assign('keywords',            $keywords_urlencoded);
-$xoopsTpl->assign('lang_topten_title',   $topten_title);
+$xoopsTpl->assign('keywords', $keywords_urlencoded);
+$xoopsTpl->assign('lang_topten_title', $topten_title);
 /* CDS Patch. Weblinks. 2.00. 7. BOF */
-$xoopsTpl->assign('lang_topten_title_simple',   $topten_title_simple);
-$xoopsTpl->assign('sort_db',   $sort_db);
+$xoopsTpl->assign('lang_topten_title_simple', $topten_title_simple);
+$xoopsTpl->assign('sort_db', $sort_db);
 /* CDS Patch. Weblinks. 2.00. 7. EOF */
-$xoopsTpl->assign('lang_sortby',         $sort_name);
-$xoopsTpl->assign('lang_topten_error',   $topten_error);
+$xoopsTpl->assign('lang_sortby', $sort_name);
+$xoopsTpl->assign('lang_topten_error', $topten_error);
 $xoopsTpl->assign('weblinks_links_list', $template_links_list);
-$xoopsTpl->assign('rankings',            $template_rankings);
+$xoopsTpl->assign('rankings', $template_rankings);
 
-$xoopsTpl->assign('execution_time', happy_linux_get_execution_time() );
-$xoopsTpl->assign('memory_usage',   happy_linux_get_memory_usage_mb() );
-include XOOPS_ROOT_PATH.'/footer.php';
-exit();
-// --- main end ---
-
-
-?>
+$xoopsTpl->assign('execution_time', happy_linux_get_execution_time());
+$xoopsTpl->assign('memory_usage', happy_linux_get_memory_usage_mb());
+include XOOPS_ROOT_PATH . '/footer.php';
+exit();// --- main end ---
+;

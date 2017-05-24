@@ -13,34 +13,31 @@
 //=========================================================
 
 // === class begin ===
-if( !class_exists('weblinks_locate_ru') ) 
-{
+if (!class_exists('weblinks_locate_ru')) {
 
-//=========================================================
-// class weblinks_locate_ru
-// Russia (RU)
-//=========================================================
-class weblinks_locate_ru extends weblinks_locate_base
-{
+    //=========================================================
+    // class weblinks_locate_ru
+    // Russia (RU)
+    //=========================================================
+    class weblinks_locate_ru extends weblinks_locate_base
+    {
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_locate_ru()
-{
-	$this->weblinks_locate_base();
+        //---------------------------------------------------------
+        // constructor
+        //---------------------------------------------------------
+        public function __construct()
+        {
+            parent::__construct();
 
-	$arr = array(
-		'weblinks_map_template' => 'weblinks_ru_google.html'
-	);
+            $arr = array(
+                'weblinks_map_template' => 'weblinks_ru_google.html'
+            );
 
-	$this->array_merge($arr);
+            $this->array_merge($arr);
+        }
+
+        // --- class end ---
+    }
+
+    // === class end ===
 }
-
-// --- class end ---
-}
-
-// === class end ===
-}
-
-?>

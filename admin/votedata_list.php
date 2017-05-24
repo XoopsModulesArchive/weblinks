@@ -14,7 +14,7 @@
 
 include 'admin_header.php';
 include 'admin_header_list.php';
-include_once WEBLINKS_ROOT_PATH.'/admin/votedata_list_class.php';
+include_once WEBLINKS_ROOT_PATH . '/admin/votedata_list_class.php';
 
 //=========================================================
 // main
@@ -23,12 +23,10 @@ xoops_cp_header();
 weblinks_admin_print_header();
 weblinks_admin_print_menu();
 
-$list =& admin_votedata_list::getInstance();
+$list = admin_votedata_list::getInstance();
 $list->_show();
 
 weblinks_admin_print_footer();
 xoops_cp_footer();
-exit();
-// --- end of main ---
-
-?>
+exit();// --- end of main ---
+;

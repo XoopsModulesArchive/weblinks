@@ -10,50 +10,46 @@
 //=========================================================
 
 // === class begin ===
-if( !class_exists('weblinks_catlink_basic_handler') ) 
-{
+if (!class_exists('weblinks_catlink_basic_handler')) {
 
-//=========================================================
-// class weblinks_catlink_basic_handler
-//=========================================================
-class weblinks_catlink_basic_handler extends happy_linux_basic_handler
-{
+    //=========================================================
+    // class weblinks_catlink_basic_handler
+    //=========================================================
+    class weblinks_catlink_basic_handler extends happy_linux_basic_handler
+    {
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_catlink_basic_handler( $dirname )
-{
-	$this->happy_linux_basic_handler( $dirname );
+        //---------------------------------------------------------
+        // constructor
+        //---------------------------------------------------------
+        public function __construct($dirname)
+        {
+            parent::__construct($dirname);
 
-	$this->set_table_name('catlink');
-	$this->set_id_name('jid');
+            $this->set_table_name('catlink');
+            $this->set_id_name('jid');
 
-	$this->set_debug_db_sql(     WEBLINKS_DEBUG_CATLINK_BASIC_SQL );
-	$this->set_debug_db_error(   WEBLINKS_DEBUG_ERROR );
-	$this->set_debug_print_time( WEBLINKS_DEBUG_TIME );
+            $this->set_debug_db_sql(WEBLINKS_DEBUG_CATLINK_BASIC_SQL);
+            $this->set_debug_db_error(WEBLINKS_DEBUG_ERROR);
+            $this->set_debug_print_time(WEBLINKS_DEBUG_TIME);
 
-// hack for multi site
-	if ( WEBLINKS_FLAG_MULTI_SITE )
-	{
-		$this->renew_prefix( WEBLINKS_DB_PREFIX );
-	}
+            // hack for multi site
+            if (WEBLINKS_FLAG_MULTI_SITE) {
+                $this->renew_prefix(WEBLINKS_DB_PREFIX);
+            }
+        }
+
+        //---------------------------------------------------------
+        // get cid_array
+        //---------------------------------------------------------
+        public function &get_cid_array_by_lid($lid, $limit = 0, $offset = 0)
+        {
+            $sql = 'SELECT cid FROM ' . $this->_table . ' WHERE lid=' . (int)$lid;
+            $arr =& $this->get_first_row_by_sql($sql);
+            return $arr;
+        }
+
+        // --- class end ---
+    }
+
+    // === class end ===
 }
-
-//---------------------------------------------------------
-// get cid_array
-//---------------------------------------------------------
-function &get_cid_array_by_lid($lid, $limit=0, $offset=0)
-{
-	$sql = 'SELECT cid FROM '.$this->_table.' WHERE lid='.intval($lid);
-	$arr =& $this->get_first_row_by_sql($sql);
-	return $arr;
-}
-
-// --- class end ---
-}
-
-// === class end ===
-}
-
-?>

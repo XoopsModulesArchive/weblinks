@@ -7,25 +7,22 @@
 //=========================================================
 
 // === function begin ===
-if( !function_exists('weblinks_thumb_websitethumbnails') ) 
-{
+if (!function_exists('weblinks_thumb_websitethumbnails')) {
 
-//=========================================================
-// thumbnail web service
-//=========================================================
-function &weblinks_thumb_websitethumbnails( $url )
-{
-	$arr = array(
-		'name'   => 'website thumbnails',
-		'url'    => 'http://www.websitethumbnails.net/',
-		'image'  => 'http://www.websitethumbnails.net/view.php?url=' . $url,
-		'width'  => 120,
-		'height' =>  90,
-	);
-	return $arr;
+    //=========================================================
+    // thumbnail web service
+    //=========================================================
+    function &weblinks_thumb_websitethumbnails($url)
+    {
+        $arr = array(
+            'name'   => 'website thumbnails',
+            'url'    => 'http://www.websitethumbnails.net/',
+            'image'  => 'http://www.websitethumbnails.net/view.php?url=' . $url,
+            'width'  => 120,
+            'height' => 90,
+        );
+        return $arr;
+    }
+
+    // === fucntion end ===
 }
-
-// === fucntion end ===
-}
-
-?>

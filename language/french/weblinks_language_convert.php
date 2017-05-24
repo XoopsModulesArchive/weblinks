@@ -13,28 +13,25 @@
 //=========================================================
 
 // === class begin ===
-if( !class_exists('weblinks_language_convert') ) 
-{
+if (!class_exists('weblinks_language_convert')) {
 
-//=========================================================
-// class weblinks_language_convert
-// dummy class for english
-//=========================================================
-class weblinks_language_convert extends weblinks_language_base
-{
+    //=========================================================
+    // class weblinks_language_convert
+    // dummy class for english
+    //=========================================================
+    class weblinks_language_convert extends weblinks_language_base
+    {
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_language_convert()
-{
-	$this->weblinks_language_base();
+        //---------------------------------------------------------
+        // constructor
+        //---------------------------------------------------------
+        public function __construct()
+        {
+            parent::__construct();
+        }
+
+        // --- class end ---
+    }
+
+    // === class end ===
 }
-
-// --- class end ---
-}
-
-// === class end ===
-}
-
-?>

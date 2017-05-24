@@ -12,15 +12,13 @@ include_once 'dev_header.php';
 // main
 //=========================================================
 $id   = isset($_GET['id']) ? $_GET['id'] : 0;
-$host = 'host'.$id;
-$file = WEBLINKS_ROOT_PATH. '/dev/rss.xml.tpl';
-$tpl  = file_get_contents( $file );
-$xml  = str_replace( '{host}', $host, $tpl );
+$host = 'host' . $id;
+$file = WEBLINKS_ROOT_PATH . '/dev/rss.xml.tpl';
+$tpl  = file_get_contents($file);
+$xml  = str_replace('{host}', $host, $tpl);
 
 happy_linux_http_output('pass');
 header('Content-type: application/xml;charset=utf-8');
 echo $xml;
-exit();
-// --- main end ---
-
-?>
+exit();// --- main end ---
+;

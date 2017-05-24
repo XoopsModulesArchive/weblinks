@@ -9,17 +9,12 @@
 //========================================================
 
 // --- define language begin ---
-if( !defined('WEBLINKS_LANG_PI_WAITING_LOADED') ) 
-{
+if (!defined('WEBLINKS_LANG_PI_WAITING_LOADED')) {
+    define('WEBLINKS_LANG_PI_WAITING_LOADED', 1);
 
-define('WEBLINKS_LANG_PI_WAITING_LOADED', 1);
-
-define('_WEBLINKS_PI_WAITING_WAITINGS', '承認待ち');
-define('_WEBLINKS_PI_WAITING_BROKENS',  '破損報告');
-define('_WEBLINKS_PI_WAITING_MODREQS',  '修正申請');
-define('_WEBLINKS_PI_WAITING_DELREQS',  '削除申請');
-
-}
-// --- define language end ---
-
-?>
+    define('_WEBLINKS_PI_WAITING_WAITINGS', '承認待ち');
+    define('_WEBLINKS_PI_WAITING_BROKENS', '破損報告');
+    define('_WEBLINKS_PI_WAITING_MODREQS', '修正申請');
+    define('_WEBLINKS_PI_WAITING_DELREQS', '削除申請');
+}// --- define language end ---
+;

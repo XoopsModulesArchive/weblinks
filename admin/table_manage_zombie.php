@@ -30,7 +30,7 @@
 //================================================================
 
 include 'admin_header.php';
-include_once WEBLINKS_ROOT_PATH.'/admin/table_manage_zombie_class.php';
+include_once WEBLINKS_ROOT_PATH . '/admin/table_manage_zombie_class.php';
 
 //================================================================
 // main
@@ -38,56 +38,53 @@ include_once WEBLINKS_ROOT_PATH.'/admin/table_manage_zombie_class.php';
 // hack for multi site
 weblinks_admin_multi_disable_feature();
 
-$manage =& admin_table_manage_zombie::getInstance();
+$manage = admin_table_manage_zombie::getInstance();
 
 $op = $manage->get_post_param();
 
 xoops_cp_header();
 
-switch ($op) 
-{
-case 'check_all':
-	$manage->check_all();
-	break;
+switch ($op) {
+    case 'check_all':
+        $manage->check_all();
+        break;
 
-case 'check_link_in_catlink':
-	$manage->check_link_in_catlink();
-	break;
+    case 'check_link_in_catlink':
+        $manage->check_link_in_catlink();
+        break;
 
-case 'check_cat_in_catlink':
-	$manage->check_cat_in_catlink();
-	break;
+    case 'check_cat_in_catlink':
+        $manage->check_cat_in_catlink();
+        break;
 
-case 'check_catlink_in_link':
-	$manage->check_catlink_in_link();
-	break;
+    case 'check_catlink_in_link':
+        $manage->check_catlink_in_link();
+        break;
 
-case 'check_catlink_in_cat':
-	$manage->check_catlink_in_cat();
-	break;
+    case 'check_catlink_in_cat':
+        $manage->check_catlink_in_cat();
+        break;
 
-case "del_link_from_link":
-	$manage->del_link_from_link();
-	break;
+    case 'del_link_from_link':
+        $manage->del_link_from_link();
+        break;
 
-case "del_link_from_catlink":
-	$manage->del_link_from_catlink();
-	break;
+    case 'del_link_from_catlink':
+        $manage->del_link_from_catlink();
+        break;
 
-case "del_cat_from_catlink":
-	$manage->del_cat_from_catlink();
-	break;
+    case 'del_cat_from_catlink':
+        $manage->del_cat_from_catlink();
+        break;
 
-case 'menu':
-default:
-	$manage->menu();
-	break;
+    case 'menu':
+    default:
+        $manage->menu();
+        break;
 
 }
 
 weblinks_admin_print_footer();
 xoops_cp_footer();
-exit();
-// --- main end ---
-
-?>
+exit();// --- main end ---
+;

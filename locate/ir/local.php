@@ -14,36 +14,33 @@
 //---------------------------------------------------------
 
 // === class begin ===
-if( !class_exists('weblinks_locate_ir') ) 
-{
+if (!class_exists('weblinks_locate_ir')) {
 
-//=========================================================
-// class weblinks_locate_ir
-// Iran (ir)
-//=========================================================
-class weblinks_locate_ir extends weblinks_locate_base
-{
+    //=========================================================
+    // class weblinks_locate_ir
+    // Iran (ir)
+    //=========================================================
+    class weblinks_locate_ir extends weblinks_locate_base
+    {
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_locate_ir()
-{
-	$this->weblinks_locate_base();
+        //---------------------------------------------------------
+        // constructor
+        //---------------------------------------------------------
+        public function __construct()
+        {
+            parent::__construct();
 
-// yahoo does not support in Iran
-// and then substitue in USA
-	$arr = array(
-		'weblinks_map_template' => 'weblinks_us_yahoo.html'
-	);
+            // yahoo does not support in Iran
+            // and then substitue in USA
+            $arr = array(
+                'weblinks_map_template' => 'weblinks_us_yahoo.html'
+            );
 
-	$this->array_merge($arr);
+            $this->array_merge($arr);
+        }
+
+        // --- class end ---
+    }
+
+    // === class end ===
 }
-
-// --- class end ---
-}
-
-// === class end ===
-}
-
-?>

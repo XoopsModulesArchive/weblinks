@@ -47,134 +47,116 @@
 //=========================================================
 
 // === class begin ===
-if( !class_exists('weblinks_config2_basic_handler') ) 
-{
+if (!class_exists('weblinks_config2_basic_handler')) {
 
-//=========================================================
-// class weblinks_config2_basic_handler
-// this class handle MySQL table directly
-// this class does not use another class
-//=========================================================
-class weblinks_config2_basic_handler extends happy_linux_basic_handler
-{
-	var $_system;
+    //=========================================================
+    // class weblinks_config2_basic_handler
+    // this class handle MySQL table directly
+    // this class does not use another class
+    //=========================================================
+    class weblinks_config2_basic_handler extends happy_linux_basic_handler
+    {
+        public $_system;
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_config2_basic_handler( $dirname )
-{
-	$this->happy_linux_basic_handler( $dirname );
+        //---------------------------------------------------------
+        // constructor
+        //---------------------------------------------------------
+        public function __construct($dirname)
+        {
+            parent::__construct($dirname);
 
-	$this->set_table_name('config2');
-	$this->set_id_name('conf_id');
+            $this->set_table_name('config2');
+            $this->set_id_name('conf_id');
 
-	$this->set_debug_db_sql(     WEBLINKS_DEBUG_CONFIG2_BASIC_SQL );
-	$this->set_debug_db_error(   WEBLINKS_DEBUG_ERROR );
-	$this->set_debug_print_time( WEBLINKS_DEBUG_TIME );
+            $this->set_debug_db_sql(WEBLINKS_DEBUG_CONFIG2_BASIC_SQL);
+            $this->set_debug_db_error(WEBLINKS_DEBUG_ERROR);
+            $this->set_debug_print_time(WEBLINKS_DEBUG_TIME);
 
-	$this->_system =& happy_linux_system::getInstance();
+            $this->_system = happy_linux_system::getInstance();
+        }
 
+        //---------------------------------------------------------
+        // initiatl load
+        // caller: header.php
+        //---------------------------------------------------------
+        public function init()
+        {
+            if (!$this->_has_conf_cached()) {
+                $this->load_config();
+            }
+        }
+
+        // for debug: test_class_user_class
+        public function load_config()
+        {
+            if ($this->get_debug_print_time()) {
+                $happy_linux_time = happy_linux_time::getInstance();
+                $happy_linux_time->print_lap_time('weblinks_config2_basic_handler');
+            }
+
+            $arr =& $this->_get_config_data();
+
+            // if not initial
+            if (!is_array($arr) || (count($arr) == 0)) {
+                return false;
+            }
+
+            $arr['rss_site_arr']  =& $this->_conv_to_array($arr['rss_site']);
+            $arr['rss_black_arr'] =& $this->_conv_to_array($arr['rss_black']);
+            $arr['rss_white_arr'] =& $this->_conv_to_array($arr['rss_white']);
+
+            // added in v1.60
+            if (isset($arr['link_num_etc'])) {
+                if ($arr['link_num_etc'] < 0) {
+                    $arr['link_num_etc'] = 0;
+                } elseif ($arr['link_num_etc'] > WEBLINKS_LINK_NUM_ETC) {
+                    $arr['link_num_etc'] = WEBLINKS_LINK_NUM_ETC;
+                }
+            } else {
+                $arr['link_num_etc'] = WEBLINKS_LINK_NUM_ETC;
+            }
+
+            $this->_conf_cached = $arr;
+
+            if ($this->get_debug_print_time()) {
+                $happy_linux_time->print_lap_time();
+            }
+        }
+
+        //=========================================================
+        // function for MySQL table
+        //=========================================================
+        public function &_conv_to_array($str)
+        {
+            $ret =& $this->convert_string_to_array($str, "\n");
+            return $ret;
+        }
+
+        //---------------------------------------------------------
+        // module_name
+        //---------------------------------------------------------
+        public function get_module_name($name, $flag_dirname = true, $flag_mod_name = true, $format = 's')
+        {
+            $val = false;
+
+            $dirname = $this->get_conf_by_name($name);
+            if ($dirname) {
+                $module_name = $this->_system->get_module_name_by_dirname($dirname, $format);
+
+                if ($flag_dirname && $flag_mod_name) {
+                    $val = $dirname . ': ' . $module_name;
+                } elseif ($flag_dirname) {
+                    $val = $dirname;
+                } elseif ($flag_mod_name) {
+                    $val = $module_name;
+                }
+            }
+
+            return $val;
+        }
+
+        // --- class end ---
+    }
+
+    // === class end ===
 }
-
-//---------------------------------------------------------
-// initiatl load
-// caller: header.php
-//---------------------------------------------------------
-function init()
-{
-	if ( !$this->_has_conf_cached() )
-	{
-		$this->load_config();
-	}
-}
-
-// for debug: test_class_user_class
-function load_config()
-{
-	if ( $this->get_debug_print_time() )
-	{
-		$happy_linux_time =& happy_linux_time::getInstance();
-		$happy_linux_time->print_lap_time( "weblinks_config2_basic_handler" );
-	}
-
-	$arr =& $this->_get_config_data();
-
-// if not initial
-	if ( !is_array($arr) || ( count($arr) == 0 ) )
-	{	return false;	}
-
-	$arr['rss_site_arr']  =& $this->_conv_to_array( $arr['rss_site'] );
-	$arr['rss_black_arr'] =& $this->_conv_to_array( $arr['rss_black'] );
-	$arr['rss_white_arr'] =& $this->_conv_to_array( $arr['rss_white'] );
-
-// added in v1.60
-	if ( isset($arr['link_num_etc']) )
-	{
-		if ( $arr['link_num_etc'] < 0 )
-		{
-			$arr['link_num_etc'] = 0;
-		}
-		elseif ( $arr['link_num_etc'] > WEBLINKS_LINK_NUM_ETC )
-		{
-			$arr['link_num_etc'] = WEBLINKS_LINK_NUM_ETC;
-		}
-	}
-	else
-	{
-		$arr['link_num_etc'] = WEBLINKS_LINK_NUM_ETC;
-	}
-
-	$this->_conf_cached = $arr;
-
-	if ( $this->get_debug_print_time() )
-	{
-		$happy_linux_time->print_lap_time();
-	}
-}
-
-//=========================================================
-// function for MySQL table
-//=========================================================
-function &_conv_to_array($str)
-{
-	$ret =& $this->convert_string_to_array($str, "\n");
-	return $ret;
-}
-
-//---------------------------------------------------------
-// module_name
-//---------------------------------------------------------
-function get_module_name( $name, $flag_dirname=true, $flag_mod_name=true, $format='s' )
-{
-	$val = false;
-
-	$dirname = $this->get_conf_by_name( $name );
-	if ( $dirname )
-	{
-		$module_name = $this->_system->get_module_name_by_dirname( $dirname, $format );
-
-		if ( $flag_dirname && $flag_mod_name)
-		{
-			$val = $dirname.': '.$module_name;
-		}
-		elseif ( $flag_dirname )
-		{
-			$val = $dirname;
-		}
-		elseif ( $flag_mod_name )
-		{
-			$val = $module_name;
-		}
-	}
-
-	return $val;
-}
-
-// --- class end ---
-}
-
-// === class end ===
-}
-
-?>

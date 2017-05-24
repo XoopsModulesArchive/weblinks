@@ -7,18 +7,16 @@
 //=========================================================
 
 include '../../../include/cp_header.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/api/admin.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/api/admin.php';
 
 //=========================================================
 // main
 //=========================================================
 xoops_cp_header();
 
-$admin =& happy_linux_admin::getInstance();
+$admin = happy_linux_admin::getInstance();
 $admin->print_modules();
 
 xoops_cp_footer();
-exit();
-// --- end of main ---
-
-?>
+exit();// --- end of main ---
+;

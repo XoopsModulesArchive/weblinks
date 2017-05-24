@@ -18,69 +18,65 @@
 //=========================================================
 // WebLinks Module
 // this file contain 2 class
-//   weblinks_atomfeed 
+//   weblinks_atomfeed
 //   weblinks_atomfeed_handler
 // 2004-11-28 K.OHWADA
 //=========================================================
 
 // === class begin ===
-if( !class_exists('weblinks_atomfeed_handler') ) 
-{
+if (!class_exists('weblinks_atomfeed_handler')) {
 
-//=========================================================
-// class weblinks_atomfeed
-//=========================================================
-class weblinks_atomfeed extends happy_linux_object
-{
+    //=========================================================
+    // class weblinks_atomfeed
+    //=========================================================
+    class weblinks_atomfeed extends happy_linux_object
+    {
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-// BUG : Use of undefined constant XOBJ_DTYPE_STRING
-function weblinks_atomfeed()
-{
-	$this->happy_linux_object();
+        //---------------------------------------------------------
+        // constructor
+        //---------------------------------------------------------
+        // BUG : Use of undefined constant XOBJ_DTYPE_STRING
+        public function __construct()
+        {
+            parent::__construct();
 
-	$this->initVar('aid', XOBJ_DTYPE_INT, 0, false);
-	$this->initVar('lid', XOBJ_DTYPE_INT, 0, false);
-	$this->initVar('site_title', XOBJ_DTYPE_TXTBOX, null, false, 255);
-	$this->initVar('site_url',   XOBJ_DTYPE_URL,    null, false, 255);
-	$this->initVar('title',      XOBJ_DTYPE_TXTBOX, null, false, 255);
-	$this->initVar('url',        XOBJ_DTYPE_URL,    null, false, 255);
-	$this->initVar('entry_id',   XOBJ_DTYPE_TXTBOX, null, false, 255);
-	$this->initVar('guid',       XOBJ_DTYPE_TXTBOX, null, false, 255);
-	$this->initVar('time_modified',  XOBJ_DTYPE_INT, 0, false);
-	$this->initVar('time_issued',    XOBJ_DTYPE_INT, 0, false);
-	$this->initVar('time_created',   XOBJ_DTYPE_INT, 0, false);
-	$this->initVar('author_name',  XOBJ_DTYPE_TXTBOX, null, false, 255);
-	$this->initVar('author_url',   XOBJ_DTYPE_TXTBOX, null, false, 255);
-	$this->initVar('author_email', XOBJ_DTYPE_TXTBOX, null, false, 255);
-	$this->initVar('content', XOBJ_DTYPE_TXTAREA);
+            $this->initVar('aid', XOBJ_DTYPE_INT, 0, false);
+            $this->initVar('lid', XOBJ_DTYPE_INT, 0, false);
+            $this->initVar('site_title', XOBJ_DTYPE_TXTBOX, null, false, 255);
+            $this->initVar('site_url', XOBJ_DTYPE_URL, null, false, 255);
+            $this->initVar('title', XOBJ_DTYPE_TXTBOX, null, false, 255);
+            $this->initVar('url', XOBJ_DTYPE_URL, null, false, 255);
+            $this->initVar('entry_id', XOBJ_DTYPE_TXTBOX, null, false, 255);
+            $this->initVar('guid', XOBJ_DTYPE_TXTBOX, null, false, 255);
+            $this->initVar('time_modified', XOBJ_DTYPE_INT, 0, false);
+            $this->initVar('time_issued', XOBJ_DTYPE_INT, 0, false);
+            $this->initVar('time_created', XOBJ_DTYPE_INT, 0, false);
+            $this->initVar('author_name', XOBJ_DTYPE_TXTBOX, null, false, 255);
+            $this->initVar('author_url', XOBJ_DTYPE_TXTBOX, null, false, 255);
+            $this->initVar('author_email', XOBJ_DTYPE_TXTBOX, null, false, 255);
+            $this->initVar('content', XOBJ_DTYPE_TXTAREA);
+        }
 
+        // --- class end ---
+    }
+
+    //=========================================================
+    // class weblinks_atomfeed_handler
+    //=========================================================
+    class weblinks_atomfeed_handler extends happy_linux_object_handler
+    {
+
+        //---------------------------------------------------------
+        // constructor
+        //---------------------------------------------------------
+        public function __construct($dirname)
+        {
+            parent::__construct($dirname, 'atomfeed', 'aid', 'weblinks_atomfeed');
+            $this->set_debug_db_error(WEBLINKS_DEBUG_ERROR);
+        }
+
+        // --- class end ---
+    }
+
+    // === class end ===
 }
-
-// --- class end ---
-}
-
-//=========================================================
-// class weblinks_atomfeed_handler
-//=========================================================
-class weblinks_atomfeed_handler extends happy_linux_object_handler
-{
-
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_atomfeed_handler( $dirname )
-{
-	$this->happy_linux_object_handler( $dirname, 'atomfeed', 'aid', 'weblinks_atomfeed' );
-	$this->set_debug_db_error( WEBLINKS_DEBUG_ERROR );
-}
-
-// --- class end ---
-}
-
-// === class end ===
-}
-
-?>

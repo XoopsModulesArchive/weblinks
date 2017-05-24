@@ -8,17 +8,12 @@
 //=========================================================
 
 // --- define language begin ---
-if( !defined('_WEBLINKS_PI_WAITING_LANG_LOADED') ) 
-{
+if (!defined('_WEBLINKS_PI_WAITING_LANG_LOADED')) {
+    define('_WEBLINKS_PI_WAITING_LANG_LOADED', 1);
 
-define('_WEBLINKS_PI_WAITING_LANG_LOADED', 1);
-
-define('_WEBLINKS_PI_WAITING_WAITINGS', 'Waitings');
-define('_WEBLINKS_PI_WAITING_BROKENS',  'Brokens');
-define('_WEBLINKS_PI_WAITING_MODREQS',  'Mod Reqs');
-define('_WEBLINKS_PI_WAITING_DELREQS',  'Del Reqs');
-
-}
-// --- define language end ---
-
-?>
+    define('_WEBLINKS_PI_WAITING_WAITINGS', 'Waitings');
+    define('_WEBLINKS_PI_WAITING_BROKENS', 'Brokens');
+    define('_WEBLINKS_PI_WAITING_MODREQS', 'Mod Reqs');
+    define('_WEBLINKS_PI_WAITING_DELREQS', 'Del Reqs');
+}// --- define language end ---
+;

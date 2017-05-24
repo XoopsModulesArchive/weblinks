@@ -7,6 +7,4 @@
 // EUC-JP: 有朋自遠方来
 //=========================================================
 
-$PLUGIN_DESCRIPTION = "GoogleMaps マーカーの説明文";
-
-?>
+$PLUGIN_DESCRIPTION = 'GoogleMaps マーカーの説明文';

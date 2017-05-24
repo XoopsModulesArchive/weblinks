@@ -12,21 +12,18 @@
 //---------------------------------------------------------
 // happy_linux
 //---------------------------------------------------------
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/api/rss_builder.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/plugin.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/api/rss_builder.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/plugin.php';
 
 //---------------------------------------------------------
 // whatsnew
 //---------------------------------------------------------
-if( !isset($WEBLINKS_DIRNAME) )
-{
-	$WEBLINKS_DIRNAME = basename( dirname( dirname( __FILE__ ) ) );
+if (!isset($WEBLINKS_DIRNAME)) {
+    $WEBLINKS_DIRNAME = basename(dirname(__DIR__));
 }
 
-include_once XOOPS_ROOT_PATH.'/modules/'.$WEBLINKS_DIRNAME.'/class/weblinks_link_view_basic.php';
-include_once XOOPS_ROOT_PATH.'/modules/'.$WEBLINKS_DIRNAME.'/class/weblinks_link_view.php';
-include_once XOOPS_ROOT_PATH.'/modules/'.$WEBLINKS_DIRNAME.'/class/weblinks_build_rss_handler.php';
-include_once XOOPS_ROOT_PATH.'/modules/'.$WEBLINKS_DIRNAME.'/class/weblinks_htmlout.php';
-include_once XOOPS_ROOT_PATH.'/modules/'.$WEBLINKS_DIRNAME.'/htmlout/weblinks_htmlout_base.php';
-
-?>
+include_once XOOPS_ROOT_PATH . '/modules/' . $WEBLINKS_DIRNAME . '/class/weblinks_link_view_basic.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . $WEBLINKS_DIRNAME . '/class/weblinks_link_view.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . $WEBLINKS_DIRNAME . '/class/weblinks_build_rss_handler.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . $WEBLINKS_DIRNAME . '/class/weblinks_htmlout.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . $WEBLINKS_DIRNAME . '/htmlout/weblinks_htmlout_base.php';

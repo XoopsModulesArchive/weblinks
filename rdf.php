@@ -13,14 +13,12 @@
 //=========================================================
 
 include 'header.php';
-include_once WEBLINKS_ROOT_PATH.'/api/build_rss.php';
+include_once WEBLINKS_ROOT_PATH . '/api/build_rss.php';
 
 //=========================================================
 // main
 //=========================================================
-$weblinks_build_handler =& weblinks_get_handler( 'build_rss', WEBLINKS_DIRNAME );
-$weblinks_build_handler->build( 'rdf' );
-exit();
-// --- main end ---
-
-?>
+$weblinks_build_handler = weblinks_get_handler('build_rss', WEBLINKS_DIRNAME);
+$weblinks_build_handler->build('rdf');
+exit();// --- main end ---
+;

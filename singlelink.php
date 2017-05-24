@@ -61,44 +61,43 @@
 //================================================================
 
 include 'header_oh.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_singlelink.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_singlelink.php';
 
-$weblinks_singlelink =& weblinks_singlelink::getInstance( WEBLINKS_DIRNAME );
-$weblinks_template   =& weblinks_template::getInstance(   WEBLINKS_DIRNAME );
-$weblinks_header     =& weblinks_header::getInstance(     WEBLINKS_DIRNAME );
-$weblinks_webmap     =& weblinks_webmap::getInstance(     WEBLINKS_DIRNAME );
+$weblinks_singlelink = weblinks_singlelink::getInstance(WEBLINKS_DIRNAME);
+$weblinks_template   = weblinks_template::getInstance(WEBLINKS_DIRNAME);
+$weblinks_header     = weblinks_header::getInstance(WEBLINKS_DIRNAME);
+$weblinks_webmap     = weblinks_webmap::getInstance(WEBLINKS_DIRNAME);
 
 // BUG 2932: dont work correctly when register_long_arrays = off
 $lid = $weblinks_singlelink->get_get_lid();
 
-$conf =& $weblinks_singlelink->get_conf();
+$conf            =& $weblinks_singlelink->get_conf();
 $is_module_admin = $weblinks_singlelink->is_module_admin();
 
 $weblinks_template->set_keyword_by_request();
 
-// Notice [PHP]: Only variables should be assigned by reference 
-$keyword_array       =  $weblinks_template->get_keyword_array();
+// Notice [PHP]: Only variables should be assigned by reference
+$keyword_array = $weblinks_template->get_keyword_array();
 
-$keywords_urlencoded =  $weblinks_template->get_keywords_urlencode();
+$keywords_urlencoded = $weblinks_template->get_keywords_urlencode();
 
-$weblinks_singlelink->set_highlight( $conf['use_highlight'] );
-$weblinks_singlelink->set_keyword_array( $keyword_array );
+$weblinks_singlelink->set_highlight($conf['use_highlight']);
+$weblinks_singlelink->set_keyword_array($keyword_array);
 
 // link
 $link_show =& $weblinks_singlelink->get_link($lid);
-if ( !$link_show )
-{
-	redirect_header('index.php', 3, _WLS_NOMATCH);
-	exit();
+if (!$link_show) {
+    redirect_header('index.php', 3, _WLS_NOMATCH);
+    exit();
 }
 
 // user can view his link before time_publish
-if ( !$is_module_admin &&
-     !$link_show['is_owner'] &&
-    ( $link_show['warn_time_publish'] || $link_show['warn_time_expire'] ) )
-{
-	redirect_header('index.php', 3, _WLS_NOMATCH);
-	exit();
+if (!$is_module_admin
+    && !$link_show['is_owner']
+    && ($link_show['warn_time_publish'] || $link_show['warn_time_expire'])
+) {
+    redirect_header('index.php', 3, _WLS_NOMATCH);
+    exit();
 }
 
 $title_s     = $link_show['title'];
@@ -106,41 +105,39 @@ $comment_use = $link_show['comment_use'];
 
 // --- template start ---
 // xoopsOption[template_main] should be defined before including header.php
-$xoopsOption['template_main'] = WEBLINKS_DIRNAME."_singlelink.html";
-include XOOPS_ROOT_PATH.'/header.php';
+$xoopsOption['template_main'] = WEBLINKS_DIRNAME . '_singlelink.html';
+include XOOPS_ROOT_PATH . '/header.php';
 
 // REQ 4359: countup hits in singlelink.php
-if ( $conf['use_hits_singlelink'] )
-{
-	$weblinks_singlelink->countup_hits($lid);
+if ($conf['use_hits_singlelink']) {
+    $weblinks_singlelink->countup_hits($lid);
 }
 
 // index
-$weblinks_header->assign_module_header( true );
-$weblinks_template->assignPageTitle( $title_s, false );
+$weblinks_header->assign_module_header(true);
+$weblinks_template->assignPageTitle($title_s, false);
 $weblinks_template->assignIndex();
 $weblinks_template->assignHeader();
 $weblinks_template->assignSearch();
 
-$xoopsTpl->assign('link',     $link_show);
+$xoopsTpl->assign('link', $link_show);
 $xoopsTpl->assign('keywords', $keywords_urlencoded);
 
 // warning
 $xoopsTpl->assign('lang_warn_time_publish', _WEBLINKS_WARN_TIME_PUBLISH);
-$xoopsTpl->assign('lang_warn_time_expire',  _WEBLINKS_WARN_TIME_EXPIRE);
-$xoopsTpl->assign('lang_warn_broken',       _WEBLINKS_WARN_BROKEN);
-$xoopsTpl->assign('lang_broken_counter',    _WLS_BROKEN_COUNTER);
+$xoopsTpl->assign('lang_warn_time_expire', _WEBLINKS_WARN_TIME_EXPIRE);
+$xoopsTpl->assign('lang_warn_broken', _WEBLINKS_WARN_BROKEN);
+$xoopsTpl->assign('lang_broken_counter', _WLS_BROKEN_COUNTER);
 
 $weblinks_template->assignDisplayLink();
 
 $catpath_arr =& $weblinks_singlelink->get_catpath_arr($lid);
-foreach ($catpath_arr as $catpath)
-{
-	$xoopsTpl->append('catpaths', $catpath);
+foreach ($catpath_arr as $catpath) {
+    $xoopsTpl->append('catpaths', $catpath);
 }
 
 $link_show['mode_singlelink'] = 1;
-$single = $weblinks_template->fetch_link_single( $link_show );
+$single                       = $weblinks_template->fetch_link_single($link_show);
 $xoopsTpl->assign('weblinks_link_single', $single);
 
 // --- webmap ---
@@ -148,35 +145,33 @@ $show_webmap   = false;
 $webmap_div_id = '';
 $webmap_func   = '';
 
-if ( $link_show['flag_gm_use'] ) {
-	$ret = $weblinks_webmap->init_map();
-	if ( $ret) {
-		$webmap_param  = $weblinks_webmap->fetch_single( $link_show );
-		$show_webmap   = $webmap_param['show_webmap'];
-		$webmap_div_id = $webmap_param['webmap_div_id'];
-		$webmap_func   = $webmap_param['webmap_func'];
-	}
+if ($link_show['flag_gm_use']) {
+    $ret = $weblinks_webmap->init_map();
+    if ($ret) {
+        $webmap_param  = $weblinks_webmap->fetch_single($link_show);
+        $show_webmap   = $webmap_param['show_webmap'];
+        $webmap_div_id = $webmap_param['webmap_div_id'];
+        $webmap_func   = $webmap_param['webmap_func'];
+    }
 }
 
-$xoopsTpl->assign('show_webmap',   $show_webmap );
-$xoopsTpl->assign('webmap_div_id', $webmap_div_id );
-$xoopsTpl->assign('webmap_func',   $webmap_func );
+$xoopsTpl->assign('show_webmap', $show_webmap);
+$xoopsTpl->assign('webmap_div_id', $webmap_div_id);
+$xoopsTpl->assign('webmap_func', $webmap_func);
 
 // atomfeed
-$atomfeed = $weblinks_singlelink->get_atomfeed( $lid );
+$atomfeed = $weblinks_singlelink->get_atomfeed($lid);
 
-$xoopsTpl->assign('rss_num_content', $atomfeed['rss_num']  );
-$xoopsTpl->assign('rss_flag',        $atomfeed['rss_flag'] );
-$xoopsTpl->assign('rss_url',         $atomfeed['rss_url']  );
-$xoopsTpl->assign('rss_update',      $atomfeed['rss_update'] );
-$xoopsTpl->assign('rss_show',        $atomfeed['rss_show'] );
+$xoopsTpl->assign('rss_num_content', $atomfeed['rss_num']);
+$xoopsTpl->assign('rss_flag', $atomfeed['rss_flag']);
+$xoopsTpl->assign('rss_url', $atomfeed['rss_url']);
+$xoopsTpl->assign('rss_update', $atomfeed['rss_update']);
+$xoopsTpl->assign('rss_show', $atomfeed['rss_show']);
 
-if ( is_array($atomfeed['feeds']) && count($atomfeed['feeds']) )
-{
-	foreach ($atomfeed['feeds'] as $feed)
-	{
-		$xoopsTpl->append('feeds', $feed);
-	}
+if (is_array($atomfeed['feeds']) && count($atomfeed['feeds'])) {
+    foreach ($atomfeed['feeds'] as $feed) {
+        $xoopsTpl->append('feeds', $feed);
+    }
 }
 
 // forum
@@ -184,40 +179,36 @@ $show_forum_list     = false;
 $weblinks_forum_list = '';
 
 $threads =& $weblinks_singlelink->get_link_forum_threads_by_lid($lid);
-if ( is_array($threads) && count($threads) )
-{
-	$show_forum_list     = true;
-	$weblinks_forum_list = $weblinks_template->fetch_forum_list( $threads );
+if (is_array($threads) && count($threads)) {
+    $show_forum_list     = true;
+    $weblinks_forum_list = $weblinks_template->fetch_forum_list($threads);
 }
 
-$xoopsTpl->assign('show_forum_list',     $show_forum_list);
+$xoopsTpl->assign('show_forum_list', $show_forum_list);
 $xoopsTpl->assign('weblinks_forum_list', $weblinks_forum_list);
-$xoopsTpl->assign('lang_latest_forum',   _WEBLINKS_LATEST_FORUM);
+$xoopsTpl->assign('lang_latest_forum', _WEBLINKS_LATEST_FORUM);
 
 // album
-$show_photo_list    = false;
-$photo_list         = '';
+$show_photo_list = false;
+$photo_list      = '';
 
 $photos =& $weblinks_singlelink->get_link_album_photos_by_lid($lid);
-if ( is_array($photos) && count($photos) )
-{
-	$show_photo_list = true;
-	$photo_list      = $weblinks_template->fetch_photo_list( $photos );
+if (is_array($photos) && count($photos)) {
+    $show_photo_list = true;
+    $photo_list      = $weblinks_template->fetch_photo_list($photos);
 }
 
-$xoopsTpl->assign('weblinks_photo_list',    $photo_list );
-$xoopsTpl->assign('show_photo_list',        $show_photo_list );
+$xoopsTpl->assign('weblinks_photo_list', $photo_list);
+$xoopsTpl->assign('show_photo_list', $show_photo_list);
 
 // d3forum_comment
-$xoopsTpl->assign('d3forum_comment',  $weblinks_template->fetch_d3forum_comment( $lid, $title_s ) );
+$xoopsTpl->assign('d3forum_comment', $weblinks_template->fetch_d3forum_comment($lid, $title_s));
 
 $xoopsTpl->assign('show_comment', $comment_use);
-include XOOPS_ROOT_PATH.'/include/comment_view.php';
+include XOOPS_ROOT_PATH . '/include/comment_view.php';
 
-$xoopsTpl->assign('execution_time', happy_linux_get_execution_time() );
-$xoopsTpl->assign('memory_usage',   happy_linux_get_memory_usage_mb() );
-include XOOPS_ROOT_PATH.'/footer.php';
-exit();
-// --- main end ---
-
-?>
+$xoopsTpl->assign('execution_time', happy_linux_get_execution_time());
+$xoopsTpl->assign('memory_usage', happy_linux_get_memory_usage_mb());
+include XOOPS_ROOT_PATH . '/footer.php';
+exit();// --- main end ---
+;

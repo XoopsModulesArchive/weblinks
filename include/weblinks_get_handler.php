@@ -13,16 +13,11 @@
 //=========================================================
 
 // --- weblinks_get_handler begin ---
-if( !function_exists( 'weblinks_get_handler' ) ) 
-{
-
-function &weblinks_get_handler($name=null, $module_dir=null)
-{
-	$ret =& happy_linux_get_handler($name, $module_dir, 'weblinks');
-	return $ret;
-}
-
-}
-// --- weblinks_get_handler end ---
-
-?>
+if (!function_exists('weblinks_get_handler')) {
+    function &weblinks_get_handler($name = null, $module_dir = null)
+    {
+        $ret = happy_linux_get_handler($name, $module_dir, 'weblinks');
+        return $ret;
+    }
+}// --- weblinks_get_handler end ---
+;

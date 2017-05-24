@@ -14,56 +14,52 @@
 //================================================================
 // WebLinks Module
 // this file contain 2 class
-//   weblinks_config2 
+//   weblinks_config2
 //   weblinks_config2_handler
-// porting form RSSC 
+// porting form RSSC
 // 2006-05-15 K.OHWADA
 //================================================================
 
 // === class begin ===
-if( !class_exists('weblinks_config2_handler') ) 
-{
+if (!class_exists('weblinks_config2_handler')) {
 
-//================================================================
-// class weblinks_config2
-// modify form system XoopsConfigItem
-//================================================================
-class weblinks_config2 extends happy_linux_config_base
-{
+    //================================================================
+    // class weblinks_config2
+    // modify form system XoopsConfigItem
+    //================================================================
+    class weblinks_config2 extends happy_linux_config_base
+    {
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_config2()
-{
-	$this->happy_linux_config_base();
+        //---------------------------------------------------------
+        // constructor
+        //---------------------------------------------------------
+        public function __construct()
+        {
+            parent::__construct();
+        }
+
+        // --- class end ---
+    }
+
+    //=========================================================
+    // class config handler
+    //=========================================================
+    class weblinks_config2_handler extends happy_linux_config_base_handler
+    {
+
+        //---------------------------------------------------------
+        // constructor
+        //---------------------------------------------------------
+        public function __construct($dirname)
+        {
+            parent::__construct($dirname, 'config2', 'conf_id', 'weblinks_config2');
+
+            $this->set_debug_db_sql(WEBLINKS_DEBUG_CONFIG2_SQL);
+            $this->set_debug_db_error(WEBLINKS_DEBUG_ERROR);
+        }
+
+        // --- class end ---
+    }
+
+    // === class end ===
 }
-
-// --- class end ---
-}
-
-//=========================================================
-// class config handler
-//=========================================================
-class weblinks_config2_handler extends happy_linux_config_base_handler
-{
-
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_config2_handler( $dirname )
-{
-	$this->happy_linux_config_base_handler( $dirname, 'config2', 'conf_id', 'weblinks_config2' );
-
-	$this->set_debug_db_sql(   WEBLINKS_DEBUG_CONFIG2_SQL );
-	$this->set_debug_db_error( WEBLINKS_DEBUG_ERROR );
-
-}
-
-// --- class end ---
-}
-
-// === class end ===
-}
-
-?>

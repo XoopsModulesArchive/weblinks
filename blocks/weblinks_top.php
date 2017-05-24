@@ -55,67 +55,64 @@
 // 2004/01/14 K.OHWADA
 //=========================================================
 
-$WEBLINKS_DIRNAME = basename( dirname( dirname( __FILE__ ) ) );
+$WEBLINKS_DIRNAME = basename(dirname(__DIR__));
 
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/include/sanitize.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/include/multibyte.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/strings.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/basic_object.php';
-include_once XOOPS_ROOT_PATH.'/modules/'.$WEBLINKS_DIRNAME.'/include/weblinks_constant.php';
-include_once XOOPS_ROOT_PATH.'/modules/'.$WEBLINKS_DIRNAME.'/include/functions.php';
-include_once XOOPS_ROOT_PATH.'/modules/'.$WEBLINKS_DIRNAME.'/class/weblinks_block_view.php';
-include_once XOOPS_ROOT_PATH.'/modules/'.$WEBLINKS_DIRNAME.'/class/weblinks_block.php';
-include_once XOOPS_ROOT_PATH.'/modules/'.$WEBLINKS_DIRNAME.'/class/weblinks_block_webmap.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/include/sanitize.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/include/multibyte.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/strings.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/basic_object.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . $WEBLINKS_DIRNAME . '/include/weblinks_constant.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . $WEBLINKS_DIRNAME . '/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . $WEBLINKS_DIRNAME . '/class/weblinks_block_view.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . $WEBLINKS_DIRNAME . '/class/weblinks_block.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . $WEBLINKS_DIRNAME . '/class/weblinks_block_webmap.php';
 
 // --- block function begin ---
-if( !function_exists( 'b_weblinks_top_show' ) ) 
-{
-function b_weblinks_top_show($options) 
-{
-	$DIRNAME = empty( $options[0] ) ? basename( dirname( dirname( __FILE__ ) ) ) : $options[0];
-	$class =& weblinks_block::getSingleton( $DIRNAME );
-	return $class->top_show($options);
+if (!function_exists('b_weblinks_top_show')) {
+    function b_weblinks_top_show($options)
+    {
+        $DIRNAME = empty($options[0]) ? basename(dirname(__DIR__)) : $options[0];
+        $class   =& weblinks_block::getSingleton($DIRNAME);
+        return $class->top_show($options);
+    }
+
+    function b_weblinks_top_edit($options)
+    {
+        $DIRNAME = empty($options[0]) ? basename(dirname(__DIR__)) : $options[0];
+        $class   =& weblinks_block::getSingleton($DIRNAME);
+        return $class->top_edit($options);
+    }
+
+    function b_weblinks_generic_show($options)
+    {
+        $DIRNAME = empty($options[0]) ? basename(dirname(__DIR__)) : $options[0];
+
+        include_once XOOPS_ROOT_PATH . '/class/xoopstree.php';
+
+        $class =& weblinks_block::getSingleton($DIRNAME);
+        return $class->generic_show($options);
+    }
+
+    function b_weblinks_generic_edit($options)
+    {
+        $DIRNAME = empty($options[0]) ? basename(dirname(__DIR__)) : $options[0];
+
+        $WEBLINKS_ROOT_PATH = XOOPS_ROOT_PATH . '/modules/' . $DIRNAME;
+
+        include_once XOOPS_ROOT_PATH . '/class/xoopstree.php';
+        include_once XOOPS_ROOT_PATH . '/modules/happy_linux/include/functions.php';
+        include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/error.php';
+        include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/strings.php';
+        include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/system.php';
+        include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/basic_handler.php';
+        include_once $WEBLINKS_ROOT_PATH . '/include/weblinks_constant.php';
+        include_once $WEBLINKS_ROOT_PATH . '/include/functions.php';
+        include_once $WEBLINKS_ROOT_PATH . '/class/weblinks_config2_basic_handler.php';
+        include_once $WEBLINKS_ROOT_PATH . '/class/weblinks_category_basic_handler.php';
+
+        $class =& weblinks_block::getSingleton($DIRNAME);
+        return $class->generic_edit($options);
+    }
+
+    // --- block function begin end ---
 }
-
-function b_weblinks_top_edit($options) 
-{
-	$DIRNAME = empty( $options[0] ) ? basename( dirname( dirname( __FILE__ ) ) ) : $options[0];
-	$class =& weblinks_block::getSingleton( $DIRNAME );
-	return $class->top_edit($options);
-}
-
-function b_weblinks_generic_show($options)
-{
-	$DIRNAME = empty( $options[0] ) ? basename( dirname( dirname( __FILE__ ) ) ) : $options[0];
-
-	include_once XOOPS_ROOT_PATH.'/class/xoopstree.php';
-
-	$class =& weblinks_block::getSingleton( $DIRNAME );
-	return $class->generic_show($options);
-}
-
-function b_weblinks_generic_edit($options)
-{
-	$DIRNAME = empty( $options[0] ) ? basename( dirname( dirname( __FILE__ ) ) ) : $options[0];
-
-	$WEBLINKS_ROOT_PATH = XOOPS_ROOT_PATH.'/modules/'.$DIRNAME;
-
-	include_once XOOPS_ROOT_PATH.'/class/xoopstree.php';
-	include_once XOOPS_ROOT_PATH.'/modules/happy_linux/include/functions.php';
-	include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/error.php';
-	include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/strings.php';
-	include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/system.php';
-	include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/basic_handler.php';
-	include_once $WEBLINKS_ROOT_PATH.'/include/weblinks_constant.php';
-	include_once $WEBLINKS_ROOT_PATH.'/include/functions.php';
-	include_once $WEBLINKS_ROOT_PATH.'/class/weblinks_config2_basic_handler.php';
-	include_once $WEBLINKS_ROOT_PATH.'/class/weblinks_category_basic_handler.php';
-
-	$class =& weblinks_block::getSingleton( $DIRNAME );
-	return $class->generic_edit($options);
-}
-
-// --- block function begin end ---
-}
-
-?>

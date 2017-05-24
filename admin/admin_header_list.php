@@ -6,7 +6,5 @@
 // 2007-11-01 K.OHWADA
 //=========================================================
 
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/pagenavi.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/page_frame.php';
-
-?>
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/pagenavi.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/page_frame.php';

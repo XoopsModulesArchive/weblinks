@@ -20,20 +20,15 @@
 
 include 'header.php';
 
-if ( WEBLINKS_RSSC_EXIST )
-{
-	include_once WEBLINKS_ROOT_PATH.'/api/build_rss_feed.php';
+if (WEBLINKS_RSSC_EXIST) {
+    include_once WEBLINKS_ROOT_PATH . '/api/build_rss_feed.php';
 
-	$weblinks_builder =& weblinks_get_handler( 'build_rss_feed', WEBLINKS_DIRNAME );
-	$weblinks_builder->build_for_weblinks( 'rss' );
-}
-else
-{
-	$msg = sprintf( _WEBLINKS_RSSC_NOT_INSTALLED, WEBLINKS_RSSC_DIRNAME );
-	redirect_header('index.php', 5, $msg);
+    $weblinks_builder = weblinks_get_handler('build_rss_feed', WEBLINKS_DIRNAME);
+    $weblinks_builder->build_for_weblinks('rss');
+} else {
+    $msg = sprintf(_WEBLINKS_RSSC_NOT_INSTALLED, WEBLINKS_RSSC_DIRNAME);
+    redirect_header('index.php', 5, $msg);
 }
 
-exit();
-// --- main end ---
-
-?>
+exit();// --- main end ---
+;

@@ -35,149 +35,140 @@
 //================================================================
 
 include 'header.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/pagenavi.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/pagenavi.php';
 
-$weblinks_template =& weblinks_template::getInstance( WEBLINKS_DIRNAME );
-$weblinks_header   =& weblinks_header::getInstance(   WEBLINKS_DIRNAME );
-$weblinks_viewfeed =& weblinks_viewfeed::getInstance();
+$weblinks_template = weblinks_template::getInstance(WEBLINKS_DIRNAME);
+$weblinks_header   = weblinks_header::getInstance(WEBLINKS_DIRNAME);
+$weblinks_viewfeed = weblinks_viewfeed::getInstance();
 
-if ( ! WEBLINKS_RSSC_EXIST )
-{
-	$msg = sprintf( _WEBLINKS_RSSC_NOT_INSTALLED, WEBLINKS_RSSC_DIRNAME );
-	redirect_header('index.php', 5, $msg);
+if (!WEBLINKS_RSSC_EXIST) {
+    $msg = sprintf(_WEBLINKS_RSSC_NOT_INSTALLED, WEBLINKS_RSSC_DIRNAME);
+    redirect_header('index.php', 5, $msg);
 }
 
 // --- template start ---
 // xoopsOption[template_main] should be defined before including header.php
-$xoopsOption['template_main'] = WEBLINKS_DIRNAME."_viewfeed.html";
-include XOOPS_ROOT_PATH.'/header.php';
+$xoopsOption['template_main'] = WEBLINKS_DIRNAME . '_viewfeed.html';
+include XOOPS_ROOT_PATH . '/header.php';
 
 // rss/atom auto discovery
-$xoopsTpl->assign('xoops_rss',  'modules/'.WEBLINKS_DIRNAME.'/rss.php' );
-$xoopsTpl->assign('xoops_atom', 'modules/'.WEBLINKS_DIRNAME.'/atom.php' );
+$xoopsTpl->assign('xoops_rss', 'modules/' . WEBLINKS_DIRNAME . '/rss.php');
+$xoopsTpl->assign('xoops_atom', 'modules/' . WEBLINKS_DIRNAME . '/atom.php');
 $xoopsTpl->assign('lang_atomfeed_distribute', _WLS_ATOMFEED_DISTRIBUTE);
 
 $weblinks_template->set_keyword_by_request();
-$keyword_array       =& $weblinks_template->get_keyword_array();
-$keywords_urlencoded =  $weblinks_template->get_keywords_urlencode();
+$keyword_array       = $weblinks_template->get_keyword_array();
+$keywords_urlencoded = $weblinks_template->get_keywords_urlencode();
 
 $weblinks_header->assign_module_header();
 $weblinks_template->assignIndex();
 $weblinks_template->assignDisplayLink();
 $weblinks_template->assignHeader();
-$weblinks_template->assignSearch(); 
+$weblinks_template->assignSearch();
 
 $xoopsTpl->assign('keywords', $keywords_urlencoded);
 
 $total = $weblinks_viewfeed->get_total();
 $xoopsTpl->assign('total_atomfeed', $total);
 
-if ($total > 0)
-{
-	$xoopsTpl->assign('show_feeds', true);
+if ($total > 0) {
+    $xoopsTpl->assign('show_feeds', true);
 
-	$feed_list =& $weblinks_viewfeed->get_feed_list( $keyword_array );
-	foreach ($feed_list as $feed) 
-	{
-		$xoopsTpl->append('feeds', $feed);
-	}
+    $feed_list =& $weblinks_viewfeed->get_feed_list($keyword_array);
+    foreach ($feed_list as $feed) {
+        $xoopsTpl->append('feeds', $feed);
+    }
 
-	if ($total > 1)
-	{
-		$navi = $weblinks_viewfeed->get_navi( $keywords_urlencoded );
-		$xoopsTpl->assign('page_navi', $navi);
-	}
+    if ($total > 1) {
+        $navi = $weblinks_viewfeed->get_navi($keywords_urlencoded);
+        $xoopsTpl->assign('page_navi', $navi);
+    }
 }
 
-$xoopsTpl->assign('execution_time', happy_linux_get_execution_time() );
-$xoopsTpl->assign('memory_usage',   happy_linux_get_memory_usage_mb() );
-include XOOPS_ROOT_PATH.'/footer.php';
+$xoopsTpl->assign('execution_time', happy_linux_get_execution_time());
+$xoopsTpl->assign('memory_usage', happy_linux_get_memory_usage_mb());
+include XOOPS_ROOT_PATH . '/footer.php';
 exit();
 // --- main end ---
-
 
 //=========================================================
 // class weblinks_viewfeed
 //=========================================================
 class weblinks_viewfeed
 {
-	var $_rssc_handler;
-	var $_pagenavi;
+    public $_rssc_handler;
+    public $_pagenavi;
 
-	var $_conf;
-	var $_total = 0;
+    public $_conf;
+    public $_total = 0;
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_viewfeed()
-{
-	$config_handler  =& weblinks_get_handler( 'config2_basic', WEBLINKS_DIRNAME );
-	$this->_conf = $config_handler->get_conf();
+    //---------------------------------------------------------
+    // constructor
+    //---------------------------------------------------------
+    public function __construct()
+    {
+        $config_handler = weblinks_get_handler('config2_basic', WEBLINKS_DIRNAME);
+        $this->_conf    = $config_handler->get_conf();
 
-	$this->_pagenavi =& happy_linux_pagenavi::getInstance();
+        $this->_pagenavi = happy_linux_pagenavi::getInstance();
 
-	$this->_rssc_handler =& weblinks_get_handler( 'rssc_view', WEBLINKS_DIRNAME );
+        $this->_rssc_handler = weblinks_get_handler('rssc_view', WEBLINKS_DIRNAME);
+    }
+
+    public static function getInstance()
+    {
+        static $instance;
+        if (!isset($instance)) {
+            $instance = new weblinks_viewfeed();
+        }
+        return $instance;
+    }
+
+    //---------------------------------------------------------
+    // count
+    //---------------------------------------------------------
+    public function get_total()
+    {
+        $this->_total = $this->_rssc_handler->get_feed_count();
+        return $this->_total;
+    }
+
+    //---------------------------------------------------------
+    // feed_list
+    //---------------------------------------------------------
+    public function &get_feed_list(&$keyword_array)
+    {
+        $feed_list = array();
+
+        $conf_rss_perpage = $this->_conf['rss_perpage'];
+
+        $this->_pagenavi->setPerpage($conf_rss_perpage);
+        $this->_pagenavi->setTotal($this->_total);
+
+        $this->_pagenavi->getGetPage();
+        $start = $this->_pagenavi->calcStart();
+
+        $this->_rssc_handler->set_feed_flag_title_html($this->_conf['rss_mode_title']);
+        $this->_rssc_handler->set_feed_flag_content_html($this->_conf['rss_mode_content']);
+        $this->_rssc_handler->set_feed_max_content($this->_conf['rss_max_content']);
+        $this->_rssc_handler->set_feed_max_summary($this->_conf['rss_max_summary']);
+        $this->_rssc_handler->set_feed_highlight($this->_conf['use_highlight']);
+        $this->_rssc_handler->set_feed_keyword_array($keyword_array);
+
+        $feed_list =& $this->_rssc_handler->get_feed_list_latest($conf_rss_perpage, $start);
+
+        return $feed_list;
+    }
+
+    public function get_navi($keywords)
+    {
+        $script = WEBLINKS_URL . '/viewfeed.php';
+        if ($keywords) {
+            $script .= '?keywords=' . $keywords;
+        }
+        $navi = $this->_pagenavi->build($script);
+        return $navi;
+    }
+
+    // --- class end ---
 }
-
-function &getInstance()
-{
-	static $instance;
-	if (!isset($instance)) 
-	{
-		$instance = new weblinks_viewfeed();
-	}
-	return $instance;
-}
-
-//---------------------------------------------------------
-// count
-//---------------------------------------------------------
-function get_total()
-{
-	$this->_total = $this->_rssc_handler->get_feed_count();
-	return $this->_total;
-}
-
-//---------------------------------------------------------
-// feed_list
-//---------------------------------------------------------
-function &get_feed_list( &$keyword_array )
-{
-	$feed_list = array();
-
-	$conf_rss_perpage = $this->_conf['rss_perpage'];
-
-	$this->_pagenavi->setPerpage( $conf_rss_perpage );
-	$this->_pagenavi->setTotal( $this->_total );
-
-	$this->_pagenavi->getGetPage();
-	$start = $this->_pagenavi->calcStart();
-
-	$this->_rssc_handler->set_feed_flag_title_html(   $this->_conf['rss_mode_title'] );
-	$this->_rssc_handler->set_feed_flag_content_html( $this->_conf['rss_mode_content'] );
-	$this->_rssc_handler->set_feed_max_content(       $this->_conf['rss_max_content'] );
-	$this->_rssc_handler->set_feed_max_summary(       $this->_conf['rss_max_summary'] );
-	$this->_rssc_handler->set_feed_highlight(         $this->_conf['use_highlight'] );
-	$this->_rssc_handler->set_feed_keyword_array(     $keyword_array );
-
-	$feed_list =& $this->_rssc_handler->get_feed_list_latest($conf_rss_perpage, $start);
-
-	return $feed_list;
-}
-
-function get_navi( $keywords )
-{
-	$script = WEBLINKS_URL.'/viewfeed.php';
-	if ( $keywords )
-	{
-		$script .= '?keywords='. $keywords;
-	}
-	$navi = $this->_pagenavi->build( $script );
-	return $navi;
-}
-
-// --- class end ---
-}
-
-?>

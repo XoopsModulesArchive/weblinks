@@ -29,14 +29,13 @@ xoops_cp_header();
 weblinks_admin_print_header();
 weblinks_admin_print_menu();
 
-echo "<h3>"._AM_WEBLINKS_IMPORT_MANAGE."</h3>\n";
-echo '<h4 style="color:#ff0000;">Warnig</h4>'."\n";
+echo '<h3>' . _AM_WEBLINKS_IMPORT_MANAGE . "</h3>\n";
+echo '<h4 style="color:#ff0000;">Warnig</h4>' . "\n";
 echo "Excute only once, after install. <br />\n";
 echo "The following programs overwrite MySQL tables. <br />\n";
 echo "<br />\n";
-echo '<a href="mylinks110_to_weblinks120.php">Import DB from mylinks v1.1 to weblinks v1.2 or later</a>'."<br />\n";
+echo '<a href="mylinks110_to_weblinks120.php">Import DB from mylinks v1.1 to weblinks v1.2 or later</a>' . "<br />\n";
 
 weblinks_admin_print_footer();
 xoops_cp_footer();
 exit();
-?>

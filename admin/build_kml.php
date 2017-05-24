@@ -7,12 +7,10 @@
 //=========================================================
 
 include 'admin_header.php';
-include_once WEBLINKS_ROOT_PATH.'/api/build_kml.php';
+include_once WEBLINKS_ROOT_PATH . '/api/build_kml.php';
 
-$builder =& weblinks_get_handler( 'build_kml', WEBLINKS_DIRNAME );
+$builder = weblinks_get_handler('build_kml', WEBLINKS_DIRNAME);
 $builder->view();
 
-exit();
-// --- main end ---
-
-?>
+exit();// --- main end ---
+;

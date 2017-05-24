@@ -70,7 +70,7 @@ Email:  webmaster@ohwada.net
 1.1.1 place of hook
 After reading from the DB and doing common processing.
 
-1.1.2 added feature plugin combination 
+1.1.2 added feature plugin combination
 specify like as UNIX pipe
 -----
 plugin_a | plugin_b | plugin_c
@@ -112,9 +112,9 @@ re-get the PageRank, when submit or modify link
 It is not the official service of Google.
 In the future, it doesn't sometimes work, too.
 
-PageRank without the Toolbar 
+PageRank without the Toolbar
 http://www.google.com/support/toolbar/bin/answer.py?answer=9156&topic=11773
-We currently only offer the PageRank feature through the Google Toolbar.  
+We currently only offer the PageRank feature through the Google Toolbar.
 
 3. supported Google KML
 http://linux.ohwada.jp/modules/newbb/viewtopic.php?forum=5&topic_id=770
@@ -176,15 +176,15 @@ added the following
 
 
 * Update *
-(1) Overwrite the files below weblinks directory. 
+(1) Overwrite the files below weblinks directory.
 
-(2) Update weblinks module in XOOPS management. 
+(2) Update weblinks module in XOOPS management.
 the weblinks's update script is executed at the same time,
-because weblinks supported onUpdate since this version 1.80. 
+because weblinks supported onUpdate since this version 1.80.
 
 (3) PageRank
 added PageRank in this version 1.90.
-the value of PageRank are not stored in DB, when module update 
+the value of PageRank are not stored in DB, when module update
 Execute "Update PageRank" in "Link Check Management"
 
 (4) Execute "DB table manage"
@@ -353,7 +353,7 @@ http://linux2.ohwada.net/modules/newbb/viewtopic.php?topic_id=349&forum=2
 (1) added Italian
 http://linux2.ohwada.net/modules/newbb/viewtopic.php?topic_id=337&forum=2
 
-(2) added Arabic 
+(2) added Arabic
 http://linux2.ohwada.net/modules/newbb/viewtopic.php?topic_id=351&forum=2
 
 (3) updated Spanish
@@ -387,15 +387,15 @@ http://linux.ohwada.jp/modules/newbb/viewtopic.php?topic_id=727&forum=5
 (3) memory_limit more than 16 MB
 
 * Update *
-(1) Overwrite the files below weblinks directory. 
+(1) Overwrite the files below weblinks directory.
 
-(2) Update weblinks module in XOOPS management. 
+(2) Update weblinks module in XOOPS management.
 the weblinks's update script is executed at the same time,
-because weblinks supported onUpdate since this version 1.80. 
+because weblinks supported onUpdate since this version 1.80.
 
 (3) Execute "DB table manage"
 confirms that there is no error
-in XOOPS Cube 2.1 and XOOPS 2.2, 
+in XOOPS Cube 2.1 and XOOPS 2.2,
 module update does not change block's option
 
 
@@ -479,7 +479,7 @@ http://linux2.ohwada.net/modules/newbb/viewtopic.php?topic_id=121&forum=2
 implemented the email notice uniquely for the guest.
 abolish to use the event notification and integrate to the email notice uniquely.
 
-(2) show the email form specifically. 
+(2) show the email form specifically.
 
 (3) add the email sentence for the link modificaton and deletion, in addition to the link submit.
 - link_mod_approve_notify.tpl
@@ -495,8 +495,8 @@ http://linux.ohwada.jp/modules/newbb/viewtopic.php?topic_id=684&forum=5
 
 1.7 Link modification request
 
-(1) user must enter "Comment to the admin" when request 
-(2) highlight the modified items in approval form 
+(1) user must enter "Comment to the admin" when request
+(2) highlight the modified items in approval form
 (3) admin must confirm if change uid mail name
 
 1.8 The waiting list
@@ -529,7 +529,7 @@ http://linux2.ohwada.net/modules/newbb/viewtopic.php?topic_id=249&forum=2
 
 4. bug fix
 (1) in global search, show link which before publish time
-(2) when user submit new link, if there are the same RSS URL, 
+(2) when user submit new link, if there are the same RSS URL,
 the new record is added to the RSSC module.
 
 
@@ -539,13 +539,13 @@ the new record is added to the RSSC module.
 
 
 * Update *
-(1) Overwrite the files below weblinks directory. 
+(1) Overwrite the files below weblinks directory.
 
-(2) Update weblinks module in XOOPS management. 
-You MUST do it, since the template files and the event notification are changed. 
+(2) Update weblinks module in XOOPS management.
+You MUST do it, since the template files and the event notification are changed.
 
 (3) Upgrade config table in weblinks's admin page.
-the message is showing, if not newest version. 
+the message is showing, if not newest version.
 
 (4) In "Module Configuration 1 (Preferences)" in weblinks's admin page,
 you enable 2 new events at "Enable Specific Events"
@@ -584,7 +584,7 @@ Date:   2007-09-01
 when the user select "Non", weblinks doesn't check to fill or not
 
 (2) In the mode which the admin approve submitted links,
-when the user select "Auto Detect" as default, 
+when the user select "Auto Detect" as default,
 weblinks executes "RSS Auto Discovry" and sets rss_url and rss_flag field.
 And in the mode which weblinks automatically approve,
 weblinks executes "RSS Auto Discovry" in the old version.
@@ -702,19 +702,19 @@ added tempaltes
 
 
 * Update *
-(1) Overwrite the files below weblinks directory. 
+(1) Overwrite the files below weblinks directory.
 
-(2) Update weblinks module in XOOPS management. 
-You MUST do it, since the template files are changed. 
+(2) Update weblinks module in XOOPS management.
+You MUST do it, since the template files are changed.
 
 (3) Upgrade config table in admin page.
-the message is showing, if not newest version. 
+the message is showing, if not newest version.
 
 (4) Execute "Module Configuration" -> "Clear cache of Templates"
-You MUST do it, since the template files are changed. 
+You MUST do it, since the template files are changed.
 
 (5) Corect Block parameters by the block management, in Weblinks management or XOOPS management.
-in same vervion of XOOPS, donot change the block parameters by update module, 
+in same vervion of XOOPS, donot change the block parameters by update module,
 
 
 =================================================
@@ -770,14 +770,14 @@ valid in xoops 2.0
 
 5. Co-opreation with d3forum
 5.1 add plugin for d3forum
-show post context of forum module in each category page and each link page, 
+show post context of forum module in each category page and each link page,
 same as other forum modules
 
 5.2 support comment-integration with d3forum module
 usage
 1) in d3forum module, create forum for comment-integration.
 2) in "Modify the forum"
-fill "weblinks::weblinksD3commentContent::" at "Format for comment-integration" 
+fill "weblinks::weblinksD3commentContent::" at "Format for comment-integration"
 and click "Save"
 3) in weblinks module, at "Comment-integration with d3forum module" in "Module Configuration 4",
 select "Plugin Select" and "Module Select", and click "UPDATE".
@@ -813,16 +813,16 @@ added templates
 
 
 * Update *
-(1) Overwrite the files below weblinks directory. 
+(1) Overwrite the files below weblinks directory.
 
-(2) Update weblinks module in XOOPS management. 
-You MUST do it, since the template files are changed. 
+(2) Update weblinks module in XOOPS management.
+You MUST do it, since the template files are changed.
 
 (3) Upgrade config table in admin page.
-the message is showing, if not newest version. 
+the message is showing, if not newest version.
 
 (4) Execute "Module Configuration 2" -> "Clear cache of Templates"
-You MUST do it, since the template files are changed. 
+You MUST do it, since the template files are changed.
 
 
 =================================================
@@ -873,8 +873,8 @@ URL:    http://linux.ohwada.jp/
 Email:  webmaster@ohwada.jp
 =================================================
 
-This is the beta version of "Performance improvement" and others. 
-Stable version is v0.97 and v1.31 
+This is the beta version of "Performance improvement" and others.
+Stable version is v0.97 and v1.31
 
 * changes *
 1. added feature
@@ -907,13 +907,13 @@ Version: 1.41
 Date:   2007-03-25
 =================================================
 
-This is the beta version of "Performance improvement" and others. 
-Stable version is v0.97 and v1.31 
+This is the beta version of "Performance improvement" and others.
+Stable version is v0.97 and v1.31
 
 
 * changes *
 1. Performance improvement
-(1) Because of the performance improvement, 
+(1) Because of the performance improvement,
 it fetch category image size  beforehand when showing, and it stores in the database.
 
 2. Enhanse Google Maps
@@ -957,21 +957,21 @@ Version: 1.40
 Date:   2007-03-04
 =================================================
 
-This is the beta version of "Performance improvement" and others. 
-Stable version is v0.97 and v1.31 
+This is the beta version of "Performance improvement" and others.
+Stable version is v0.97 and v1.31
 
 * changes *
 1. Performance improvement
 added config options
-(1) Because of the performance improvement, 
+(1) Because of the performance improvement,
 it computes necessary data beforehand when showing, and it stores in the database.
-(2) the category information on the memory is changed from XoopsObject into the association arrangement. 
+(2) the category information on the memory is changed from XoopsObject into the association arrangement.
 
 2. Co-opreation of Forum module
 added config options
 (1) show post context of forum module in each category page and each link page.
 (2) With the plugin, you can extend the kind of the forum module.
-supported moduels: Newbb 1.00ANewbb 2.02ABluesBB 1.00
+supported moduels: Newbb 1.00?ANewbb 2.02?ABluesBB 1.00
 (3) choice to use or not XOOPS comment in each link page.
 
 3. Co-opreation of CAPTCHA module
@@ -1025,20 +1025,20 @@ As the hack, support to choice English or Japanese
 
 
 * Update *
-(1) Overwrite the files below weblinks directory. 
+(1) Overwrite the files below weblinks directory.
 
-(2) Update weblinks module in XOOPS management. 
-You MUST do it, since the template files are changed. 
+(2) Update weblinks module in XOOPS management.
+You MUST do it, since the template files are changed.
 
 (3) Upgrade config table in admin page.
-the message is showing, if not newest version. 
+the message is showing, if not newest version.
 
 % Caution %
 config2 and linkitem table are initialized and an original value is destroyed.
 As occasion demands, enter a value agine.
 
 (4) Execute "Module Configuration 2" -> "Clear cache of Templates"
-You MUST do it, since the template files are changed. 
+You MUST do it, since the template files are changed.
 
 (5) since v1.30, using RSS feature
 Execute "DB table management" -> "Clear xml in link table".
@@ -1051,10 +1051,10 @@ create a necessary data.
 
 
 * Notice *
-I change almost all files. 
+I change almost all files.
 I dont change the database structure.
-Although there are no big problem, but I think that there are any small problem. 
-Even if some problems come out, only those who can do somehow personally need to use. 
+Although there are no big problem, but I think that there are any small problem.
+Even if some problems come out, only those who can do somehow personally need to use.
 Welcome a bug report, a bug solution, and your hack, etc.
 
 
@@ -1064,8 +1064,8 @@ in next version, I will plan to add the backlog features.
 
 
 * For translator *
-Please change language files with a sample about English files. 
-I cannot change them, since I dont have non-English editors. 
+Please change language files with a sample about English files.
+I cannot change them, since I dont have non-English editors.
 
 
 =================================================
@@ -1088,11 +1088,11 @@ URL:    http://linux2.ohwada.net/
 Email:  webmaster@ohwada.net
 =================================================
 
-This is the beta version of "module duplication" and others. 
-There are same changes of functional addition, 
+This is the beta version of "module duplication" and others.
+There are same changes of functional addition,
 "Pubish time, Expire time, and textarea".
 
-If you dont use new functions, please use v0.97 or v1.22 
+If you dont use new functions, please use v0.97 or v1.22
 
 * changes *
 1. Google Maps
@@ -1149,20 +1149,20 @@ dobr1        : option of textarea1
 
 * update *
 MUST execute following, because change templates
-(1) Update weblinks module in XOOPS management. 
+(1) Update weblinks module in XOOPS management.
 (2) Do "Clear cache of Templates" in "Module Configuration 2" of weblinks admin page
 
 * Notice *
-Although there are no big problem, but I think that there are any small problem. 
-Even if some problems come out, only those who can do somehow personally need to use. 
+Although there are no big problem, but I think that there are any small problem.
+Even if some problems come out, only those who can do somehow personally need to use.
 Welcome a bug report, a bug solution, and your hack, etc.
 
 * TODO *
 I will plan the improvement of the scalability
 
 * For translator *
-Please change language files with a sample about English files. 
-I cannot change them, since I dont have non-English editors. 
+Please change language files with a sample about English files.
+I cannot change them, since I dont have non-English editors.
 
 
 =================================================
@@ -1173,11 +1173,11 @@ URL:    http://linux2.ohwada.net/
 Email:  webmaster@ohwada.net
 =================================================
 
-This is the beta version of "module duplication" and others. 
-There are same changes of functional addition, 
+This is the beta version of "module duplication" and others.
+There are same changes of functional addition,
 "the cooperation feature with RSS Center module" and etc.
 
-If you dont use new functions, please use v0.97 or v1.13 
+If you dont use new functions, please use v0.97 or v1.13
 
 * changes *
 1. Google Maps
@@ -1210,7 +1210,7 @@ http://linux.ohwada.jp/modules/newbb/viewtopic.php?viewmode=flat&topic_id=542&fo
 
 * update *
 (1) MUST execute following, because change templates
-Update weblinks module in XOOPS management. 
+Update weblinks module in XOOPS management.
 (2) happy_linux module 0.32 is indispensabe necessary.
 
 
@@ -1219,11 +1219,11 @@ Version: 1.21
 Date:   2006-10-14
 =================================================
 
-This is the beta version of "module duplication" and others. 
-There are same changes of functional addition, 
+This is the beta version of "module duplication" and others.
+There are same changes of functional addition,
 "the cooperation feature with RSS Center module" and etc.
 
-If you dont use new functions, please use v0.97 or v1.13 
+If you dont use new functions, please use v0.97 or v1.13
 
 * changes *
 1. Google Maps
@@ -1251,7 +1251,7 @@ http://dev.xoops.org/modules/xfmod/tracker/index.php?func=detail&aid=4318&group_
 
 * update *
 MUST execute following, because change templates
-(1) Update weblinks module in XOOPS management. 
+(1) Update weblinks module in XOOPS management.
 (2) Do "Clear cache of Templates" in "Module Configuration 2" of weblinks admin page
 
 
@@ -1260,11 +1260,11 @@ Version: 1.20
 Date:   2006-10-07
 =================================================
 
-This is the beta version of "module duplication" and others. 
-There are same changes of functional addition, 
+This is the beta version of "module duplication" and others.
+There are same changes of functional addition,
 "the cooperation feature with RSS Center module" and etc.
 
-If you dont use new functions, please use v0.97 or v1.13. 
+If you dont use new functions, please use v0.97 or v1.13.
 
 * big changes *
 1. happy linux module
@@ -1281,26 +1281,26 @@ All operationa are madiateing with weblinks.
 The user dont feel conscious to use rssc module.
 
 2.2 improvemnet
-the following are improved, by using rssc module, 
+the following are improved, by using rssc module,
 (1) use "magpie" for the rss parser.
 (2) can parse to distinguish <title> and <dc:title>
 (3) can parse <enclosure>, and podcasting are supported.
 
 2.3 continued features
 following features are continued, because of downward compatibility (v1.13).
-recommend to use rssc module, because it has a similar feature. 
+recommend to use rssc module, because it has a similar feature.
 (1) "Latest RSS/ATOM feeds" block.
 (2) "Show blog" block
 (3) show blog at the custom block (include/atomfeed.inc.php).
 
 2.4 abolished features
 following features are abolished
-plaese use rssc module, because it has a similar feature. 
+plaese use rssc module, because it has a similar feature.
 (1) bin/refresh_link.php
 (2) bin/refresh_site.php
 
 2.5 some problems
-The discordance with two modules is ocuured, 
+The discordance with two modules is ocuured,
 becuase of cooperation feature with two modules.
 
 (1) when deleted a link record in RSSC module.
@@ -1336,9 +1336,9 @@ Admin can correct this problem.
 Admin delete link record with same "RSS URL" in weblinks module and RSSC module.
 
 
-* new features * 
+* new features *
 1. search
-(1) show context in search result, 
+(1) show context in search result,
 corresponding to search module to be distributing in Amethyst Blue
 http://www.suin.jp/
 
@@ -1347,7 +1347,7 @@ http://www.suin.jp/
 
 2. added Google Maps
 http://linux.ohwada.jp/modules/newbb/viewtopic.php?topic_id=413&forum=5
-showing Google Maps in datail page (singlelink.php) 
+showing Google Maps in datail page (singlelink.php)
 
 step 1: The initial setting
 (1) you MUST get "Google Maps API Key".
@@ -1379,7 +1379,7 @@ http://linux2.ohwada.net/modules/newbb/viewtopic.php?viewmode=flat&topic_id=139&
 6. distribute leatest links in RDF/RSS/ATOM format.
 
 7. admin page
-7.1 added menu 
+7.1 added menu
 (1) Module Configuration 3 (Link)
 (2) Module Configuration 4 (RSS)
 (3) Vote List
@@ -1421,7 +1421,7 @@ http://linux2.ohwada.net/modules/newbb/viewtopic.php?viewmode=flat&topic_id=77&f
 In this time, it got ready three country, Japan (jp), USA (us), United Kingdom (uk).
 
 10.2 setting
-USA is a default, in English mode, 
+USA is a default, in English mode,
 When you change into United Kingdom,
 enter "uk" into "country code" and click "update" button.
 and next, click the "renew" button.
@@ -1465,20 +1465,20 @@ this is for distributing RSS feeds
 
 
 * Update *
-(1) Overwrite the files below weblinks directory. 
-some files are changed file name. 
+(1) Overwrite the files below weblinks directory.
+some files are changed file name.
 
-Although remained in overwrite, without deleting an old file,  
-there is no trouble in operetion. 
-If you worry it, 
-please delete old files and copy new files. 
-since you take backup of old files. 
+Although remained in overwrite, without deleting an old file,
+there is no trouble in operetion.
+If you worry it,
+please delete old files and copy new files.
+since you take backup of old files.
 
-(2) Update weblinks module in XOOPS management. 
-You MUST do it, since I change the template files. 
+(2) Update weblinks module in XOOPS management.
+You MUST do it, since I change the template files.
 
 (3) upgrade config table in admin page.
-the message is showing, if not newest version. 
+the message is showing, if not newest version.
 
 Caution:
 linkitem table is initialized and an original value is destroyed.
@@ -1489,17 +1489,17 @@ As occasion demands, enter a value agine.
 enter "RSSC Module Dirname and "Use RSS feed".
 
 (4-2) execute "export manage" in admin page.
-copying DB data in weblinks to rssc module. 
+copying DB data in weblinks to rssc module.
 
 (4-3) execute "DB table manage" in admin page.
 confirms that there is not a discordance.
 
 
 * Notice *
-I change almost all files. 
+I change almost all files.
 I dont change the database structure.
-Although there are no big problem, but I think that there are any small problem. 
-Even if some problems come out, only those who can do somehow personally need to use. 
+Although there are no big problem, but I think that there are any small problem.
+Even if some problems come out, only those who can do somehow personally need to use.
 Welcome a bug report, a bug solution, and your hack, etc.
 
 
@@ -1509,8 +1509,8 @@ in next version, I will plan to add the backlog features.
 
 
 * For translator *
-Please change language files with a sample about English files. 
-I cannot change them, since I dont have non-English editors. 
+Please change language files with a sample about English files.
+I cannot change them, since I dont have non-English editors.
 
 
 * special thanks *
@@ -1527,11 +1527,11 @@ Date:   2006-09-24
 =================================================
 
 * Main changes *
-This is the beta version of "module duplication". 
+This is the beta version of "module duplication".
 There are same changes of functional addition, "enable to use of HTML tags" and etc.
-And more changes of implementation about handling database. 
+And more changes of implementation about handling database.
 
-If you dont use "enable to use of HTML tags", please use v0.97. 
+If you dont use "enable to use of HTML tags", please use v0.97.
 
 * bug fix *
 (1) 4261: cannot add category with xoops protector
@@ -1550,11 +1550,11 @@ Date:   2006-09-16
 =================================================
 
 * Main changes *
-This is the beta version of "module duplication". 
+This is the beta version of "module duplication".
 There are same changes of functional addition, "enable to use of HTML tags" and etc.
-And more changes of implementation about handling database. 
+And more changes of implementation about handling database.
 
-If you dont use "enable to use of HTML tags", please use v0.97. 
+If you dont use "enable to use of HTML tags", please use v0.97.
 
 * bug fix *
 (1) 4164: number of comments is wrong
@@ -1577,14 +1577,14 @@ Date:   2006-07-23
 =================================================
 
 * Main changes *
-This is the beta version of "module duplication". 
+This is the beta version of "module duplication".
 There are same changes of functional addition, "enable to use of HTML tags" and etc.
-And more changes of implementation about handling database. 
+And more changes of implementation about handling database.
 
-If you dont use "enable to use of HTML tags", please use v0.97. 
+If you dont use "enable to use of HTML tags", please use v0.97.
 
 * bug fix *
-(1) 4029: mistake table name 
+(1) 4029: mistake table name
 http://dev.xoops.org/modules/xfmod/tracker/index.php?func=detail&aid=4029&group_id=1199&atid=971
 http://linux.ohwada.jp/modules/newbb/viewtopic.php?topic_id=464&forum=5
 
@@ -1626,11 +1626,11 @@ Date:   2006-05-24
 =================================================
 
 * Main changes *
-This is the beta version of "module duplication". 
+This is the beta version of "module duplication".
 There are same changes of functional addition, "enable to use of HTML tags" and etc.
-And more changes of implementation about handling database. 
+And more changes of implementation about handling database.
 
-If you dont use "enable to use of HTML tags", please use v0.97. 
+If you dont use "enable to use of HTML tags", please use v0.97.
 
 1. Added the following options.
 (1) 3023 can use HTML tags in link content
@@ -1640,12 +1640,12 @@ http://linux2.ohwada.net/modules/newbb/viewtopic.php?viewmode=flat&topic_id=74&f
 (2) choice to use or not XOOPS code in link content
 http://linux.ohwada.jp/modules/newbb/viewtopic.php?viewmode=flat&topic_id=454&forum=5
 
-(3) 3037 choice to show or not RSS/ATOM feeds 
+(3) 3037 choice to show or not RSS/ATOM feeds
 http://dev.xoops.org/modules/xfmod/tracker/?func=detail&aid=3027&group_id=1199&atid=974
 http://linux2.ohwada.net/modules/newbb/viewtopic.php?post_id=274&topic_id=90&forum=2
 http://linux.ohwada.jp/modules/newbb/viewtopic.php?viewmode=flat&topic_id=178&forum=5
 
-(4) 3515 choice to show or not category list in sub menu. 
+(4) 3515 choice to show or not category list in sub menu.
 http://dev.xoops.org/modules/xfmod/tracker/?func=detail&aid=3515&group_id=1199&atid=974
 http://linux2.ohwada.net/modules/newbb/viewtopic.php?topic_id=132&forum=2
 
@@ -1662,16 +1662,16 @@ http://linux.ohwada.jp/modules/newbb/viewtopic.php?topic_id=336&forum=5
 
 (9) Selection of "indirect" and "direct" of URL display form
 In "indirect", not show URL but visit.php
-In "direct", show URL and count links hits via JavaScript. 
+In "direct", show URL and count links hits via JavaScript.
 
 (10) choice to get or not banner image size automatically
 
-2. Registration and edit of link information 
-(11) guest can to register and change a password. 
+2. Registration and edit of link information
+(11) guest can to register and change a password.
 
-(12) decide anonymous user's edit authority with a password. 
-Anonymous user with authority can edit link information. 
-Anonymous user without authority cannot see an edit form. 
+(12) decide anonymous user's edit authority with a password.
+Anonymous user with authority can edit link information.
+Anonymous user without authority cannot see an edit form.
 http://dev.xoops.org/modules/xfmod/tracker/?func=detail&aid=3419&group_id=1199&atid=974
 http://linux2.ohwada.net/modules/newbb/viewtopic.php?topic_id=121&forum=2
 
@@ -1681,22 +1681,22 @@ http://linux.ohwada.jp/modules/newbb/viewtopic.php?viewmode=flat&topic_id=388&fo
 (14) enable to change the item name at registration and edit
 http://linux.ohwada.jp/modules/newbb/viewtopic.php?viewmode=flat&topic_id=261&forum=5
 
-3. Admin Management 
+3. Admin Management
 (15) renewal menue in admin page.
 
-(16) Added bulk registration of categories and links 
+(16) Added bulk registration of categories and links
 http://linux.ohwada.jp/modules/newbb/viewtopic.php?topic_id=68&forum=5
 
-4. Template 
-(16) adopted style sheet 
-(17) changeed table tag to div tag. 
+4. Template
+(16) adopted style sheet
+(17) changeed table tag to div tag.
 (18) added bread crumbs
 
-5. Others 
+5. Others
 (19) added PRINT page
 http://linux.ohwada.jp/modules/newbb/viewtopic.php?topic_id=307&forum=5
 
-(20) 3026 TITLE and URL was extended to 255 characters. 
+(20) 3026 TITLE and URL was extended to 255 characters.
 http://dev.xoops.org/modules/xfmod/tracker/?func=detail&aid=3026&group_id=1199&atid=974
 http://linux2.ohwada.net/modules/newbb/viewtopic.php?viewmode=flat&topic_id=87&forum=2
 
@@ -1705,46 +1705,46 @@ http://linux2.ohwada.net/modules/newbb/viewtopic.php?viewmode=flat&topic_id=87&f
 http://linux2.ohwada.net/modules/newbb/viewtopic.php?topic_id=168&forum=2
 
 
-* Change of implemantation about handling database * 
-Logic structure had changed into the complicated spaghetti state. 
-since the conventional code repeated the functional addition, 
-The code was rewritten extensively. 
+* Change of implemantation about handling database *
+Logic structure had changed into the complicated spaghetti state.
+since the conventional code repeated the functional addition,
+The code was rewritten extensively.
 
-(1) It separated into the object class and the handler class about handling database. 
-(2) It separated into the class of direct handling database for link information 
-and the class of showing and processing in registration and edit. 
+(1) It separated into the object class and the handler class about handling database.
+(2) It separated into the class of direct handling database for link information
+and the class of showing and processing in registration and edit.
 
-(3) It arranged the complicated relation, 
+(3) It arranged the complicated relation,
 which class A calls class B, and class B calls class B.
 
 
 * Update *
-(1) Overwrite the files below weblinks directory. 
-I change the file name of many files. 
+(1) Overwrite the files below weblinks directory.
+I change the file name of many files.
 
-Although remained in overwrite, without deleting an old file,  
-there is no trouble in operetion. 
-If you worry it, 
-please delete old files and copy new files. 
-since you take backup of old files. 
+Although remained in overwrite, without deleting an old file,
+there is no trouble in operetion.
+If you worry it,
+please delete old files and copy new files.
+since you take backup of old files.
 
-(2) Update weblinks module in XOOPS management. 
-You MUST do it, since I change the template files. 
+(2) Update weblinks module in XOOPS management.
+You MUST do it, since I change the template files.
 
 (3) upgrade config table in admin page.
-the message is showing, if not newest version. 
+the message is showing, if not newest version.
 
-(4) Change a template if needed. 
-I change the structure of a template. 
-When you customized the template files, 
-you need to re-customizedA template files. 
+(4) Change a template if needed.
+I change the structure of a template.
+When you customized the template files,
+you need to re-customizedA template files.
 
 
 * Notice *
-I change almost all files. 
+I change almost all files.
 I change table structure of a database a little.
-Although there are no big problem, but I think that there are any small problem. 
-Even if some problems come out, only those who can do somehow personally need to use. 
+Although there are no big problem, but I think that there are any small problem.
+Even if some problems come out, only those who can do somehow personally need to use.
 Welcome a bug report, a bug solution, and your hack, etc.
 
 
@@ -1753,8 +1753,8 @@ Next version, I will plan to add the linkage with "RSS Center module."
 
 
 * For translator *
-Please change language files with a sample about English files. 
-I cannot change them, since I dont have non-English editors. 
+Please change language files with a sample about English files.
+I cannot change them, since I dont have non-English editors.
 
 
 =================================================
@@ -1763,14 +1763,14 @@ Date:   2006-05-14
 =================================================
 
 * Main changes *
-This is the beta version of "module duplication". 
-If you dont use "module duplication", please use v0.97. 
+This is the beta version of "module duplication".
+If you dont use "module duplication", please use v0.97.
 
 BugFix
-(1) 3858 Fatal error when allow_url_fopen = off 
+(1) 3858 Fatal error when allow_url_fopen = off
 http://dev.xoops.org/modules/xfmod/tracker/index.php?func=detail&aid=3858&group_id=1199&atid=971
 
-(2) 3859 Parse error in atomfeed.inc.php 
+(2) 3859 Parse error in atomfeed.inc.php
 http://dev.xoops.org/modules/xfmod/tracker/index.php?func=detail&aid=3859&group_id=1199&atid=971
 http://linux.ohwada.jp/modules/newbb/viewtopic.php?topic_id=441&forum=5
 
@@ -1778,7 +1778,7 @@ http://linux.ohwada.jp/modules/newbb/viewtopic.php?topic_id=441&forum=5
 http://dev.xoops.org/modules/xfmod/tracker/index.php?func=detail&aid=3860&group_id=1199&atid=971
 http://linux2.ohwada.net/modules/newbb/viewtopic.php?topic_id=154&forum=2
 
-(4) 3922 Fatal error when use category image 
+(4) 3922 Fatal error when use category image
 http://dev.xoops.org/modules/xfmod/tracker/index.php?func=detail&aid=3922&group_id=1199&atid=971
 http://linux2.ohwada.net/modules/newbb/viewtopic.php?topic_id=161&forum=2
 
@@ -1789,8 +1789,8 @@ Date:   2006-03-26
 =================================================
 
 * Main changes *
-This is the beta version of "module duplication". 
-If you dont use "module duplication", please use v0.97. 
+This is the beta version of "module duplication".
+If you dont use "module duplication", please use v0.97.
 
 Request
 (1) 3807: Description in main page
@@ -1803,7 +1803,7 @@ http://dev.xoops.org/modules/xfmod/tracker/index.php?func=detail&aid=3743&group_
 (2) 3746: show submenu incorrectly
 http://dev.xoops.org/modules/xfmod/tracker/index.php?func=detail&aid=3746&group_id=1199&atid=971
 
-(3) 3799: cannot display brokenlink 
+(3) 3799: cannot display brokenlink
 http://dev.xoops.org/modules/xfmod/tracker/index.php?func=detail&aid=3799&group_id=1199&atid=971
 
 =================================================
@@ -1812,44 +1812,44 @@ Date:   2006-01-15
 =================================================
 
 * Main changes *
-This is the beta version. 
-This change is only a functional addition of a "module duplication". 
-This function is the same as TinyD module, etc. 
-Currently prepared module name are "weblinks", "weblinks0", "weblinks1" and "weblinks2". 
+This is the beta version.
+This change is only a functional addition of a "module duplication".
+This function is the same as TinyD module, etc.
+Currently prepared module name are "weblinks", "weblinks0", "weblinks1" and "weblinks2".
 
-If you dont use "module duplication", please use v0.97. 
+If you dont use "module duplication", please use v0.97.
 
 * Update *
-(1) Overwrite the files below weblinks directory. 
-I change the file name of many files. 
+(1) Overwrite the files below weblinks directory.
+I change the file name of many files.
 
-Although remained in overwrite, without deleting an old file,  
-there is no trouble in operetion. 
-If you worry it, 
-please delete old files and copy new files. 
-since you take backup of old files. 
+Although remained in overwrite, without deleting an old file,
+there is no trouble in operetion.
+If you worry it,
+please delete old files and copy new files.
+since you take backup of old files.
 
-(2) Update weblinks module in XOOPS management. 
-You MUST do it, since I change the template files. 
+(2) Update weblinks module in XOOPS management.
+You MUST do it, since I change the template files.
 
-(3) Change a template if needed. 
-I change the structure of a template. 
-When you customized the template files, 
-you need to re-customizedA template files. 
+(3) Change a template if needed.
+I change the structure of a template.
+When you customized the template files,
+you need to re-customizedA template files.
 
 * Notice *
-I change almost all files. 
+I change almost all files.
 I dont change the database structure.
-Although there are no big problem, but I think that there are any small problem. 
-Even if some problems come out, only those who can do somehow personally need to use. 
+Although there are no big problem, but I think that there are any small problem.
+Even if some problems come out, only those who can do somehow personally need to use.
 Welcome a bug report, a bug solution, and your hack, etc.
 
 * TODO *
 Next version, I will plan to add the linkage with "RSS Center module."
 
 * For translator *
-Please change language files with a sample about English files. 
-I cannot change them, since I dont have non-English editors. 
+Please change language files with a sample about English files.
+I cannot change them, since I dont have non-English editors.
 
 
 =================================================
@@ -1971,13 +1971,13 @@ Date:   2005-09-06
 =================================================
 
 Request
-(1) 2933 in search, easy to understand error message 
+(1) 2933 in search, easy to understand error message
 
 Bug fix
 (1) 2863 Fatal error: Call to undefined method xoops_form_extend::start_tray()
 (2) 2929 random jump becomes an infinite loop None
 (3) 2931 unmatch popup menu 'prefrence' and index menu 'module setting'
-(4) 2932 dont work correctly when register_long_arrays = off 
+(4) 2932 dont work correctly when register_long_arrays = off
 (5) 2946 dont work correctly when allow_url_fopen = off
 
 
@@ -1990,7 +1990,7 @@ Bug fix
 (1) 2790 not show rss site
 (2) 2793 Fatal error: Call to undefined function: _print_sql_error()
 (3) 2827 RSS refresh: Invalid argument supplied for foreach()
-(4) 2828 submit form is not displayed correctly in PHP 5.0.4 
+(4) 2828 submit form is not displayed correctly in PHP 5.0.4
 
 
 =================================================
@@ -2007,7 +2007,7 @@ Bug fix
 (6) 2670,2698 Cannot redeclare table_config::$post_rss_url
 (7) 2707 display BB code in short description
 (8) 2772 dont show notify when preview to submit
-(9) 2773 dont show _WLS_MODIFY to modify None 
+(9) 2773 dont show _WLS_MODIFY to modify None
 
 added language pack
 (1) french
@@ -2024,15 +2024,15 @@ Email:  webmaster@ohwada.net
 =================================================
 
 This module is web links directory.
-This is more powerful than mylinks, 
+This is more powerful than mylinks,
 and upper compatible for mylinks.
 
 * The main functions
 
 1. The number of categories
 One link can belong to two or more categories.
-It is possible to set up arbitrary numbers. 
-A default number is 4.  
+It is possible to set up arbitrary numbers.
+A default number is 4.
 
 
 2. Item of link infomation
@@ -2041,12 +2041,12 @@ name, email, address, telephone number, etc.
 You can use as an address book.
 
 2.1 URL
-It is possible to register same URL. 
-It is possible to register no URL. 
+It is possible to register same URL.
+It is possible to register no URL.
 It will discover RSS URL and collect feeds automatically, if correspond to RSS Auto Discovery.
 
 2.2 Link image
-User can register a link image. 
+User can register a link image.
 
 2.3 Map site
 Show the link to a map site "http://maps.yahoo.com/", when link infomation have the address.
@@ -2057,7 +2057,7 @@ It is possible to preview link infomation when submit or modify link.
 
 
 4. Menu
-This module have same menus. 
+This module have same menus.
 
 (1) Main
 (2) Submit New Link
@@ -2083,20 +2083,20 @@ This module have 6 Blocks.
 
 
 6. Dispaly and templates
-This module have 19 templates. 
+This module have 19 templates.
 
 All templates passed W3C Validator.
 http://validator.w3.org/
 
 
 7. Admin Nenu
-This module have same admin menus. 
+This module have same admin menus.
 
 (1) Module Configuration
 
 (2) Management of Category
 Category list which is listed by older id or tree style.
-It is possible to change the order of category. 
+It is possible to change the order of category.
 
 (3) Management of Link
 Link list which is listed by older or newer id.
@@ -2116,7 +2116,7 @@ This module have 5 Access authorities.
 (4) approve automatically when modify a link
 (5) rate a link
 
-The setting method is that select the groups which have access authority, 
+The setting method is that select the groups which have access authority,
 webmaster, registered users, anoymous users, etc.
 
 
@@ -2129,20 +2129,20 @@ It assumes that it performs them by cron.
 (3) RSS/ATOM search site feed refresh
 
 10. Security
-10.1 Correspond to register_globals off. 
+10.1 Correspond to register_globals off.
 
-10.2 Correspond to allow_url_fopen off. 
-Please enable to write "cache" directory. 
+10.2 Correspond to allow_url_fopen off.
+Please enable to write "cache" directory.
 Image data is stored temporarily, when image size is getting.
 
 
 * Installation
 (1) The "weblinks" directory will be made when unzip this download file.
-(2) Install a module in XOOPS Modules Administration. 
+(2) Install a module in XOOPS Modules Administration.
 
 * Command line mode
 It assumes that it performs them by cron.
-Please delete "bin" directory, if unnecessary. 
+Please delete "bin" directory, if unnecessary.
 
 When you use command line mode.
 
@@ -2157,39 +2157,39 @@ When you use command line mode.
 - bin/rss_refresh_site.php
 
 (4) Caution
-Everyone can excute this program. 
-Please change a program name and permit the cron user to excute, 
-if you do not get into mischief, 
+Everyone can excute this program.
+Please change a program name and permit the cron user to excute,
+if you do not get into mischief,
 
 
 *  Necessary to change XOOPS core.
 (1) Correspond to RSS Auto Discovery.
 Please use my hack version of the XOOPS header.php.
 
-Uncomment the following line in 40th line of viewfeed.php. 
+Uncomment the following line in 40th line of viewfeed.php.
 -----
 //$xoopsTpl->assign('lang_atomfeed_firefox', _WLS_ATOMFEED_FIREFOX);
 -----
 
 
-* Transfer from mylinks 
-(1) Clean up the table of mylinks. 
+* Transfer from mylinks
+(1) Clean up the table of mylinks.
 
 (2) Enable to write the "weblinks/cache" directory.
 
 (3) Exucute in admin menu.
 "other functions" -> "transfer DB mylinks v1.1 to weblinks v0.9"
 
-The following are copied. 
-- Snapshot images 
-- category table 
-- links table 
-- votedata table 
+The following are copied.
+- Snapshot images
+- category table
+- links table
+- votedata table
 - XOOPS comments table which mylinks use.
 
-The following are not copied. 
-- modify table 
-- broken table 
+The following are not copied.
+- modify table
+- broken table
 
 (4) Incompatible for mylinks
 In mylinks, the registration method of Snapshot images is that choice from the image in the "shots" directory.

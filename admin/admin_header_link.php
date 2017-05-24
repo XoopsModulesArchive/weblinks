@@ -16,19 +16,17 @@
 //=========================================================
 
 // Fatal error: Class 'weblinks_link_edit_base_handler' not found
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_notification.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_link_count_handler.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_cat_view_handler.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_block_view.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_link_view_basic.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_link_view.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_link_view_handler.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_link_edit.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_link_edit_base_handler.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_link_add_handler.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_link_mod_handler.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_link_del_handler.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_link_req_handler.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_link_edit_handler.php';
-
-?>
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_notification.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_link_count_handler.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_cat_view_handler.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_block_view.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_link_view_basic.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_link_view.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_link_view_handler.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_link_edit.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_link_edit_base_handler.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_link_add_handler.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_link_mod_handler.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_link_del_handler.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_link_req_handler.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_link_edit_handler.php';

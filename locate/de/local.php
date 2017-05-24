@@ -10,34 +10,31 @@
 //=========================================================
 
 // === class begin ===
-if( !class_exists('weblinks_locate_de') ) 
-{
+if (!class_exists('weblinks_locate_de')) {
 
-//=========================================================
-// class weblinks_locate_de
-// Germany (DE)
-//=========================================================
-class weblinks_locate_de extends weblinks_locate_base
-{
+    //=========================================================
+    // class weblinks_locate_de
+    // Germany (DE)
+    //=========================================================
+    class weblinks_locate_de extends weblinks_locate_base
+    {
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_locate_de()
-{
-	$this->weblinks_locate_base();
+        //---------------------------------------------------------
+        // constructor
+        //---------------------------------------------------------
+        public function __construct()
+        {
+            parent::__construct();
 
-	$arr = array(
-		'weblinks_map_template' => 'weblinks_de_google.html'
-	);
+            $arr = array(
+                'weblinks_map_template' => 'weblinks_de_google.html'
+            );
 
-	$this->array_merge($arr);
+            $this->array_merge($arr);
+        }
+
+        // --- class end ---
+    }
+
+    // === class end ===
 }
-
-// --- class end ---
-}
-
-// === class end ===
-}
-
-?>

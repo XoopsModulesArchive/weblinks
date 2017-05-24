@@ -9,6 +9,4 @@
 include '../../../include/cp_header.php';
 
 global $xoopsConfig, $xoopsModule, $xoopsUser;
-include XOOPS_ROOT_PATH.'/include/notification_update.php';
-
-?>
+include XOOPS_ROOT_PATH . '/include/notification_update.php';

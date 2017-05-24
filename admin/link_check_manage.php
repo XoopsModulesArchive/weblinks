@@ -35,188 +35,186 @@
 
 include 'admin_header.php';
 
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/file.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/bin_file.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/locate.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/file.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/bin_file.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/locate.php';
 
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_locate.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_link_check_base.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_link_check_handler.php';
-include_once WEBLINKS_ROOT_PATH.'/admin/admin_functions.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_locate.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_link_check_base.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_link_check_handler.php';
+include_once WEBLINKS_ROOT_PATH . '/admin/admin_functions.php';
 
 //=========================================================
 // class link_check_manage
 //=========================================================
 class admin_link_check_manage extends happy_linux_manage
 {
-	var $_config_handler;
-	var $_check_handler;
-	var $_update_handler;
+    public $_config_handler;
+    public $_check_handler;
+    public $_update_handler;
 
-	var $_post;
+    public $_post;
 
-	var $_conf   = null;
-	var $_limit  = 0;
-	var $_offset = 0;
+    public $_conf   = null;
+    public $_limit  = 0;
+    public $_offset = 0;
 
-	var $_TITLE_UPDATE = 'PageRank Update';
+    public $_TITLE_UPDATE = 'PageRank Update';
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function admin_link_check_manage()
-{
-	$this->happy_linux_manage( WEBLINKS_DIRNAME );
+    //---------------------------------------------------------
+    // constructor
+    //---------------------------------------------------------
+    public function __construct()
+    {
+        parent::__construct(WEBLINKS_DIRNAME);
 
-	$this->set_handler( 'link', WEBLINKS_DIRNAME, 'weblinks' );
-	$this->set_id_name( 'lid' );
-	$this->set_form_class( 'admin_form_pagerank' );
-	$this->set_script('link_check_manage.php' );
-	$this->set_flag_execute_time( true );
+        $this->set_handler('link', WEBLINKS_DIRNAME, 'weblinks');
+        $this->set_id_name('lid');
+        $this->set_form_class('admin_form_pagerank');
+        $this->set_script('link_check_manage.php');
+        $this->set_flag_execute_time(true);
 
-	$this->_config_handler =& weblinks_get_handler( 'config2_basic',   WEBLINKS_DIRNAME );
-	$this->_check_handler  =& weblinks_get_handler( 'link_check',      WEBLINKS_DIRNAME );
-	$this->_update_handler =& weblinks_get_handler( 'pagerank_update', WEBLINKS_DIRNAME );
+        $this->_config_handler = weblinks_get_handler('config2_basic', WEBLINKS_DIRNAME);
+        $this->_check_handler  = weblinks_get_handler('link_check', WEBLINKS_DIRNAME);
+        $this->_update_handler = weblinks_get_handler('pagerank_update', WEBLINKS_DIRNAME);
 
-	$this->_post =& happy_linux_post::getInstance();
-	
-	$this->_conf = $this->_config_handler->get_conf();
-}
+        $this->_post = happy_linux_post::getInstance();
 
-function &getInstance()
-{
-	static $instance;
-	if (!isset($instance)) 
-	{
-		$instance = new admin_link_check_manage();
-	}
-	return $instance;
-}
+        $this->_conf = $this->_config_handler->get_conf();
+    }
 
-//---------------------------------------------------------
-// POST
-//---------------------------------------------------------
-function get_post_op()
-{
-	return $this->_post->get_post_get('op');
-}
+    public static function getInstance()
+    {
+        static $instance;
+        if (!isset($instance)) {
+            $instance = new admin_link_check_manage();
+        }
+        return $instance;
+    }
 
-function get_post_limit()
-{
-	$this->_limit  = $this->_post->get_post_int('limit');	
-	if ($this->_limit  < 0)  $this->_limit  = 0;
-	return $this->_limit;
-}
+    //---------------------------------------------------------
+    // POST
+    //---------------------------------------------------------
+    public function get_post_op()
+    {
+        return $this->_post->get_post_get('op');
+    }
 
-function get_post_offset()
-{
-	$this->_offset  = $this->_post->get_post_int('offset');	
-	if ($this->_offset < 0)  $this->_offset = 0;
-	return $this->_offset;
-}
+    public function get_post_limit()
+    {
+        $this->_limit = $this->_post->get_post_int('limit');
+        if ($this->_limit < 0) {
+            $this->_limit = 0;
+        }
+        return $this->_limit;
+    }
 
-//---------------------------------------------------------
-// main_form()
-//---------------------------------------------------------
-function main_form()
-{
-	$total = $this->_check_handler->get_link_count_all();
+    public function get_post_offset()
+    {
+        $this->_offset = $this->_post->get_post_int('offset');
+        if ($this->_offset < 0) {
+            $this->_offset = 0;
+        }
+        return $this->_offset;
+    }
 
-	$this->_print_cp_header();
-	$this->_print_bread_op( _AM_WEBLINKS_LINK_CHECK_MANAGE, 'main_form');
+    //---------------------------------------------------------
+    // main_form()
+    //---------------------------------------------------------
+    public function main_form()
+    {
+        $total = $this->_check_handler->get_link_count_all();
 
-	weblinks_admin_print_header();
-	weblinks_admin_print_menu();
+        $this->_print_cp_header();
+        $this->_print_bread_op(_AM_WEBLINKS_LINK_CHECK_MANAGE, 'main_form');
 
-	echo "<h4>". _AM_WEBLINKS_LINK_CHECK_MANAGE ."</h4>\n";
-	printf(_WLS_THEREARE, $total);
-	echo "<br /><br />\n";
-	echo _WEBLINKS_ADMIN_LINK_BROKEN_CHECK_CAUTION;
-	echo "<br /><br />\n";
+        weblinks_admin_print_header();
+        weblinks_admin_print_menu();
 
-	$this->_print_form( 'check', _WEBLINKS_ADMIN_LINK_BROKEN_CHECK );
-	echo "<br /><br />\n";
+        echo '<h4>' . _AM_WEBLINKS_LINK_CHECK_MANAGE . "</h4>\n";
+        printf(_WLS_THEREARE, $total);
+        echo "<br /><br />\n";
+        echo _WEBLINKS_ADMIN_LINK_BROKEN_CHECK_CAUTION;
+        echo "<br /><br />\n";
 
-	$this->_print_form( 'update', $this->_TITLE_UPDATE );
-	echo "<br /><br />\n";
+        $this->_print_form('check', _WEBLINKS_ADMIN_LINK_BROKEN_CHECK);
+        echo "<br /><br />\n";
 
-	$this->_print_cp_footer();
-}
+        $this->_print_form('update', $this->_TITLE_UPDATE);
+        echo "<br /><br />\n";
 
-function _print_form( $op, $title )
-{
-	$limit  = $this->get_post_limit();
-	$offset = $this->get_post_offset();
+        $this->_print_cp_footer();
+    }
 
-	$this->_form->show_first( $op, $title, $limit, $offset );
-}
+    public function _print_form($op, $title)
+    {
+        $limit  = $this->get_post_limit();
+        $offset = $this->get_post_offset();
 
-//---------------------------------------------------------
-// update_pagerank
-//---------------------------------------------------------
-function check_link()
-{
-	$this->_print_header();
+        $this->_form->show_first($op, $title, $limit, $offset);
+    }
 
-	$this->_check_handler->check($this->_limit, $this->_offset);
+    //---------------------------------------------------------
+    // update_pagerank
+    //---------------------------------------------------------
+    public function check_link()
+    {
+        $this->_print_header();
 
-	$this->_print_footer( 'check', _WEBLINKS_ADMIN_LINK_BROKEN_CHECK );
-}
+        $this->_check_handler->check($this->_limit, $this->_offset);
 
-function update_pagerank()
-{
-	$this->_print_header();
+        $this->_print_footer('check', _WEBLINKS_ADMIN_LINK_BROKEN_CHECK);
+    }
 
-	$this->_update_handler->update($this->_limit, $this->_offset);
+    public function update_pagerank()
+    {
+        $this->_print_header();
 
-	$this->_print_footer( 'update', $this->_TITLE_UPDATE );
-}
+        $this->_update_handler->update($this->_limit, $this->_offset);
 
-function _print_header()
-{
-	$limit  = $this->get_post_limit();
-	$offset = $this->get_post_offset();
+        $this->_print_footer('update', $this->_TITLE_UPDATE);
+    }
 
-	$this->_print_cp_header();
-	$this->_print_bread_op( _AM_WEBLINKS_LINK_CHECK_MANAGE, 'main_form');
+    public function _print_header()
+    {
+        $limit  = $this->get_post_limit();
+        $offset = $this->get_post_offset();
 
-	if ( !$this->_check_token() )
-	{
-		$this->_print_preview();
-		exit();
-	}
-}
+        $this->_print_cp_header();
+        $this->_print_bread_op(_AM_WEBLINKS_LINK_CHECK_MANAGE, 'main_form');
 
-function _print_footer( $op, $title )
-{
-	$limit  = $this->_limit;
-	$offset = $this->_offset;
-	$next   = $offset + $limit;
+        if (!$this->_check_token()) {
+            $this->_print_preview();
+            exit();
+        }
+    }
 
-	$total  = $this->_check_handler->get_link_count_all();
+    public function _print_footer($op, $title)
+    {
+        $limit  = $this->_limit;
+        $offset = $this->_offset;
+        $next   = $offset + $limit;
 
-	if (($limit > 0) && ($next < $total))
-	{
-		echo "<br />\n";
-		$this->_form->show_next( $op, $title, $limit, $next );
-	}
-	else
-	{
-		echo "<h4>"._HAPPY_LINUX_EXECUTED."</h4>\n";
-	}
+        $total = $this->_check_handler->get_link_count_all();
 
-	$this->_print_cp_footer();
+        if (($limit > 0) && ($next < $total)) {
+            echo "<br />\n";
+            $this->_form->show_next($op, $title, $limit, $next);
+        } else {
+            echo '<h4>' . _HAPPY_LINUX_EXECUTED . "</h4>\n";
+        }
 
-}
+        $this->_print_cp_footer();
+    }
 
-function _print_preview()
-{
-	$this->_print_token_error(1);
-	$this->_print_form();
-	$this->_print_cp_footer();
-}
+    public function _print_preview()
+    {
+        $this->_print_token_error(1);
+        $this->_print_form();
+        $this->_print_cp_footer();
+    }
 
-// --- class end ---
+    // --- class end ---
 }
 
 //=========================================================
@@ -225,57 +223,54 @@ function _print_preview()
 class admin_form_pagerank extends happy_linux_form_lib
 {
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function admin_form_pagerank()
-{
-	$this->happy_linux_form_lib();
+    //---------------------------------------------------------
+    // constructor
+    //---------------------------------------------------------
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public static function getInstance()
+    {
+        static $instance;
+        if (!isset($instance)) {
+            $instance = new admin_form_pagerank();
+        }
+        return $instance;
+    }
+
+    //---------------------------------------------------------
+    // function
+    //---------------------------------------------------------
+    public function show_first($op, $title, $limit = 0, $offset = 0)
+    {
+        echo $this->build_form_begin();
+        echo $this->build_token();
+        echo $this->build_html_input_hidden('op', $op);
+        echo $this->build_form_table_begin();
+        echo $this->build_form_table_title($title);
+
+        echo $this->build_form_table_text(_WEBLINKS_ADMIN_LIMIT, 'limit', $limit);
+        echo $this->build_form_table_text(_WEBLINKS_ADMIN_OFFSET, 'offset', $offset);
+        echo $this->build_form_table_submit('', 'post', _HAPPY_LINUX_EXECUTE);
+
+        echo $this->build_form_table_end();
+        echo $this->build_form_end();
+    }
+
+    public function show_next($op, $title, $limit = 0, $offset = 0)
+    {
+        $submit = sprintf('Next %s link', $limit);
+
+        $desc   = '';
+        $action = '';
+        $text   = $this->build_lib_box_limit_offset($title, $desc, $limit, $offset, $op, $submit, $action);
+        echo $text;
+    }
+
+    // --- class end ---
 }
-
-function &getInstance()
-{
-	static $instance;
-	if (!isset($instance)) 
-	{
-		$instance = new admin_form_pagerank();
-	}
-	return $instance;
-}
-
-//---------------------------------------------------------
-// function
-//---------------------------------------------------------
-function show_first($op, $title, $limit=0, $offset=0)
-{
-	echo $this->build_form_begin();
-	echo $this->build_token();
-	echo $this->build_html_input_hidden('op', $op);
-	echo $this->build_form_table_begin();
-	echo $this->build_form_table_title( $title );
-
-	echo $this->build_form_table_text(_WEBLINKS_ADMIN_LIMIT,  'limit',  $limit);
-	echo $this->build_form_table_text(_WEBLINKS_ADMIN_OFFSET, 'offset', $offset);
-	echo $this->build_form_table_submit( '', 'post', _HAPPY_LINUX_EXECUTE );
-
-	echo $this->build_form_table_end();
-	echo $this->build_form_end();
-
-}
-
-function show_next($op, $title, $limit=0, $offset=0)
-{
-	$submit = sprintf( 'Next %s link', $limit);
-
-	$desc  = '';
-	$action = '';
-	$text = $this->build_lib_box_limit_offset( $title, $desc, $limit, $offset, $op, $submit, $action);
-	echo $text;
-}
-
-// --- class end ---
-}
-
 
 //=========================================================
 // main
@@ -283,26 +278,23 @@ function show_next($op, $title, $limit=0, $offset=0)
 // hack for multi site
 weblinks_admin_multi_disable_feature();
 
-$manage =& admin_link_check_manage::getInstance();
-$op     =  $manage->get_post_op();
+$manage = admin_link_check_manage::getInstance();
+$op     = $manage->get_post_op();
 
-switch($op)
-{
-	case 'check':
-		$manage->check_link();
-		break;
+switch ($op) {
+    case 'check':
+        $manage->check_link();
+        break;
 
-	case 'update':
-		$manage->update_pagerank();
-		break;
+    case 'update':
+        $manage->update_pagerank();
+        break;
 
-	default:
-		$manage->main_form();
-		break;
+    default:
+        $manage->main_form();
+        break;
 }
 
 xoops_cp_footer();
-exit();
-// --- end of main ---
-
-?>
+exit();// --- end of main ---
+;

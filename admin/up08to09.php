@@ -20,42 +20,41 @@ echo "<h4>update v0.8 to v0.9</h4>\n";
 
 // check permission
 $flag = false;
-if ($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid())) 
-{	$flag = true;	}
+if ($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid())) {
+    $flag = true;
+}
 
-if (!$flag)
-{
-	echo "<font color=red>you are not admin</font><br>";
-	xoops_cp_footer();
-	exit();
+if (!$flag) {
+    echo '<font color=red>you are not admin</font><br>';
+    xoops_cp_footer();
+    exit();
 }
 
 $op = '';
-if ( isset($_POST['op']) )  $op = $_POST['op'];
-
-if ($op != 'excute')
-{
-	print_form_start();
-	xoops_cp_footer();
-	exit();
+if (isset($_POST['op'])) {
+    $op = $_POST['op'];
 }
 
+if ($op != 'excute') {
+    print_form_start();
+    xoops_cp_footer();
+    exit();
+}
 
 // table name
 $MODULE_DIRNAME = $xoopsModule->dirname();
-$table_link     = $xoopsDB->prefix( $MODULE_DIRNAME."_link" );
-$table_modify   = $xoopsDB->prefix( $MODULE_DIRNAME."_modify" );
-$table_atomfeed = $xoopsDB->prefix( $MODULE_DIRNAME."_atomfeed" );
-$table_config   = $xoopsDB->prefix( $MODULE_DIRNAME."_config" );
-
+$table_link     = $xoopsDB->prefix($MODULE_DIRNAME . '_link');
+$table_modify   = $xoopsDB->prefix($MODULE_DIRNAME . '_modify');
+$table_atomfeed = $xoopsDB->prefix($MODULE_DIRNAME . '_atomfeed');
+$table_config   = $xoopsDB->prefix($MODULE_DIRNAME . '_config');
 
 // --- config table ---
-echo "<h4>create config table</h4>";
+echo '<h4>create config table</h4>';
 delete_table($table_config);
 create_config($table_config);
 
 // --- atomfeed table ---
-echo "<h4>create atomfeed table</h4>";
+echo '<h4>create atomfeed table</h4>';
 //delete_table($table_atomfeed);
 create_atomfeed($table_atomfeed);
 
@@ -72,49 +71,48 @@ echo "<a href='index.php'>goto admin index</a><br>\n";
 xoops_cp_footer();
 exit();
 
-
 function print_form_start()
 {
+    $action = xoops_getenv('PHP_SELF');
 
-	$action = xoops_getenv('PHP_SELF');
-
-?>
-<h4><font color='blue'>Warnig</font></h4>
-Excute only once, after update. <br />
-This program overwrite MySQL tables. <br />
-<br />
-<form action='<?php echo $action; ?>' method='post'>
-<input type='hidden' name='op' value='excute'>
-<input type='submit' value='EXCUTE'>
-</form>
-<?php
+    ?>
+    <h4><font color='blue'>Warnig</font></h4>
+    Excute only once, after update. <br/>
+    This program overwrite MySQL tables. <br/>
+    <br/>
+    <form action='<?php echo $action;
+    ?>' method='post'>
+        <input type='hidden' name='op' value='excute'>
+        <input type='submit' value='EXCUTE'>
+    </form>
+    <?php
 
 }
 
 function sql_exec($sql)
-{ 
-	global $xoopsDB;
+{
+    global $xoopsDB;
 
-	$ret = $xoopsDB->queryF($sql);
-	if ($ret != false ) { return $ret; }
+    $ret = $xoopsDB->queryF($sql);
+    if ($ret != false) {
+        return $ret;
+    }
 
-	$error = $xoopsDB->error();
-	echo "<font color='red'>$sql<br>$error</font><br>";
+    $error = $xoopsDB->error();
+    echo "<font color='red'>$sql<br>$error</font><br>";
 
-	return false;
+    return false;
 }
-
 
 function delete_table($table)
 {
-	$sql = "DROP TABLE $table";
-	sql_exec($sql);
+    $sql = "DROP TABLE $table";
+    sql_exec($sql);
 }
 
 function create_config($table_config)
 {
-
-$sql1 = "
+    $sql1 = "
 CREATE TABLE $table_config (
   auth_submit      varchar(255) NOT NULL default '',
   auth_submit_auto varchar(255) NOT NULL default '',
@@ -165,16 +163,16 @@ CREATE TABLE $table_config (
 ) TYPE=MyISAM
 ";
 
-	$sql2 = "INSERT INTO $table_config VALUES ('&1&', '&1&', '&1&', '&1&', '&1&2&3&', 1, 1, 1, 0, 0, 0, 24, 1000, 10, 10, 1, 1000, 200, '', '', '', 2, 2, 2, 2, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 4, 5, 1, 150, 100)";
+    $sql2 =
+        "INSERT INTO $table_config VALUES ('&1&', '&1&', '&1&', '&1&', '&1&2&3&', 1, 1, 1, 0, 0, 0, 24, 1000, 10, 10, 1, 1000, 200, '', '', '', 2, 2, 2, 2, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 4, 5, 1, 150, 100)";
 
-	sql_exec($sql1);
-	sql_exec($sql2);
+    sql_exec($sql1);
+    sql_exec($sql2);
 }
 
 function create_atomfeed($table_atomfeed)
 {
-
-$sql = "
+    $sql = "
 CREATE TABLE $table_atomfeed (
   aid int(11) unsigned NOT NULL auto_increment,
   lid int(11) unsigned NOT NULL default '0',
@@ -197,35 +195,34 @@ CREATE TABLE $table_atomfeed (
 ) TYPE=MyISAM
 ";
 
-	sql_exec($sql);
+    sql_exec($sql);
 }
 
 function alter_link($table)
 {
-	$sql  = "ALTER TABLE $table ADD COLUMN ";
-	$sql .= "zip varchar(100) default NULL";
-	sql_exec($sql);
+    $sql = "ALTER TABLE $table ADD COLUMN ";
+    $sql .= 'zip varchar(100) default NULL';
+    sql_exec($sql);
 
-	$sql  = "ALTER TABLE $table ADD COLUMN ";
-	$sql .= "state varchar(100) default NULL";
-	sql_exec($sql);
+    $sql = "ALTER TABLE $table ADD COLUMN ";
+    $sql .= 'state varchar(100) default NULL';
+    sql_exec($sql);
 
-	$sql  = "ALTER TABLE $table ADD COLUMN ";
-	$sql .= "city varchar(100) default NULL";
-	sql_exec($sql);
+    $sql = "ALTER TABLE $table ADD COLUMN ";
+    $sql .= 'city varchar(100) default NULL';
+    sql_exec($sql);
 
-	$sql  = "ALTER TABLE $table ADD COLUMN ";
-	$sql .= "addr2 varchar(255) default NULL";
-	sql_exec($sql);
+    $sql = "ALTER TABLE $table ADD COLUMN ";
+    $sql .= 'addr2 varchar(255) default NULL';
+    sql_exec($sql);
 
-	$sql  = "ALTER TABLE $table ADD COLUMN ";
-	$sql .= "fax varchar(255) default NULL";
-	sql_exec($sql);
+    $sql = "ALTER TABLE $table ADD COLUMN ";
+    $sql .= 'fax varchar(255) default NULL';
+    sql_exec($sql);
 
-	$sql  = "ALTER TABLE $table MODIFY ";
-	$sql .= "rss_xml mediumtext NOT NULL default ''";
-	sql_exec($sql);
-
+    $sql = "ALTER TABLE $table MODIFY ";
+    $sql .= "rss_xml mediumtext NOT NULL default ''";
+    sql_exec($sql);
 }
 
 ?>

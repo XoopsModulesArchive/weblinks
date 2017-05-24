@@ -28,10 +28,9 @@ xoops_cp_header();
 weblinks_admin_print_header();
 weblinks_admin_print_menu();
 
-echo "<h3>"._AM_WEBLINKS_EXPORT_MANAGE."</h3>\n";
-echo '<a href="weblinks180_to_rssc070.php">Export DB weblinks v1.8 into rssc v0.7</a>'."<br />\n";
+echo '<h3>' . _AM_WEBLINKS_EXPORT_MANAGE . "</h3>\n";
+echo '<a href="weblinks180_to_rssc070.php">Export DB weblinks v1.8 into rssc v0.7</a>' . "<br />\n";
 
 weblinks_admin_print_footer();
 xoops_cp_footer();
 exit();
-?>

@@ -10,25 +10,22 @@
 //=========================================================
 
 // === function begin ===
-if( !function_exists('weblinks_thumb_mozshot') ) 
-{
+if (!function_exists('weblinks_thumb_mozshot')) {
 
-//=========================================================
-// thumbnail web service
-//=========================================================
-function &weblinks_thumb_mozshot( $url )
-{
-	$arr = array(
-		'name'   => 'mozshot',
-		'url'    => 'http://mozshot.nemui.org/',
-		'image'  => 'http://mozshot.nemui.org/shot?' . $url,
-		'width'  => 128,
-		'height' => 128,
-	);
-	return $arr;
+    //=========================================================
+    // thumbnail web service
+    //=========================================================
+    function &weblinks_thumb_mozshot($url)
+    {
+        $arr = array(
+            'name'   => 'mozshot',
+            'url'    => 'http://mozshot.nemui.org/',
+            'image'  => 'http://mozshot.nemui.org/shot?' . $url,
+            'width'  => 128,
+            'height' => 128,
+        );
+        return $arr;
+    }
+
+    // === fucntion end ===
 }
-
-// === fucntion end ===
-}
-
-?>

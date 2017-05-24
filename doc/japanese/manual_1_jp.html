@@ -1,23 +1,29 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
-<META http-equiv="Content-Type" content="text/html; charset=EUC-JP">
-<META http-equiv="Content-Style-Type" content="text/css">
-<TITLE>WebLinks マニュアル</TITLE>
-<style type="text/css">
-<!--
-h3.SoftwareHead {text-align: center; background-color: #FFFFE0;} /* LightYellow */
+    <META http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+    <META http-equiv="Content-Style-Type" content="text/css">
+    <TITLE>WebLinks マニュアル</TITLE>
+    <style type="text/css">
+        <!--
+        h3.SoftwareHead {
+            text-align: center;
+            background-color: #FFFFE0;
+        }
 
-div.cyan {
-  background-color: #E0FFFF;  /* LightCyan */
-  border-color:     #808080;  /* */
-  border-width:     1px;
-  border-style:     solid;
-  width:            500px;
-  padding:          2px;
-}
--->
-</style>
+        /* LightYellow */
+
+        div.cyan {
+            background-color: #E0FFFF; /* LightCyan */
+            border-color: #808080; /* */
+            border-width: 1px;
+            border-style: solid;
+            width: 500px;
+            padding: 2px;
+        }
+
+        -->
+    </style>
 </HEAD>
 <BODY>
 <h3 class="SoftwareHead">WebLinks マニュアル</h3>
@@ -43,9 +49,9 @@ viewfeed.php と類似の機能です。<BR>
 (2) このブロックを表示するときに、新しいRSS/ATOM記事の取得を行います。<BR>
 <BR>
 カスタム・ブロックをPHPモードで作成し、下記を記入する。<BR>
-<div class='cyan'> 
-include_once XOOPS_ROOT_PATH.&quot;/modules/weblinks/include/atomfeed.inc.php&quot;;<BR>
-weblinks_view_blog(???);<BR>
+<div class='cyan'>
+    include_once XOOPS_ROOT_PATH.&quot;/modules/weblinks/include/atomfeed.inc.php&quot;;<BR>
+    weblinks_view_blog(???);<BR>
 </div>
 ??? はリンクID<BR>
 <H4>２．リンク切れの検査</H4>
@@ -64,8 +70,8 @@ Weblinksの管理者画面より、「その他の機能」 -&gt; 「create config file for bin」 
 bin/link_check.php の $XOOPS_ROOT_PATH を自分の環境に合わせて変更する。<BR>
 <BR>
 crontab に下記のような設定を加える。<BR>
-<div class='cyan'> 
-11 2 * * 0 /usr/bin/php4 -q -f /home/***/html/modules/weblinks/bin/link_check.php
+<div class='cyan'>
+    11 2 * * 0 /usr/bin/php4 -q -f /home/***/html/modules/weblinks/bin/link_check.php
 </div>
 <H4>３．RSS/ATOM記事の取得</H4>
 どういう契機でRSS/ATOM記事を取得するか。<BR>
@@ -87,8 +93,8 @@ Weblinksの管理者画面より、「その他の機能」 -&gt; 「create config file for bin」 
 bin/rss_refresh.php の $XOOPS_ROOT_PATH を自分の環境に合わせて変更する。<BR>
 <BR>
 crontab に下記のような設定を加える。<BR>
-<div class='cyan'> 
-22 3 * * * /usr/bin/php4 -q -f /home/***/html/modules/weblinks/bin/rss_refresh.php
+<div class='cyan'>
+    22 3 * * * /usr/bin/php4 -q -f /home/***/html/modules/weblinks/bin/rss_refresh.php
 </div>
 <BR>
 ３．５ 「リンク集の新着RSS/ATOM記事」のブロックを表示するときに、全てのリンクから取得する。<BR>
@@ -100,21 +106,21 @@ RSS/ATOM対応のリンクが多いと、タイムアウトする可能性あり。<BR>
 日本と米国では方式が異なる。<BR>
 <BR>
 (1) 日本では、yahooへ住所を渡すだけを、検索できる。<BR>
-<div class='cyan'> 
-&lt;a href=&quot;http：//search.map.yahoo.co.jp/search?p=&lt;{$link.addr_encode}&gt;&quot; target=_blank&gt;<BR>
-&lt;img src=&quot;&lt;{$module_url}&gt;/images/map.png&quot; board=&quot;0&quot; alt=&quot;map&quot;&gt;&lt;/a&gt;<BR>
+<div class='cyan'>
+    &lt;a href=&quot;http：//search.map.yahoo.co.jp/search?p=&lt;{$link.addr_encode}&gt;&quot; target=_blank&gt;<BR>
+    &lt;img src=&quot;&lt;{$module_url}&gt;/images/map.png&quot; board=&quot;0&quot; alt=&quot;map&quot;&gt;&lt;/a&gt;<BR>
 </div>
 
 <BR>
 (2) 米国では、住所以外に、郵便番号、州、市 を渡す必要がある。<BR>
-<div class='cyan'> 
-&lt;form action=&quot;http：//us.rd.yahoo.com/maps/home/submit_a/*-http://maps.yahoo.com/maps&quot; target=&quot;_blank&quot; method=get&gt;<BR>
-&lt;input type=&quot;hidden&quot; name=&quot;addr&quot; value=&quot;&lt;{$link.address}&gt;&quot;&gt;<BR>
-&lt;input type=&quot;hidden&quot; name=&quot;csz&quot; value=&quot;&lt;{$link.city}&gt;, &lt;{$link.state}&gt; &lt;{$link.zip}&gt;&quot;&gt;<BR>
-&lt;input type=&quot;hidden&quot; name=&quot;country&quot; value=&quot;us&quot;&gt;<BR>
-&lt;input type=hidden name=srchtype value=a&gt;<BR>
-&lt;input type=submit name=&quot;getmap&quot; value=&quot;Map&quot;&gt;<BR>
-&lt;/form&gt;<BR>
+<div class='cyan'>
+    &lt;form action=&quot;http：//us.rd.yahoo.com/maps/home/submit_a/*-http://maps.yahoo.com/maps&quot; target=&quot;_blank&quot; method=get&gt;<BR>
+    &lt;input type=&quot;hidden&quot; name=&quot;addr&quot; value=&quot;&lt;{$link.address}&gt;&quot;&gt;<BR>
+    &lt;input type=&quot;hidden&quot; name=&quot;csz&quot; value=&quot;&lt;{$link.city}&gt;, &lt;{$link.state}&gt; &lt;{$link.zip}&gt;&quot;&gt;<BR>
+    &lt;input type=&quot;hidden&quot; name=&quot;country&quot; value=&quot;us&quot;&gt;<BR>
+    &lt;input type=hidden name=srchtype value=a&gt;<BR>
+    &lt;input type=submit name=&quot;getmap&quot; value=&quot;Map&quot;&gt;<BR>
+    &lt;/form&gt;<BR>
 </div>
 <BR>
 (3) 違いの吸収<BR>

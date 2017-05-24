@@ -13,65 +13,59 @@
 //================================================================
 
 // === class begin ===
-if( !class_exists('weblinks_linkitem_basic_handler') ) 
-{
+if (!class_exists('weblinks_linkitem_basic_handler')) {
 
-//================================================================
-// class weblinks_linkitem_basic_handler
-//================================================================
-class weblinks_linkitem_basic_handler extends happy_linux_basic_handler
-{
+    //================================================================
+    // class weblinks_linkitem_basic_handler
+    //================================================================
+    class weblinks_linkitem_basic_handler extends happy_linux_basic_handler
+    {
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_linkitem_basic_handler( $dirname )
-{
-	$this->happy_linux_basic_handler( $dirname );
-	$this->set_table_name('linkitem');
-	$this->set_id_name('item_id');
+        //---------------------------------------------------------
+        // constructor
+        //---------------------------------------------------------
+        public function __construct($dirname)
+        {
+            parent::__construct($dirname);
+            $this->set_table_name('linkitem');
+            $this->set_id_name('item_id');
 
-	$this->set_conf_id_name('item_id');
-	$this->set_conf_name_name('name');
-	$this->set_conf_value_name('title');
+            $this->set_conf_id_name('item_id');
+            $this->set_conf_name_name('name');
+            $this->set_conf_value_name('title');
 
-	$this->set_debug_db_sql(     WEBLINKS_DEBUG_LINKITEM_BASIC_SQL );
-	$this->set_debug_db_error(   WEBLINKS_DEBUG_ERROR );
-	$this->set_debug_print_time( WEBLINKS_DEBUG_TIME );
+            $this->set_debug_db_sql(WEBLINKS_DEBUG_LINKITEM_BASIC_SQL);
+            $this->set_debug_db_error(WEBLINKS_DEBUG_ERROR);
+            $this->set_debug_print_time(WEBLINKS_DEBUG_TIME);
+        }
+
+        //---------------------------------------------------------
+        // load
+        // caller: weblinks_template, weblinks_gmap
+        //---------------------------------------------------------
+        public function init()
+        {
+            if (!$this->_has_conf_cached()) {
+                $this->load_config();
+            }
+        }
+
+        public function load_config()
+        {
+            if ($this->get_debug_print_time()) {
+                $happy_linux_time = happy_linux_time::getInstance();
+                $happy_linux_time->print_lap_time('weblinks_linkitem_basic_handler');
+            }
+
+            $this->_get_config_data();
+
+            if ($this->get_debug_print_time()) {
+                $happy_linux_time->print_lap_time();
+            }
+        }
+
+        // --- class end ---
+    }
+
+    // === class end ===
 }
-
-//---------------------------------------------------------
-// load
-// caller: weblinks_template, weblinks_gmap
-//---------------------------------------------------------
-function init()
-{
-	if ( !$this->_has_conf_cached() )
-	{
-		$this->load_config();
-	}
-}
-
-function load_config()
-{
-	if ( $this->get_debug_print_time() )
-	{
-		$happy_linux_time =& happy_linux_time::getInstance();
-		$happy_linux_time->print_lap_time( "weblinks_linkitem_basic_handler" );
-	}
-
-	$this->_get_config_data();
-
-	if ( $this->get_debug_print_time() )
-	{
-		$happy_linux_time->print_lap_time();
-	}
-}
-
-// --- class end ---
-}
-
-// === class end ===
-}
-
-?>

@@ -19,72 +19,69 @@
 //=========================================================
 
 // === class begin ===
-if( !class_exists('weblinks_build_rss_feed_handler') ) 
-{
+if (!class_exists('weblinks_build_rss_feed_handler')) {
 
-//=========================================================
-// class weblinks_build_rss_feed_handler
-//=========================================================
-class weblinks_build_rss_feed_handler extends rssc_build_rssc
-{
-	var $_DIRNAME;
-	var $_DIR_XML;
+    //=========================================================
+    // class weblinks_build_rss_feed_handler
+    //=========================================================
+    class weblinks_build_rss_feed_handler extends rssc_build_rssc
+    {
+        public $_DIRNAME;
+        public $_DIR_XML;
 
-	var $_MAX_FEEDS = 20;
+        public $_MAX_FEEDS = 20;
 
-	var $_rssc_view_handler;
+        public $_rssc_view_handler;
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_build_rss_feed_handler( $dirname )
-{
-	$DIR_XML = XOOPS_ROOT_PATH.'/modules/'.$dirname.'/templates/xml';
+        //---------------------------------------------------------
+        // constructor
+        //---------------------------------------------------------
+        public function __construct($dirname)
+        {
+            $DIR_XML = XOOPS_ROOT_PATH . '/modules/' . $dirname . '/templates/xml';
 
-	$this->rssc_build_rssc( $dirname );
-	$this->set_rdf_template(  $DIR_XML.'/weblinks_build_feed_rdf.html' );
-	$this->set_rss_template(  $DIR_XML.'/weblinks_build_feed_rss.html' );
-	$this->set_atom_template( $DIR_XML.'/weblinks_build_feed_atom.html' );
-	$this->set_cache_time_guest( $this->_CACHE_TIME_ONE_HOUR );
+            parent::__construct($dirname);
+            $this->set_rdf_template($DIR_XML . '/weblinks_build_feed_rdf.html');
+            $this->set_rss_template($DIR_XML . '/weblinks_build_feed_rss.html');
+            $this->set_atom_template($DIR_XML . '/weblinks_build_feed_atom.html');
+            $this->set_cache_time_guest($this->_CACHE_TIME_ONE_HOUR);
 
-	$this->_rssc_view_handler =& weblinks_get_handler( 'rssc_view', $dirname );
+            $this->_rssc_view_handler = weblinks_get_handler('rssc_view', $dirname);
+        }
+
+        //---------------------------------------------------------
+        // public
+        //---------------------------------------------------------
+        public function build_for_weblinks($mode)
+        {
+            $this->set_mode($mode);
+            $this->build_rss();
+        }
+
+        public function view_for_weblinks($mode)
+        {
+            $this->set_mode($mode);
+            $this->view_rss();
+        }
+
+        //---------------------------------------------------------
+        // private
+        //---------------------------------------------------------
+        public function &_get_feeds_for_weblinks()
+        {
+            return $this->_rssc_view_handler->get_feed_list_latest($this->_MAX_FEEDS);
+        }
+
+        //=========================================================
+        // override into build_rss
+        //=========================================================
+        public function &_get_items()
+        {
+            return $this->_get_feeds_for_weblinks();
+        }
+
+        // --- class end ---
+    }
+
+    // === class end ===
 }
-
-//---------------------------------------------------------
-// public
-//---------------------------------------------------------
-function build_for_weblinks( $mode )
-{
-	$this->set_mode( $mode );
-	$this->build_rss();
-}
-
-function view_for_weblinks( $mode )
-{
-	$this->set_mode( $mode );
-	$this->view_rss();
-}
-
-//---------------------------------------------------------
-// private
-//---------------------------------------------------------
-function &_get_feeds_for_weblinks()
-{
-	return $this->_rssc_view_handler->get_feed_list_latest( $this->_MAX_FEEDS );
-}
-
-//=========================================================
-// override into build_rss
-//=========================================================
-function &_get_items()
-{
-	return $this->_get_feeds_for_weblinks();
-}
-
-// --- class end ---
-}
-
-// === class end ===
-}
-
-?>

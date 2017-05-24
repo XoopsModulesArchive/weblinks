@@ -8,21 +8,16 @@
 //================================================================
 
 // dir name
-$WEBLINKS_DIRNAME = basename( dirname( dirname( __FILE__ ) ) );
+$WEBLINKS_DIRNAME = basename(dirname(__DIR__));
 
 global $xoopsConfig;
 $XOOPS_LANGUAGE = $xoopsConfig['language'];
 
-include_once XOOPS_ROOT_PATH.'/modules/'.$WEBLINKS_DIRNAME.'/include/waiting.plugin.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . $WEBLINKS_DIRNAME . '/include/waiting.plugin.php';
 
 // waiting.php
-if ( file_exists(XOOPS_ROOT_PATH.'/modules/'.$WEBLINKS_DIRNAME.'/language/'.$XOOPS_LANGUAGE.'/waiting.php') ) 
-{
-	include_once XOOPS_ROOT_PATH.'/modules/'.$WEBLINKS_DIRNAME.'/language/'.$XOOPS_LANGUAGE.'/waiting.php';
+if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $WEBLINKS_DIRNAME . '/language/' . $XOOPS_LANGUAGE . '/waiting.php')) {
+    include_once XOOPS_ROOT_PATH . '/modules/' . $WEBLINKS_DIRNAME . '/language/' . $XOOPS_LANGUAGE . '/waiting.php';
+} else {
+    include_once XOOPS_ROOT_PATH . '/modules/' . $WEBLINKS_DIRNAME . '/language/english/waiting.php';
 }
-else
-{
-	include_once XOOPS_ROOT_PATH.'/modules/'.$WEBLINKS_DIRNAME.'/language/english/waiting.php';
-}
-
-?>

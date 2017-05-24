@@ -13,50 +13,45 @@
 //---------------------------------------------------------
 
 // === class begin ===
-if( !class_exists('weblinks_htmlout_rss_sample') ) 
-{
+if (!class_exists('weblinks_htmlout_rss_sample')) {
+    class weblinks_htmlout_rss_sample extends weblinks_htmlout_base
+    {
 
-class weblinks_htmlout_rss_sample extends weblinks_htmlout_base
-{
+        //---------------------------------------------------------
+        // constructor
+        //---------------------------------------------------------
+        public function __construct($dirname)
+        {
+            parent::__construct($dirname);
+        }
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_htmlout_rss_sample( $dirname )
-{
-	$this->weblinks_htmlout_base( $dirname );
+        //---------------------------------------------------------
+        // function
+        //---------------------------------------------------------
+        public function description()
+        {
+            return 'RSS: url in description';
+        }
+
+        public function execute_plugin()
+        {
+            $url       = $this->get('url');
+            $desc_disp = $this->get('description_disp');
+
+            $text = '';
+            if ($url) {
+                $url_s = happy_linux_sanitize_url($url);
+                $text .= '<a href="' . $url_s . '" target="_blank">';
+                $text .= $url_s . '</a> <br /><br />';
+            }
+            $text .= $desc_disp;
+
+            $this->set('rss_content', $text);
+            return true;
+        }
+
+        // --- class end ---
+    }
+
+    // === class end ===
 }
-
-//---------------------------------------------------------
-// function
-//---------------------------------------------------------
-function description()
-{
-	return 'RSS: url in description';
-}
-
-function execute_plugin()
-{
-	$url       = $this->get('url');
-	$desc_disp = $this->get('description_disp');
-
-	$text = '';
-	if ( $url )
-	{
-		$url_s = happy_linux_sanitize_url( $url );
-		$text .= '<a href="'. $url_s. '" target="_blank">';
-		$text .= $url_s .'</a> <br /><br />';
-	}
-	$text .= $desc_disp;
-
-	$this->set('rss_content', $text );
-	return true;
-}
-
-// --- class end ---
-}
-
-// === class end ===
-}
-
-?>

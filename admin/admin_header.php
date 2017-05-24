@@ -57,44 +57,42 @@ include 'admin_header_min.php';
 //---------------------------------------------------------
 // system
 //---------------------------------------------------------
-include_once XOOPS_ROOT_PATH.'/class/xoopstree.php';
-include_once XOOPS_ROOT_PATH.'/class/xoopsformloader.php';
-include_once XOOPS_ROOT_PATH.'/class/template.php';
+include_once XOOPS_ROOT_PATH . '/class/xoopstree.php';
+include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+include_once XOOPS_ROOT_PATH . '/class/template.php';
 
 //---------------------------------------------------------
 // happy_linux
 //---------------------------------------------------------
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/api/remote_image.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/post.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/html.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/form.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/form_lib.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/object.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/object_validater.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/object_handler.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/pagenavi.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/page_frame.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/manage.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/class/highlight.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/api/remote_image.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/post.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/html.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/form.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/form_lib.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/object.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/object_validater.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/object_handler.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/pagenavi.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/page_frame.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/manage.php';
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/class/highlight.php';
 
 //---------------------------------------------------------
 // weblinks
 //---------------------------------------------------------
-include_once WEBLINKS_ROOT_PATH.'/plugins/d3forum_sel.php';
-include_once WEBLINKS_ROOT_PATH.'/plugins/forum_sel.php';
-include_once WEBLINKS_ROOT_PATH.'/plugins/album_sel.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_plugin.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_link.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_link_handler.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_auth.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_menu.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_header.php';
-include_once WEBLINKS_ROOT_PATH.'/class/weblinks_locate.php';
+include_once WEBLINKS_ROOT_PATH . '/plugins/d3forum_sel.php';
+include_once WEBLINKS_ROOT_PATH . '/plugins/forum_sel.php';
+include_once WEBLINKS_ROOT_PATH . '/plugins/album_sel.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_plugin.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_link.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_link_handler.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_auth.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_menu.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_header.php';
+include_once WEBLINKS_ROOT_PATH . '/class/weblinks_locate.php';
 
 //---------------------------------------------------------
 // linkitem
 //---------------------------------------------------------
-$weblinks_linkitem_handler =& weblinks_get_handler( 'linkitem_basic', WEBLINKS_DIRNAME );
+$weblinks_linkitem_handler = weblinks_get_handler('linkitem_basic', WEBLINKS_DIRNAME);
 $weblinks_linkitem_handler->init();
-
-?>

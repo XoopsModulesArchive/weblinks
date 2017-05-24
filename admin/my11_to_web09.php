@@ -20,643 +20,633 @@ xoops_cp_header();
 $LIMIT = 100;
 
 $flag = false;
-if ($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid())) 
-{	$flag = true;	}
+if ($xoopsUser && $xoopsUser->isAdmin($xoopsModule->mid())) {
+    $flag = true;
+}
 
-if (!$flag)
-{
-	echo "<font color=red>you are not admin</font><br />";
-	xoops_cp_footer();
-	exit();
+if (!$flag) {
+    echo '<font color=red>you are not admin</font><br />';
+    xoops_cp_footer();
+    exit();
 }
 
 $op = 'main';
-if ( isset($_POST['op']) )  $op = $_POST['op'];
+if (isset($_POST['op'])) {
+    $op = $_POST['op'];
+}
 
 // dir name
 $MODULE_DIRNAME = $xoopsModule->dirname();
-$MODULE_ROOT    = XOOPS_ROOT_PATH."/modules/".$MODULE_DIRNAME;
-$MODULE_URL     = XOOPS_URL."/modules/".$MODULE_DIRNAME;
+$MODULE_ROOT    = XOOPS_ROOT_PATH . '/modules/' . $MODULE_DIRNAME;
+$MODULE_URL     = XOOPS_URL . '/modules/' . $MODULE_DIRNAME;
 
 echo "<h3>Transfer DB mylinks v1.1 to weblinks v0.9</h3>\n";
 
-switch ($op) 
-{
-case "trans_image":
-	trans_image();
-	break;
+switch ($op) {
+    case 'trans_image':
+        trans_image();
+        break;
 
-case "trans_category":
-	trans_category();
-	break;
+    case 'trans_category':
+        trans_category();
+        break;
 
-case "trans_link":
-	trans_link();
-	break;
+    case 'trans_link':
+        trans_link();
+        break;
 
-case "trans_votedate":
-	trans_votedate();
-	break;
+    case 'trans_votedate':
+        trans_votedate();
+        break;
 
-case "trans_comment":
-	trans_comment();
-	break;
+    case 'trans_comment':
+        trans_comment();
+        break;
 
-case "create":
-	create();
-	echo "<br /><hr>";
-	first_step();
-	break;
+    case 'create':
+        create();
+        echo '<br /><hr>';
+        first_step();
+        break;
 
-case 'main':
-default:
-	first_step();
-	break;
+    case 'main':
+    default:
+        first_step();
+        break;
 
 }
 
 xoops_cp_footer();
 exit();
 
-
 function first_step()
 {
-	global $LIMIT;
+    global $LIMIT;
 
-	$action = xoops_getenv('PHP_SELF');
+    $action = xoops_getenv('PHP_SELF');
 
-?>
-<br />
-There are 4 steps. <br />
-1. transfer shot images <br />
-2. transfer category table <br />
-3. transfer link table <br />
-   excute each <?php echo $LIMIT; ?> links at a time <br />
-4. transfer votedate table <br />
-5. transfer comment table <br />
-<br />
-Preparation <br />
-Please enable to be writable of cache directory. <br />
-<br />
-Nitice <br />
-This program don't transfer modify and broken table. <br />
-<br />
-<h4>STEP 1 : transfer shot images</h4>
-<form action='<?php echo $action; ?>' method='post'>
-<input type='hidden' name='op' value='trans_image'>
-<input type='submit' value='GO STEP 1'>
-</form>
-<br />
-<h4>STEP 0 : initalize</h4>
-Drop and create tables.<br />
-If you want to redo <br />
-<br />
-<form action='<?php echo $action; ?>' method='post'>
-<input type='hidden' name='op' value='create'>
-<input type='submit' value='GO STEP 0'>
-</form>
-<?php
+    ?>
+    <br/>
+    There are 4 steps. <br/>
+    1. transfer shot images <br/>
+    2. transfer category table <br/>
+    3. transfer link table <br/>
+    excute each <?php echo $LIMIT;
+    ?> links at a time <br/>
+    4. transfer votedate table <br/>
+    5. transfer comment table <br/>
+    <br/>
+    Preparation <br/>
+    Please enable to be writable of cache directory. <br/>
+    <br/>
+    Nitice <br/>
+    This program don't transfer modify and broken table. <br/>
+    <br/>
+    <h4>STEP 1 : transfer shot images</h4>
+    <form action='<?php echo $action;
+    ?>' method='post'>
+        <input type='hidden' name='op' value='trans_image'>
+        <input type='submit' value='GO STEP 1'>
+    </form>
+    <br/>
+    <h4>STEP 0 : initalize</h4>
+    Drop and create tables.<br/>
+    If you want to redo <br/>
+    <br/>
+    <form action='<?php echo $action;
+    ?>' method='post'>
+        <input type='hidden' name='op' value='create'>
+        <input type='submit' value='GO STEP 0'>
+    </form>
+    <?php
 
 }
 
 function trans_image()
 {
-	echo "<h4>STEP 1 : transfer shot images</h4>\n";
+    echo "<h4>STEP 1 : transfer shot images</h4>\n";
 
-	$shots_dir_my  = XOOPS_ROOT_PATH."/modules/mylinks/images/shots/";
+    $shots_dir_my = XOOPS_ROOT_PATH . '/modules/mylinks/images/shots/';
 
-//	$shots_dir_web = XOOPS_ROOT_PATH."/modules/weblinks/images/shots/";
-	$shots_dir_web = $MODULE_ROOT."/images/shots/";
+    //  $shots_dir_web = XOOPS_ROOT_PATH."/modules/weblinks/images/shots/";
+    $shots_dir_web = $MODULE_ROOT . '/images/shots/';
 
-	$file_arr = array();
+    $file_arr = array();
 
-	$dir = opendir($shots_dir_my);
-	while ($file = readdir($dir) )
-	{
-		if ( $file == 'index.html' ) continue; 
+    $dir = opendir($shots_dir_my);
+    while ($file = readdir($dir)) {
+        if ($file == 'index.html') {
+            continue;
+        }
 
-		$file_full = $shots_dir_my.$file;
-		if ( !is_file($file_full) )  continue;
+        $file_full = $shots_dir_my . $file;
+        if (!is_file($file_full)) {
+            continue;
+        }
 
-		$file_arr[] = $file;
-	}
+        $file_arr[] = $file;
+    }
 
-	$count = count($file_arr);
-	echo "There are $count images <br /><br />\n";
+    $count = count($file_arr);
+    echo "There are $count images <br /><br />\n";
 
-	$error_flag = false;
+    $error_flag = false;
 
-	if ($count > 0)
-	{
-		if ( is_writable($shots_dir_web) )
-		{
-			foreach ($file_arr as $file)
-			{
-				$file_source = $shots_dir_my.$file;
-				$file_dest   = $shots_dir_web.$file;
-			
-				if (copy($file_source, $file_dest)) 
-				{
-					echo "$file_source -> $file_dest <br />\n";
-				}
-				else
-				{
-					echo "$file: <font color='red'>copy failed : $file_source</font><br />\n";
-					$error_flag = true;
-				}
-			}
-		}
-		else
-		{
-			echo "<font color='red'>not writable: $shots_dir_web</font><br />\n";
-			$error_flag = true;
-		}
-	}
+    if ($count > 0) {
+        if (is_writable($shots_dir_web)) {
+            foreach ($file_arr as $file) {
+                $file_source = $shots_dir_my . $file;
+                $file_dest   = $shots_dir_web . $file;
 
-	if ($error_flag)
-	{
-		echo "<h4><font color='red'>some images failed</font></h4>\n";
-		echo "Plaese copy manualy <br />\n";
-	}
+                if (copy($file_source, $file_dest)) {
+                    echo "$file_source -> $file_dest <br />\n";
+                } else {
+                    echo "$file: <font color='red'>copy failed : $file_source</font><br />\n";
+                    $error_flag = true;
+                }
+            }
+        } else {
+            echo "<font color='red'>not writable: $shots_dir_web</font><br />\n";
+            $error_flag = true;
+        }
+    }
 
-	$action = xoops_getenv('PHP_SELF');
+    if ($error_flag) {
+        echo "<h4><font color='red'>some images failed</font></h4>\n";
+        echo "Plaese copy manualy <br />\n";
+    }
 
-?>
-<br />
-<hr>
-<h4>STEP 2 : transfer category table</h4>
-<form action='<?php echo $action; ?>' method='post'>
-<input type='hidden' name='op' value='trans_category'>
-<input type='submit' value='GO STEP 2'>
-</form>
-<?php
+    $action = xoops_getenv('PHP_SELF');
+
+    ?>
+    <br/>
+    <hr>
+    <h4>STEP 2 : transfer category table</h4>
+    <form action='<?php echo $action;
+    ?>' method='post'>
+        <input type='hidden' name='op' value='trans_category'>
+        <input type='submit' value='GO STEP 2'>
+    </form>
+    <?php
 
 }
 
 function trans_category()
 {
-// === category table ===
-// --- mylinks ---
-//  cid int(5)
-//  pid int(5)
-//  title varchar(50)
-//  imgurl varchar(150)
+    // === category table ===
+    // --- mylinks ---
+    //  cid int(5)
+    //  pid int(5)
+    //  title varchar(50)
+    //  imgurl varchar(150)
 
-// --- weblinks ---
-//  cid int(5)
-//  pid int(5)
-//  title varchar(50)
-//  imgurl varchar(255)
-//
-//  lflag tinyint(2)
-//  orders int(4)
+    // --- weblinks ---
+    //  cid int(5)
+    //  pid int(5)
+    //  title varchar(50)
+    //  imgurl varchar(255)
+    //
+    //  lflag tinyint(2)
+    //  orders int(4)
 
-	global $xoopsDB;
-	global $cat_title_arr;
+    global $xoopsDB;
+    global $cat_title_arr;
 
-	global $MODULE_DIRNAME;
-	$table_category = $xoopsDB->prefix( $MODULE_DIRNAME.'_category' );
+    global $MODULE_DIRNAME;
+    $table_category = $xoopsDB->prefix($MODULE_DIRNAME . '_category');
 
-	echo "<h4>STEP 2 : transfer category table</h4>";
-	$sql1 = "SELECT * FROM ".$xoopsDB->prefix("mylinks_cat")." ORDER BY cid";
-	$res1 = sql_exec($sql1);
+    echo '<h4>STEP 2 : transfer category table</h4>';
+    $sql1 = 'SELECT * FROM ' . $xoopsDB->prefix('mylinks_cat') . ' ORDER BY cid';
+    $res1 = sql_exec($sql1);
 
-	$total = $xoopsDB->getRowsNum($res1);
+    $total = $xoopsDB->getRowsNum($res1);
 
-	echo "There are $total categorys <br /><br />\n";
+    echo "There are $total categorys <br /><br />\n";
 
-	global $cat_title_arr;
-	$cat_title_arr = array();
+    global $cat_title_arr;
+    $cat_title_arr = array();
 
-	while ($row = $xoopsDB->fetchArray($res1))
-	{
-		$cid    = $row['cid'];
-		$pid    = $row['pid'];
-		$title  = addslashes( $row['title'] );
-		$imgurl = addslashes( $row['imgurl'] );
+    while ($row = $xoopsDB->fetchArray($res1)) {
+        $cid    = $row['cid'];
+        $pid    = $row['pid'];
+        $title  = addslashes($row['title']);
+        $imgurl = addslashes($row['imgurl']);
 
-		echo "$cid: $title <br />";
+        echo "$cid: $title <br />";
 
-		$cat_title_arr[$cid] = $title;
+        $cat_title_arr[$cid] = $title;
 
-		$sql  = "INSERT INTO ".$table_category." (";
-		$sql .= "cid, pid, title, imgurl, lflag, orders";
-		$sql .= ") VALUES (";
-		$sql .= "$cid, $pid, '$title', '$imgurl', 1, 1";
-		$sql .= ")";
+        $sql = 'INSERT INTO ' . $table_category . ' (';
+        $sql .= 'cid, pid, title, imgurl, lflag, orders';
+        $sql .= ') VALUES (';
+        $sql .= "$cid, $pid, '$title', '$imgurl', 1, 1";
+        $sql .= ')';
 
-		sql_exec($sql);
-	}
+        sql_exec($sql);
+    }
 
-	$action = xoops_getenv('PHP_SELF');
+    $action = xoops_getenv('PHP_SELF');
 
-?>
-<br />
-<hr>
-<h4>STEP 3 : transfer link table</h4>
-<form action='<?php echo $action; ?>' method='post'>
-<input type='hidden' name='op' value='trans_link'>
-<input type='hidden' name='offset' value='0'>
-<input type='submit' value='GO STEP 3'>
-</form>
-<?php
+    ?>
+    <br/>
+    <hr>
+    <h4>STEP 3 : transfer link table</h4>
+    <form action='<?php echo $action;
+    ?>' method='post'>
+        <input type='hidden' name='op' value='trans_link'>
+        <input type='hidden' name='offset' value='0'>
+        <input type='submit' value='GO STEP 3'>
+    </form>
+    <?php
 
 }
 
-
 function trans_link()
 {
-// === link & text table ===
-// --- mylinks ---
-// --- link table ---
-//  lid int(11)
-//  cid int(5) => multi
-//  title varchar(100)
-//  url varchar(250)
-//  logourl varchar(60)
-//  submitter int(11)
-//  status tinyint(2) => not use
-//  date int(10)
-//  hits int(11)
-//  rating double(6,4)
-//  votes int(11)
-//  comments int(11)
+    // === link & text table ===
+    // --- mylinks ---
+    // --- link table ---
+    //  lid int(11)
+    //  cid int(5) => multi
+    //  title varchar(100)
+    //  url varchar(250)
+    //  logourl varchar(60)
+    //  submitter int(11)
+    //  status tinyint(2) => not use
+    //  date int(10)
+    //  hits int(11)
+    //  rating double(6,4)
+    //  votes int(11)
+    //  comments int(11)
 
-// --- mylinks_text table ---
-//  lid int(11)
-//  description text
-  
-// --- weblinks ---
-//  lid int(11)
-//  cids  varchar(100) : use catlink
-//  title varchar(100)
-//  url varchar(255)
-//  banner varchar(255) : full url
-//  uid int(5) : submitter
-//  time_create int(10)
-//  time_update int(10)
-//  hits int(11)
-//  rating double(6,4)
-//  votes int(11)
-//  comments int(11)
-//  description text
-//
-//  search text default
-//  passwd varchar(255)
-//
-//  name varchar(255)
-//  nameflag tinyint(2)
-//  mail varchar(255)
-//  mailflag tinyint(2)
-//  company varchar(255)
-//  addr varchar(255)
-//  tel varchar(255)
-//  admincomment text
-//  width  int(5)
-//  height int(5)
-//  recommend tinyint(2)
-//  mutual    tinyint(2)
-//  broken int(11)
-//  rss_url  varchar(255)
-//  rss_flag tinyint(3)
-//  rss_xml  mediumtext
-//  rss_update int(10)
-//  usercomment text
-//  zip    varchar(100)
-//  state  varchar(100)
-//  city   varchar(100)
-//  addr2  varchar(255)
-//  fax    varchar(255)
+    // --- mylinks_text table ---
+    //  lid int(11)
+    //  description text
 
-	global $xoopsDB;
-	global $LIMIT;
-	global $cat_title_arr;
+    // --- weblinks ---
+    //  lid int(11)
+    //  cids  varchar(100) : use catlink
+    //  title varchar(100)
+    //  url varchar(255)
+    //  banner varchar(255) : full url
+    //  uid int(5) : submitter
+    //  time_create int(10)
+    //  time_update int(10)
+    //  hits int(11)
+    //  rating double(6,4)
+    //  votes int(11)
+    //  comments int(11)
+    //  description text
+    //
+    //  search text default
+    //  passwd varchar(255)
+    //
+    //  name varchar(255)
+    //  nameflag tinyint(2)
+    //  mail varchar(255)
+    //  mailflag tinyint(2)
+    //  company varchar(255)
+    //  addr varchar(255)
+    //  tel varchar(255)
+    //  admincomment text
+    //  width  int(5)
+    //  height int(5)
+    //  recommend tinyint(2)
+    //  mutual    tinyint(2)
+    //  broken int(11)
+    //  rss_url  varchar(255)
+    //  rss_flag tinyint(3)
+    //  rss_xml  mediumtext
+    //  rss_update int(10)
+    //  usercomment text
+    //  zip    varchar(100)
+    //  state  varchar(100)
+    //  city   varchar(100)
+    //  addr2  varchar(255)
+    //  fax    varchar(255)
 
-	echo "<h4>STEP 3: link table</h3>";
+    global $xoopsDB;
+    global $LIMIT;
+    global $cat_title_arr;
 
-	global $MODULE_DIRNAME;
-	$table_link = $xoopsDB->prefix( $MODULE_DIRNAME.'_link' );
+    echo '<h4>STEP 3: link table</h3>';
 
-	global $MODULE_URL;
-	$shots_url_web = $MODULE_URL."/images/shots/";
+    global $MODULE_DIRNAME;
+    $table_link = $xoopsDB->prefix($MODULE_DIRNAME . '_link');
 
-	$offset = 0;
-	if ( isset($_POST['offset']) )  $offset = $_POST['offset'];
-	$next = $offset + $LIMIT;
+    global $MODULE_URL;
+    $shots_url_web = $MODULE_URL . '/images/shots/';
 
-	$table = $xoopsDB->prefix("mylinks_links");
-	$sql1  = "SELECT count(*) FROM $table";
-	$res1  = sql_exec($sql1);
-	$row1  = $xoopsDB->fetchRow($res1);
-	$total = $row1[0];
+    $offset = 0;
+    if (isset($_POST['offset'])) {
+        $offset = $_POST['offset'];
+    }
+    $next = $offset + $LIMIT;
 
-	echo "There are $total links <br />\n";
-	echo "Transfer $offset - $next th link <br /><br />";
+    $table = $xoopsDB->prefix('mylinks_links');
+    $sql1  = "SELECT count(*) FROM $table";
+    $res1  = sql_exec($sql1);
+    $row1  = $xoopsDB->fetchRow($res1);
+    $total = $row1[0];
 
-	$sql2 = "SELECT * FROM $table ORDER BY lid";
-	$res2 = sql_exec($sql2, $LIMIT, $offset);
+    echo "There are $total links <br />\n";
+    echo "Transfer $offset - $next th link <br /><br />";
 
-	while ($row = $xoopsDB->fetchArray($res2))
-	{
-		$lid      = $row['lid'];
-		$uid      = $row['submitter'];
-		$cid      = $row['cid'];
-		$url      = $row['url'];
-		$hits     = $row['hits'];
-		$rating   = $row['rating'];
-		$votes    = $row['votes'];
-		$logourl  = $row['logourl'];
-		$comments = $row['comments']; 
-		$time_create = $row['date'];
-		$time_update = $time_create;
+    $sql2 = "SELECT * FROM $table ORDER BY lid";
+    $res2 = sql_exec($sql2, $LIMIT, $offset);
 
-		$title = addslashes( $row['title'] );
+    while ($row = $xoopsDB->fetchArray($res2)) {
+        $lid         = $row['lid'];
+        $uid         = $row['submitter'];
+        $cid         = $row['cid'];
+        $url         = $row['url'];
+        $hits        = $row['hits'];
+        $rating      = $row['rating'];
+        $votes       = $row['votes'];
+        $logourl     = $row['logourl'];
+        $comments    = $row['comments'];
+        $time_create = $row['date'];
+        $time_update = $time_create;
 
-		$banner = '';
-		$width  = 0;
-		$height = 0;
+        $title = addslashes($row['title']);
 
-		if ($logourl)
-		{
-			$banner = $shots_url_web.$logourl;
-			$size   = GetImageSize($banner);
+        $banner = '';
+        $width  = 0;
+        $height = 0;
 
-			if ($size)
-			{
-				$width  = (int)$size[0];
-				$height = (int)$size[1];
-			}
-			else
-			{
-				echo "<font color='red'>image size error: $banner</font><br />";
-			}
+        if ($logourl) {
+            $banner = $shots_url_web . $logourl;
+            $size   = getimagesize($banner);
 
-			$banner = addslashes( $banner );
-		}
+            if ($size) {
+                $width  = (int)$size[0];
+                $height = (int)$size[1];
+            } else {
+                echo "<font color='red'>image size error: $banner</font><br />";
+            }
 
-		$desc = get_desc($lid);
-		$desc = addslashes( $desc );
+            $banner = addslashes($banner);
+        }
 
-		$cat    = addslashes( $cat_title_arr[$cid] );
-		$search = "$url $title $cat $desc";
+        $desc = get_desc($lid);
+        $desc = addslashes($desc);
 
-		$passwd = md5(rand(10000000,99999999));
+        $cat    = addslashes($cat_title_arr[$cid]);
+        $search = "$url $title $cat $desc";
 
-		echo "$lid: $title <br />";
+        $passwd = md5(rand(10000000, 99999999));
 
-		$sql  = "INSERT INTO ".$table_link." (";
-		$sql .= "lid, uid, title, url, description, ";
-		$sql .= "search, passwd, time_create, time_update, ";
-		$sql .= "hits, rating, votes, comments, ";
-		$sql .= "banner, width, height";
-		$sql .= ") VALUES (";
-		$sql .= "$lid, $uid, '$title', '$url', '$desc', ";
-		$sql .= "'$search', '$passwd', $time_create, $time_update, ";
-		$sql .= "$hits, $rating, $votes, $comments, ";
-		$sql .= "'$banner', $width, $height";
-		$sql .= ")";
+        echo "$lid: $title <br />";
 
-		sql_exec($sql);
+        $sql = 'INSERT INTO ' . $table_link . ' (';
+        $sql .= 'lid, uid, title, url, description, ';
+        $sql .= 'search, passwd, time_create, time_update, ';
+        $sql .= 'hits, rating, votes, comments, ';
+        $sql .= 'banner, width, height';
+        $sql .= ') VALUES (';
+        $sql .= "$lid, $uid, '$title', '$url', '$desc', ";
+        $sql .= "'$search', '$passwd', $time_create, $time_update, ";
+        $sql .= "$hits, $rating, $votes, $comments, ";
+        $sql .= "'$banner', $width, $height";
+        $sql .= ')';
 
-		insert_catlink($cid, $lid);
-	}
+        sql_exec($sql);
 
-	if ( $total > $next )
-	{
-		form_next_link($next);
-	}
-	else
-	{
-		form_votedate();
-	}
+        insert_catlink($cid, $lid);
+    }
 
+    if ($total > $next) {
+        form_next_link($next);
+    } else {
+        form_votedate();
+    }
 }
 
 function get_desc($lid)
 {
-	global $xoopsDB;
+    global $xoopsDB;
 
-	$sql  = "SELECT * FROM ".$xoopsDB->prefix("mylinks_text")." WHERE lid=$lid";
-	$res  = sql_exec($sql);
-	$row  = $xoopsDB->fetchArray( $res );
-	$desc = $row['description'];
-	
-	return $desc;
+    $sql  = 'SELECT * FROM ' . $xoopsDB->prefix('mylinks_text') . " WHERE lid=$lid";
+    $res  = sql_exec($sql);
+    $row  = $xoopsDB->fetchArray($res);
+    $desc = $row['description'];
+
+    return $desc;
 }
 
 function insert_catlink($cid, $lid)
 {
-	global $xoopsDB;
+    global $xoopsDB;
 
-	global $MODULE_DIRNAME;
-	$table_catlink = $xoopsDB->prefix( $MODULE_DIRNAME.'_catlink' );
+    global $MODULE_DIRNAME;
+    $table_catlink = $xoopsDB->prefix($MODULE_DIRNAME . '_catlink');
 
-	$sql  = "INSERT INTO ".$table_catlink." (";
-	$sql .= "cid, lid";
-	$sql .= ") VALUES (";
-	$sql .= "$cid, $lid";
-	$sql .= ")";
+    $sql = 'INSERT INTO ' . $table_catlink . ' (';
+    $sql .= 'cid, lid';
+    $sql .= ') VALUES (';
+    $sql .= "$cid, $lid";
+    $sql .= ')';
 
-	sql_exec($sql);
+    sql_exec($sql);
 }
 
 function form_next_link($next)
 {
-	global $LIMIT;
+    global $LIMIT;
 
-	$action = xoops_getenv('PHP_SELF');
-	$submit = "GO next $LIMIT links";
-	$next2  = $next + $LIMIT;
+    $action = xoops_getenv('PHP_SELF');
+    $submit = "GO next $LIMIT links";
+    $next2  = $next + $LIMIT;
 
-?>
-<br />
-<hr>
-<h4>STEP 3 : transfer link table</h4>
-Transfer <?php echo $next; ?> - <?php echo $next2; ?> th link<br />
-<br />
-<form action='<?php echo $action; ?>' method='post'>
-<input type='hidden' name='op' value='trans_link'>
-<input type='hidden' name='offset' value='<?php echo $next; ?>'>
-<input type='submit' value='<?php echo $submit; ?>'>
-</form>
-<?php
+    ?>
+    <br/>
+    <hr>
+    <h4>STEP 3 : transfer link table</h4>
+    Transfer <?php echo $next;
+    ?> - <?php echo $next2;
+    ?> th link<br/>
+    <br/>
+    <form action='<?php echo $action;
+    ?>' method='post'>
+        <input type='hidden' name='op' value='trans_link'>
+        <input type='hidden' name='offset' value='<?php echo $next;
+        ?>'>
+        <input type='submit' value='<?php echo $submit;
+        ?>'>
+    </form>
+    <?php
 
 }
 
 function form_votedate()
 {
-	$action = xoops_getenv('PHP_SELF');
+    $action = xoops_getenv('PHP_SELF');
 
-?>
-<br />
-<hr>
-<h4>STEP 4 : transfer votedate table</h4>
-<form action='<?php echo $action; ?>' method='post'>
-<input type='hidden' name='op' value='trans_votedate'>
-<input type='submit' value='GO STEP 4'>
-</form>
-<?php
+    ?>
+    <br/>
+    <hr>
+    <h4>STEP 4 : transfer votedate table</h4>
+    <form action='<?php echo $action;
+    ?>' method='post'>
+        <input type='hidden' name='op' value='trans_votedate'>
+        <input type='submit' value='GO STEP 4'>
+    </form>
+    <?php
 
 }
 
 function trans_votedate()
 {
-	global $xoopsDB;
+    global $xoopsDB;
 
-	global $MODULE_DIRNAME;
-	$table_votedata = $xoopsDB->prefix( $MODULE_DIRNAME.'_votedata' );
+    global $MODULE_DIRNAME;
+    $table_votedata = $xoopsDB->prefix($MODULE_DIRNAME . '_votedata');
 
-	echo "<h4>STEP 4 : tansfer votedata table</h4>";
+    echo '<h4>STEP 4 : tansfer votedata table</h4>';
 
-	$sql  = "INSERT INTO ".$table_votedata." ";
-	$sql .= "SELECT * FROM ".$xoopsDB->prefix("mylinks_votedata")."";
-	sql_exec($sql);
+    $sql = 'INSERT INTO ' . $table_votedata . ' ';
+    $sql .= 'SELECT * FROM ' . $xoopsDB->prefix('mylinks_votedata') . '';
+    sql_exec($sql);
 
-	$action = xoops_getenv('PHP_SELF');
-	$submit = "excute";
+    $action = xoops_getenv('PHP_SELF');
+    $submit = 'excute';
 
-?>
-<br />
-<hr>
-<h4>STEP 5 : transfer comment table</h4>
-<form action='<?php echo $action; ?>' method='post'>
-<input type='hidden' name='op' value='trans_comment'>
-<input type='submit' value='GO STEP 5'>
-</form>
-<?php
+    ?>
+    <br/>
+    <hr>
+    <h4>STEP 5 : transfer comment table</h4>
+    <form action='<?php echo $action;
+    ?>' method='post'>
+        <input type='hidden' name='op' value='trans_comment'>
+        <input type='submit' value='GO STEP 5'>
+    </form>
+    <?php
 
 }
 
-
 function trans_comment()
 {
-	global $xoopsDB;
-	global $xoopsModule;
+    global $xoopsDB;
+    global $xoopsModule;
 
-	echo "<h4>STEP 5 : tansfer comment table</h4>";
+    echo '<h4>STEP 5 : tansfer comment table</h4>';
 
-// table name
-	$table_com  = $xoopsDB->prefix("xoopscomments");
+    // table name
+    $table_com = $xoopsDB->prefix('xoopscomments');
 
-// module id
-	$module_handler =& xoops_gethandler('module');
-	$module         =& $module_handler->getByDirname('mylinks');
-	$mid_my         = $module->getVar('mid');
+    // module id
+    $module_handler = xoops_getHandler('module');
+    $module         = $module_handler->getByDirname('mylinks');
+    $mid_my         = $module->getVar('mid');
 
-	$com_id_arr = array();
+    $com_id_arr = array();
 
-// constant
-	$com_modid = $xoopsModule->getVar('mid');
+    // constant
+    $com_modid = $xoopsModule->getVar('mid');
 
-	$sql1 = "SELECT * FROM $table_com WHERE com_modid=$mid_my ORDER BY com_id ";
-	$res1 = sql_exec($sql1);
+    $sql1 = "SELECT * FROM $table_com WHERE com_modid=$mid_my ORDER BY com_id ";
+    $res1 = sql_exec($sql1);
 
-	$total = $xoopsDB->getRowsNum($res1);
+    $total = $xoopsDB->getRowsNum($res1);
 
-	echo "There are $total comments <br /><br />\n";
+    echo "There are $total comments <br /><br />\n";
 
-	while ( $row1 = $xoopsDB->fetchArray($res1) )
-	{
-		$com_id       = $row1['com_id'];
-		$com_pid      = $row1['com_pid'];
-		$com_icon     = $row1['com_icon'];
-		$com_sig      = $row1['com_sig'];
-		$com_status   = $row1['com_status'];
-		$com_exparams = $row1['com_exparams'];
-		$com_itemid   = $row1['com_itemid'];
-		$com_uid      = $row1['com_uid'];
-		$com_ip       = $row1['com_ip'];
-		$com_title    = $row1['com_title'];
-		$com_text     = $row1['com_text'];
-		$com_created  = $row1['com_created'];
-		$com_modified = $row1['com_modified'];
+    while ($row1 = $xoopsDB->fetchArray($res1)) {
+        $com_id       = $row1['com_id'];
+        $com_pid      = $row1['com_pid'];
+        $com_icon     = $row1['com_icon'];
+        $com_sig      = $row1['com_sig'];
+        $com_status   = $row1['com_status'];
+        $com_exparams = $row1['com_exparams'];
+        $com_itemid   = $row1['com_itemid'];
+        $com_uid      = $row1['com_uid'];
+        $com_ip       = $row1['com_ip'];
+        $com_title    = $row1['com_title'];
+        $com_text     = $row1['com_text'];
+        $com_created  = $row1['com_created'];
+        $com_modified = $row1['com_modified'];
 
-		$dohtml   = $row1['dohtml'];
-		$dosmiley = $row1['dosmiley'];
-		$doxcode  = $row1['doxcode'];
-		$doimage  = $row1['doimage'];
-		$dobr     = $row1['dobr'];
+        $dohtml   = $row1['dohtml'];
+        $dosmiley = $row1['dosmiley'];
+        $doxcode  = $row1['doxcode'];
+        $doimage  = $row1['doimage'];
+        $dobr     = $row1['dobr'];
 
-		echo "$com_id: $com_title <br />";
+        echo "$com_id: $com_title <br />";
 
-// xoopscomments table
-		$sql  = "INSERT INTO $table_com ";
-		$sql .= "(com_modid, com_itemid, com_icon, com_created, com_modified, com_uid, com_ip, com_title, com_text, com_sig, com_status, com_exparams, dohtml, dosmiley, doxcode, doimage, dobr)";
-		$sql .= "VALUES ";
-		$sql .= "($com_modid, $com_itemid, '$com_icon', $com_created, $com_modified, $com_uid, '$com_ip', '$com_title', '$com_text', $com_sig, $com_status, '$com_exparams', $dohtml, $dosmiley, $doxcode, $doimage, $dobr)";
+        // xoopscomments table
+        $sql = "INSERT INTO $table_com ";
+        $sql .= '(com_modid, com_itemid, com_icon, com_created, com_modified, com_uid, com_ip, com_title, com_text, com_sig, com_status, com_exparams, dohtml, dosmiley, doxcode, doimage, dobr)';
+        $sql .= 'VALUES ';
+        $sql .= "($com_modid, $com_itemid, '$com_icon', $com_created, $com_modified, $com_uid, '$com_ip', '$com_title', '$com_text', $com_sig, $com_status, '$com_exparams', $dohtml, $dosmiley, $doxcode, $doimage, $dobr)";
 
-		sql_exec($sql);
+        sql_exec($sql);
 
-		$newid = $xoopsDB->getInsertId();
+        $newid = $xoopsDB->getInsertId();
 
-		$com_id_new     = $newid;
-		$com_rootid_new = $newid;
-		$com_pid_new    = 0;
+        $com_id_new     = $newid;
+        $com_rootid_new = $newid;
+        $com_pid_new    = 0;
 
-		if ( $com_pid )
-		{
-			if ( isset( $com_id_arr[$com_pid] ) )
-			{
-				$com_rootid_new = $com_id_arr[$com_pid]['com_rootid_new'];
-				$com_pid_new    = $com_id_arr[$com_pid]['com_id_new'];
-			}
-			else
-			{
-				echo "<font color='red'>pid convert error: $com_id </font><br />";
-			}
-		}
+        if ($com_pid) {
+            if (isset($com_id_arr[$com_pid])) {
+                $com_rootid_new = $com_id_arr[$com_pid]['com_rootid_new'];
+                $com_pid_new    = $com_id_arr[$com_pid]['com_id_new'];
+            } else {
+                echo "<font color='red'>pid convert error: $com_id </font><br />";
+            }
+        }
 
-		$sql  = "UPDATE $table_com SET ";
-		$sql .= "com_rootid=$com_rootid_new, ";
-		$sql .= "com_pid=$com_pid_new ";
-		$sql .= "WHERE com_id=$com_id_new";
+        $sql = "UPDATE $table_com SET ";
+        $sql .= "com_rootid=$com_rootid_new, ";
+        $sql .= "com_pid=$com_pid_new ";
+        $sql .= "WHERE com_id=$com_id_new";
 
-		sql_exec($sql);
+        sql_exec($sql);
 
-		$com_id_arr[$com_id]['com_id_new']     = $com_id_new;
-		$com_id_arr[$com_id]['com_rootid_new'] = $com_rootid_new;
-	}
+        $com_id_arr[$com_id]['com_id_new']     = $com_id_new;
+        $com_id_arr[$com_id]['com_rootid_new'] = $com_rootid_new;
+    }
 
-	echo "<br /><hr>\n";
-	echo "<h4>FINISHED</h4>\n";
-	echo "<a href='index.php'>GOTO Admin Menu</a><br />\n";
-
+    echo "<br /><hr>\n";
+    echo "<h4>FINISHED</h4>\n";
+    echo "<a href='index.php'>GOTO Admin Menu</a><br />\n";
 }
 
 function create()
 {
-	global $xoopsDB;
-	global $MODULE_DIRNAME;
+    global $xoopsDB;
+    global $MODULE_DIRNAME;
 
-	$table1 = $xoopsDB->prefix( $MODULE_DIRNAME."_category" );
-	$table2 = $xoopsDB->prefix( $MODULE_DIRNAME."_link" );
-	$table3 = $xoopsDB->prefix( $MODULE_DIRNAME."_catlink" );
-	$table4 = $xoopsDB->prefix( $MODULE_DIRNAME."_votedata" );
+    $table1 = $xoopsDB->prefix($MODULE_DIRNAME . '_category');
+    $table2 = $xoopsDB->prefix($MODULE_DIRNAME . '_link');
+    $table3 = $xoopsDB->prefix($MODULE_DIRNAME . '_catlink');
+    $table4 = $xoopsDB->prefix($MODULE_DIRNAME . '_votedata');
 
-	delete_table($table1);
-	delete_table($table2);
-	delete_table($table3);
-	delete_table($table4);
+    delete_table($table1);
+    delete_table($table2);
+    delete_table($table3);
+    delete_table($table4);
 
-	create_category($table1);
-	create_link($table2);
-	create_catlink($table3);
-	create_votedata($table4);
+    create_category($table1);
+    create_link($table2);
+    create_catlink($table3);
+    create_votedata($table4);
 
-	clear_comment();
+    clear_comment();
 }
 
 function delete_table($table)
 {
-	$sql = "DROP TABLE $table";
-	sql_exec($sql);
+    $sql = "DROP TABLE $table";
+    sql_exec($sql);
 }
 
 function create_category($table)
 {
-	echo "<h4>create category table</h4>\n";
+    echo "<h4>create category table</h4>\n";
 
-$sql = "
+    $sql = "
 CREATE TABLE $table (
   cid int(5) unsigned NOT NULL auto_increment,
   pid int(5) unsigned NOT NULL default '0',
@@ -677,14 +667,14 @@ CREATE TABLE $table (
 ) TYPE=MyISAM
 ";
 
-	sql_exec($sql);
+    sql_exec($sql);
 }
 
 function create_link($table)
 {
-	echo "<h4>create link table</h4>\n";
+    echo "<h4>create link table</h4>\n";
 
-$sql = "
+    $sql = "
 CREATE TABLE $table (
   lid int(11) unsigned NOT NULL auto_increment,
   uid int(5) unsigned NOT NULL default '0',
@@ -732,15 +722,14 @@ CREATE TABLE $table (
 ) TYPE=MyISAM
 ";
 
-	sql_exec($sql);
+    sql_exec($sql);
 }
-
 
 function create_catlink($table)
 {
-	echo "<h4>create catlink table</h4>\n";
+    echo "<h4>create catlink table</h4>\n";
 
-$sql = "
+    $sql = "
 CREATE TABLE $table (
   jid int(11) unsigned NOT NULL auto_increment,
   cid int(4)  unsigned NOT NULL default '0',
@@ -751,14 +740,14 @@ CREATE TABLE $table (
 ) TYPE=MyISAM
 ";
 
-	sql_exec($sql);
+    sql_exec($sql);
 }
 
 function create_votedata($table)
 {
-	echo "<h4>create votedata table</h4>\n";
+    echo "<h4>create votedata table</h4>\n";
 
-$sql = "
+    $sql = "
 CREATE TABLE $table (
   ratingid int(11) unsigned NOT NULL auto_increment,
   lid int(11) unsigned NOT NULL default '0',
@@ -772,38 +761,39 @@ CREATE TABLE $table (
 ) TYPE=MyISAM
 ";
 
-	sql_exec($sql);
+    sql_exec($sql);
 }
-
 
 function clear_comment()
 {
-	global $xoopsDB;
-	global $xoopsModule;
+    global $xoopsDB;
+    global $xoopsModule;
 
-	echo "<h4>clear comment table</h4>";
+    echo '<h4>clear comment table</h4>';
 
-// table name
-	$table_com = $xoopsDB->prefix("xoopscomments");
+    // table name
+    $table_com = $xoopsDB->prefix('xoopscomments');
 
-// constant
-	$mid = $xoopsModule->getVar('mid');
+    // constant
+    $mid = $xoopsModule->getVar('mid');
 
-	$sql = "DELETE FROM $table_com WHERE com_modid=$mid ";
-	$res = sql_exec($sql);
+    $sql = "DELETE FROM $table_com WHERE com_modid=$mid ";
+    $res = sql_exec($sql);
 }
 
-function sql_exec($sql, $limit=0, $offset=0)
-{ 
-	global $xoopsDB;
+function sql_exec($sql, $limit = 0, $offset = 0)
+{
+    global $xoopsDB;
 
-	$ret = $xoopsDB->queryF($sql, $limit, $offset);
-	if ($ret != false ) { return $ret; }
+    $ret = $xoopsDB->queryF($sql, $limit, $offset);
+    if ($ret != false) {
+        return $ret;
+    }
 
-	$error = $xoopsDB->error();
-	echo "<font color=red>$sql<br />$error</font><br />";
+    $error = $xoopsDB->error();
+    echo "<font color=red>$sql<br />$error</font><br />";
 
-	return false;
+    return false;
 }
 
 ?>

@@ -5,7 +5,7 @@
 // api/rss_builder.php
 
 // 2006-09-20 K.OHWADA
-// renewal function: show link 
+// renewal function: show link
 
 //=========================================================
 // WebLinks Module
@@ -13,14 +13,12 @@
 //=========================================================
 
 include 'header.php';
-include_once WEBLINKS_ROOT_PATH.'/api/build_rss.php';
+include_once WEBLINKS_ROOT_PATH . '/api/build_rss.php';
 
 //=========================================================
 // main
 //=========================================================
-$weblinks_build_handler =& weblinks_get_handler( 'build_rss', WEBLINKS_DIRNAME );
-$weblinks_build_handler->build( 'atom' );
-exit();
-// --- main end ---
-
-?>
+$weblinks_build_handler = weblinks_get_handler('build_rss', WEBLINKS_DIRNAME);
+$weblinks_build_handler->build('atom');
+exit();// --- main end ---
+;

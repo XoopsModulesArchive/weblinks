@@ -55,135 +55,131 @@
 //=========================================================
 
 // === class begin ===
-if( !class_exists('weblinks_link_edit_handler') ) 
-{
+if (!class_exists('weblinks_link_edit_handler')) {
 
-//=========================================================
-// class weblinks_link_edit_handler
-// this is facade class
-//=========================================================
-class weblinks_link_edit_handler extends weblinks_link_edit_base_handler
-{
+    //=========================================================
+    // class weblinks_link_edit_handler
+    // this is facade class
+    //=========================================================
+    class weblinks_link_edit_handler extends weblinks_link_edit_base_handler
+    {
 
-//---------------------------------------------------------
-// constructor
-//---------------------------------------------------------
-function weblinks_link_edit_handler( $dirname )
-{
-	$this->weblinks_link_edit_base_handler( $dirname );
+        //---------------------------------------------------------
+        // constructor
+        //---------------------------------------------------------
+        public function __construct($dirname)
+        {
+            parent::__construct($dirname);
 
-	$this->_link_add_handler =& weblinks_get_handler( 'link_add', $dirname );
-	$this->_link_mod_handler =& weblinks_get_handler( 'link_mod', $dirname );
-	$this->_link_del_handler =& weblinks_get_handler( 'link_del', $dirname );
-	$this->_link_req_handler =& weblinks_get_handler( 'link_req', $dirname );
+            $this->_link_add_handler = weblinks_get_handler('link_add', $dirname);
+            $this->_link_mod_handler = weblinks_get_handler('link_mod', $dirname);
+            $this->_link_del_handler = weblinks_get_handler('link_del', $dirname);
+            $this->_link_req_handler = weblinks_get_handler('link_req', $dirname);
+        }
 
+        //---------------------------------------------------------
+        // add new link
+        //---------------------------------------------------------
+        public function user_add_link()
+        {
+            return $this->_link_add_handler->user_add_link();
+        }
+
+        public function build_submit_preview()
+        {
+            return $this->_link_add_handler->build_submit_preview();
+        }
+
+        public function admin_add_link()
+        {
+            return $this->_link_add_handler->admin_add_link();
+        }
+
+        public function admin_approve_new_link($mid)
+        {
+            return $this->_link_add_handler->admin_approve_new_link($mid);
+        }
+
+        public function admin_clone_link($lid)
+        {
+            return $this->_link_add_handler->admin_clone_link($lid);
+        }
+
+        public function admin_clone_module_from($module_id, $lid)
+        {
+            return $this->_link_add_handler->admin_clone_module_from($module_id, $lid);
+        }
+
+        // for bulk manage
+        // Fatal error: Call to undefined method weblinks_link_edit_handler::create_add_link_by_arr()
+        public function create_add_link_by_arr(&$post, $not_gpc = false, $flag_banner = false)
+        {
+            return $this->_link_add_handler->_create_add_link_by_arr($post, $not_gpc, $flag_banner);
+        }
+
+        //---------------------------------------------------------
+        // modify link
+        //---------------------------------------------------------
+        public function user_mod_link($lid)
+        {
+            return $this->_link_mod_handler->user_mod_link($lid);
+        }
+
+        public function build_modify_preview($lid)
+        {
+            return $this->_link_mod_handler->build_modify_preview($lid);
+        }
+
+        public function admin_mod_link($lid)
+        {
+            return $this->_link_mod_handler->admin_mod_link($lid);
+        }
+
+        // BUG: not object
+        public function admin_approve_mod_link(&$obj)
+        {
+            return $this->_link_mod_handler->admin_approve_mod_link($obj);
+        }
+
+        //---------------------------------------------------------
+        // delete link
+        //---------------------------------------------------------
+        public function user_del_link($lid)
+        {
+            return $this->_link_del_handler->user_del_link($lid);
+        }
+
+        public function admin_del_link($lid)
+        {
+            return $this->_link_del_handler->admin_del_link($lid);
+        }
+
+        // BUG: Missing argument 2
+        public function admin_approve_del_link(&$obj)
+        {
+            return $this->_link_del_handler->admin_approve_del_link($obj);
+        }
+
+        //---------------------------------------------------------
+        // request admin_approve
+        //---------------------------------------------------------
+        public function user_submit_admin_approve()
+        {
+            return $this->_link_req_handler->user_submit_admin_approve();
+        }
+
+        public function user_modify_admin_approve()
+        {
+            return $this->_link_req_handler->user_modify_admin_approve();
+        }
+
+        public function user_delete_admin_approve()
+        {
+            return $this->_link_req_handler->user_delete_admin_approve();
+        }
+
+        // --- class end ---
+    }
+
+    // === class end ===
 }
-
-//---------------------------------------------------------
-// add new link
-//---------------------------------------------------------
-function user_add_link()
-{
-	return $this->_link_add_handler->user_add_link();
-}
-
-function build_submit_preview()
-{
-	return $this->_link_add_handler->build_submit_preview();
-}
-
-function admin_add_link()
-{
-	return $this->_link_add_handler->admin_add_link();
-}
-
-function admin_approve_new_link( $mid )
-{
-	return $this->_link_add_handler->admin_approve_new_link( $mid );
-}
-
-function admin_clone_link( $lid )
-{
-	return $this->_link_add_handler->admin_clone_link( $lid );
-}
-
-function admin_clone_module_from( $module_id, $lid )
-{
-	return $this->_link_add_handler->admin_clone_module_from( $module_id, $lid );
-}
-
-// for bulk manage
-// Fatal error: Call to undefined method weblinks_link_edit_handler::create_add_link_by_arr()
-function create_add_link_by_arr( &$post, $not_gpc=false, $flag_banner=false )
-{
-	return $this->_link_add_handler->_create_add_link_by_arr( $post, $not_gpc, $flag_banner );
-}
-
-//---------------------------------------------------------
-// modify link
-//---------------------------------------------------------
-function user_mod_link( $lid )
-{
-	return $this->_link_mod_handler->user_mod_link( $lid );
-}
-
-function build_modify_preview( $lid )
-{
-	return $this->_link_mod_handler->build_modify_preview( $lid );
-}
-
-function admin_mod_link( $lid )
-{
-	return $this->_link_mod_handler->admin_mod_link( $lid );
-}
-
-// BUG: not object
-function admin_approve_mod_link( &$obj )
-{
-	return $this->_link_mod_handler->admin_approve_mod_link( $obj );
-}
-
-//---------------------------------------------------------
-// delete link
-//---------------------------------------------------------
-function user_del_link( $lid )
-{
-	return $this->_link_del_handler->user_del_link( $lid );
-}
-
-function admin_del_link( $lid )
-{
-	return $this->_link_del_handler->admin_del_link( $lid );
-}
-
-// BUG: Missing argument 2
-function admin_approve_del_link( &$obj )
-{
-	return $this->_link_del_handler->admin_approve_del_link( $obj );
-}
-
-//---------------------------------------------------------
-// request admin_approve
-//---------------------------------------------------------
-function user_submit_admin_approve()
-{
-	return $this->_link_req_handler->user_submit_admin_approve();
-}
-
-function user_modify_admin_approve()
-{
-	return $this->_link_req_handler->user_modify_admin_approve();
-}
-
-function user_delete_admin_approve()
-{
-	return $this->_link_req_handler->user_delete_admin_approve();
-}
-
-// --- class end ---
-}
-
-// === class end ===
-}
-
-?>

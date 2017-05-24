@@ -7,6 +7,4 @@
 // EUC-JP: 有朋自遠方来
 //=========================================================
 
-$PLUGIN_DESCRIPTION = "Google PageRank を取得し表示する";
-
-?>
+$PLUGIN_DESCRIPTION = 'Google PageRank を取得し表示する';

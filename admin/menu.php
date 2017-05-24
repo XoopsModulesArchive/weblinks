@@ -23,20 +23,18 @@
 //================================================================
 
 $adminmenu[1]['title'] = _MI_WEBLINKS_ADMENU0;
-$adminmenu[1]['link'] = "admin/index.php";
+$adminmenu[1]['link']  = 'admin/index.php';
 $adminmenu[2]['title'] = _MI_WEBLINKS_ADMENU1;
-$adminmenu[2]['link'] = "admin/index.php";
+$adminmenu[2]['link']  = 'admin/index.php';
 $adminmenu[3]['title'] = _MI_WEBLINKS_ADMENU2;
-$adminmenu[3]['link'] = "admin/category_list.php";
+$adminmenu[3]['link']  = 'admin/category_list.php';
 $adminmenu[4]['title'] = _MI_WEBLINKS_ADMENU3;
-$adminmenu[4]['link'] = "admin/link_list.php";
+$adminmenu[4]['link']  = 'admin/link_list.php';
 $adminmenu[5]['title'] = _MI_WEBLINKS_ADMENU4;
-$adminmenu[5]['link'] = "admin/link_manage.php";
+$adminmenu[5]['link']  = 'admin/link_manage.php';
 $adminmenu[6]['title'] = _MI_WEBLINKS_ADMENU5;
-$adminmenu[6]['link'] = "admin/modify_list.php?op=list_new";
+$adminmenu[6]['link']  = 'admin/modify_list.php?op=list_new';
 $adminmenu[7]['title'] = _MI_WEBLINKS_ADMENU6;
-$adminmenu[7]['link'] = "admin/modify_list.php?op=list_mod";
+$adminmenu[7]['link']  = 'admin/modify_list.php?op=list_mod';
 $adminmenu[8]['title'] = _MI_WEBLINKS_ADMENU7;
-$adminmenu[8]['link'] = "admin/broken_list.php";
-
-?>
+$adminmenu[8]['link']  = 'admin/broken_list.php';

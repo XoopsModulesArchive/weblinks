@@ -8,6 +8,4 @@
 //=========================================================
 
 include '../../../include/cp_header.php';
-include_once XOOPS_ROOT_PATH.'/modules/happy_linux/admin/admin.php';
-
-?>
+include_once XOOPS_ROOT_PATH . '/modules/happy_linux/admin/admin.php';
